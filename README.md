@@ -1,2 +1,2 @@
 # OpenRGB Wallpaper
- Trying to sync your RGB with your display? You got it!
+ Trying to sync your display with your RGB peripherals? You got it!
