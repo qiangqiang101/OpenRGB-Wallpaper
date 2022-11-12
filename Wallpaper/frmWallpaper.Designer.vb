@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class frmWallpaper
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,23 +23,34 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWallpaper))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Timer1
         '
+        Me.Timer1.Enabled = True
         Me.Timer1.Interval = 10
         '
-        'Form1
+        'frmWallpaper
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(763, 459)
+        Me.ClientSize = New System.Drawing.Size(100, 100)
+        Me.ControlBox = False
         Me.DoubleBuffered = True
-        Me.Font = New System.Drawing.Font("Segoe UI", 20.0!)
+        Me.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.ForeColor = System.Drawing.Color.White
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(6, 7, 6, 7)
-        Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmWallpaper"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.Text = "OpenRGB Wallpaper"
         Me.ResumeLayout(False)
 
     End Sub

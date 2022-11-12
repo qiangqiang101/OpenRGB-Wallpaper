@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Wallpaper")>
+<Assembly: AssemblyTitle("OpenRGB Wallpaper")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Wallpaper")>
-<Assembly: AssemblyCopyright("Copyright ©  2022")>
+<Assembly: AssemblyCompany("Zettabyte Technology")>
+<Assembly: AssemblyProduct("OpenRGB Wallpaper")>
+<Assembly: AssemblyCopyright("Copyright © 2022 Zettabyte Technology")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
