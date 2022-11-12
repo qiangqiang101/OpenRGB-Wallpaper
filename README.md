@@ -18,18 +18,21 @@ You need Visual Studio 2022 or newer, run Wallpaper.sln to begin.
 1. Download OpenRGB Wallpaper, extract all files to your Hard Drive.
 2. Run OpenRGB, go to Settings tab, Click E1.31 Devices.
 3. Click Add button at bottom, Enter:
-	Name: Wallpaper1
-	IP: Any IP address doesn't matter
-	Start Universe: 1
-	Start Channel: 1
-	Number of LEDs: 576
-	Type: Matrix
-	Matrix Width: 36
-	Matrix Height: 18
-	Matrix Order: Horizontal Top Left
-	RGB Order: Any doesn't matter
-	Universe Size: 510
-	Keepalive Time: 1000
+| Command | Value |
+| --- | --- |
+| Name | Wallpaper1 |
+| IP | Any IP address doesn't matter |
+| Start Universe | 1 |
+| Start Channel | 1 |
+| Number of LEDs | 576 |
+| Type | Matrix |
+| Matrix Width | 36 |
+| Matrix Height | 18 |
+| Matrix Order | Horizontal Top Left |
+| RGB Order | GRB |
+| Universe Size | 510 |
+| Keepalive Time | 1000 |
+
 4. Save Settings, Restart OpenRGB.
 5. On OpenRGB, go to SDK Server, click Start Server.
 6. Run OpenRGB Wallpaper, Open UserSettings.xml.
