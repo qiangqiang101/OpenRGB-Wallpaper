@@ -114,6 +114,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ucScreen.Designer.vb">
+      <DependentUpon>ucScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucScreen.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserSettingData.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +134,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucScreen.resx">
+      <DependentUpon>ucScreen.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

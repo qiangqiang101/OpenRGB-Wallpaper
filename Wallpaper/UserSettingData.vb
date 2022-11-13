@@ -24,6 +24,7 @@ Public Structure UserSettingData
     Public SmoothingMode As Drawing2D.SmoothingMode
     Public CompositingQuality As Drawing2D.CompositingQuality
     Public InterpolationMode As Drawing2D.InterpolationMode
+    Public StartWithWindows As Boolean
 
     Public Screens As List(Of Screen)
 

@@ -3,6 +3,9 @@
 Public Class frmMain
 
     Private wpForms As New List(Of frmWallpaper)
+    Private hiddenAutoStart As Boolean = False
+
+    Public Property CurrentTabIndex() As Integer = 0
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not IO.File.Exists(UserSettingFile) Then
@@ -27,18 +30,40 @@ Public Class frmMain
                 .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
                 .CompositingQuality = Drawing2D.CompositingQuality.HighSpeed
                 .InterpolationMode = Drawing2D.InterpolationMode.NearestNeighbor
+                .StartWithWindows = False
                 .Screens = screenList
                 .SaveSilentXml()
             End With
             UserSettings = New UserSettingData(UserSettingFile).InstanceXml
         End If
 
-        SetAsWallpaper()
+        cmbSmoothing.DataSource = [Enum].GetValues(GetType(Drawing2D.SmoothingMode))
+        cmbCompositing.DataSource = [Enum].GetValues(GetType(Drawing2D.CompositingQuality))
+        cmbInterpolation.DataSource = [Enum].GetValues(GetType(Drawing2D.InterpolationMode))
+
+        cmbSmoothing.SelectedItem = UserSettings.SmoothingMode
+        cmbCompositing.SelectedItem = UserSettings.CompositingQuality
+        cmbInterpolation.SelectedItem = UserSettings.InterpolationMode
+        For Each scr In UserSettings.Screens
+            Dim newTab As New TabPage()
+            With newTab
+                .Text = scr.Name
+                .AutoScroll = True
+                Dim ucScr As New ucScreen
+                With ucScr
+                    .WScreen = scr
+                    .Dock = DockStyle.Fill
+                End With
+                newTab.Controls.Add(ucScr)
+                .Tag = ucScr
+            End With
+            tcScreen.TabPages.Add(newTab)
+        Next
+        cbStartAtLogin.Checked = UserSettings.StartWithWindows
 
         niNotify.Visible = True
         niNotify.ShowBalloonTip(1000)
         niNotify.Text = "OpenRGB Wallpaper"
-
     End Sub
 
     Private Sub SetAsWallpaper()
@@ -70,6 +95,8 @@ Public Class frmMain
             End With
             wpForms.Add(newWP)
         Next
+
+        Timer1.Stop()
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -97,5 +124,110 @@ Public Class frmMain
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper")
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Dim OpenRGB As Process() = Process.GetProcessesByName("OpenRGB")
+        If OpenRGB.Length = 0 Then
+            niNotify.BalloonTipText = "Waiting OpenRGB process to startup, this might take several seconds."
+            niNotify.Visible = True
+            niNotify.ShowBalloonTip(1000)
+            niNotify.Text = "OpenRGB Wallpaper"
+            Timer1.Interval = 60000
+        Else
+            niNotify.BalloonTipText = "OpenRGB process found, applying Wallpaper(s)."
+            niNotify.Visible = True
+            niNotify.ShowBalloonTip(1000)
+            niNotify.Text = "OpenRGB Wallpaper"
+            Threading.Thread.Sleep(5000)
+            SetAsWallpaper()
+        End If
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+        Visible = True
+    End Sub
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Dim newUserSetting As New UserSettingData
+        With newUserSetting
+            .FileName = UserSettingFile
+            .SmoothingMode = cmbSmoothing.SelectedItem
+            .CompositingQuality = cmbCompositing.SelectedItem
+            .InterpolationMode = cmbInterpolation.SelectedItem
+            Dim newScreenList As New List(Of Screen)
+            For Each tp As TabPage In tcScreen.TabPages
+                Dim uc As ucScreen = tp.Tag
+                newScreenList.Add(uc.WScreen)
+            Next
+            .Screens = newScreenList
+            .StartWithWindows = cbStartAtLogin.Checked
+            .SaveXml()
+        End With
+
+        UserSettings = New UserSettingData(UserSettingFile).InstanceXml
+
+        If hiddenAutoStart Then
+            If cbStartAtLogin.Checked Then CreateShortcutInStartUp() Else DeleteShortcutInStartup()
+        End If
+
+        Visible = False
+    End Sub
+
+    Private Sub CreateShortcutInStartUp()
+        Try
+            Dim regKey = My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+            regKey.SetValue(Application.ProductName, Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
+            regKey.Flush()
+            regKey.Close()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub DeleteShortcutInStartup()
+        Try
+            Dim regKey = My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+            regKey.DeleteValue(Application.ProductName)
+            regKey.Close()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        Visible = False
+    End Sub
+
+    Private Sub btnAddScreen_Click(sender As Object, e As EventArgs) Handles btnAddScreen.Click
+        Dim newTab As New TabPage()
+        With newTab
+            .Text = $"Wallpaper{UserSettings.Screens.Count + 1}"
+            .AutoScroll = True
+            Dim ucScr As New ucScreen
+            With ucScr
+                .WScreen = New Screen() With {.Autoconnect = False, .IPAddress = "127.0.0.1", .Name = $"Wallpaper{UserSettings.Screens.Count + 1}", .Port = 6742,
+                    .ProtocolVersion = 2, .Timeout = 1000, .Position = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Location,
+                    .Size = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size, .MatrixWidth = 32, .MatrixHeight = 18}
+                .Dock = DockStyle.Fill
+            End With
+            newTab.Controls.Add(ucScr)
+            .Tag = ucScr
+        End With
+        tcScreen.TabPages.Add(newTab)
+    End Sub
+
+    Private Sub tcScreen_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tcScreen.SelectedIndexChanged
+        CurrentTabIndex = tcScreen.SelectedIndex
+    End Sub
+
+    Private Sub PauseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PauseToolStripMenuItem.Click
+        For Each form In wpForms
+            form.IsPaused = Not form.IsPaused
+        Next
+
+        If wpForms.FirstOrDefault.IsPaused Then PauseToolStripMenuItem.Text = "Play" Else PauseToolStripMenuItem.Text = "Pause"
+    End Sub
+
+    Private Sub cbStartAtLogin_CheckedChanged(sender As Object, e As EventArgs) Handles cbStartAtLogin.CheckedChanged
+        hiddenAutoStart = True
     End Sub
 End Class

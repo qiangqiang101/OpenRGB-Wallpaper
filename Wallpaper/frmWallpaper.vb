@@ -5,6 +5,7 @@ Public Class frmWallpaper
 
     Dim oRgbClient As OpenRGBClient = Nothing
     Dim renderString As String = Nothing
+    Public IsPaused As Boolean = False
 
     Public Property WScreen() As Screen
 
@@ -35,7 +36,7 @@ Public Class frmWallpaper
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Invalidate()
+        If Not IsPaused Then Invalidate()
     End Sub
 
     Private Sub frmWallpaper_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
