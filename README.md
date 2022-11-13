@@ -32,6 +32,7 @@ RGB Order: GRB
 Universe Size: 510
 Keepalive Time: 1000
 ```
+![image](https://user-images.githubusercontent.com/11488961/201520080-4f8fc71e-c041-4509-87f4-c31f5819d11f.png)
 
 4. Save Settings, Restart OpenRGB.
 5. On OpenRGB, go to SDK Server, click Start Server.
