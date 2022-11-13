@@ -35,7 +35,7 @@ Keepalive Time: 1000
 
 4. Save Settings, Restart OpenRGB.
 5. On OpenRGB, go to SDK Server, click Start Server.
-6. Run OpenRGB Wallpaper, Open UserSettings.xml.
+~~6. Run OpenRGB Wallpaper, Open UserSettings.xml.~~
 7. Check the settings, modify it if you want.
 8. Now run OpenRGB Wallpaper.
 
