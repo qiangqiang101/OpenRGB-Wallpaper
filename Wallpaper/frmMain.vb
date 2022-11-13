@@ -230,4 +230,8 @@ Public Class frmMain
     Private Sub cbStartAtLogin_CheckedChanged(sender As Object, e As EventArgs) Handles cbStartAtLogin.CheckedChanged
         hiddenAutoStart = True
     End Sub
+
+    Private Sub MadeWithToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MadeWithToolStripMenuItem.Click
+        Process.Start("https://imnotmental.com/")
+    End Sub
 End Class

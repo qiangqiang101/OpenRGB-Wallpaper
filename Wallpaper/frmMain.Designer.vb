@@ -47,6 +47,7 @@ Partial Class frmMain
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnAddScreen = New System.Windows.Forms.Button()
         Me.cbStartAtLogin = New System.Windows.Forms.CheckBox()
+        Me.MadeWithToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -61,54 +62,54 @@ Partial Class frmMain
         '
         'taskbarMenu
         '
-        Me.taskbarMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectToolStripMenuItem, Me.ReconnectToolStripMenuItem, Me.PauseToolStripMenuItem, Me.ToolStripSeparator1, Me.SettingsToolStripMenuItem, Me.HelpToolStripMenuItem, Me.ToolStripSeparator2, Me.ExitToolStripMenuItem})
+        Me.taskbarMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectToolStripMenuItem, Me.ReconnectToolStripMenuItem, Me.PauseToolStripMenuItem, Me.ToolStripSeparator1, Me.SettingsToolStripMenuItem, Me.HelpToolStripMenuItem, Me.MadeWithToolStripMenuItem, Me.ToolStripSeparator2, Me.ExitToolStripMenuItem})
         Me.taskbarMenu.Name = "taskbarMenu"
-        Me.taskbarMenu.Size = New System.Drawing.Size(131, 148)
+        Me.taskbarMenu.Size = New System.Drawing.Size(331, 192)
         '
         'ConnectToolStripMenuItem
         '
         Me.ConnectToolStripMenuItem.Name = "ConnectToolStripMenuItem"
-        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.ConnectToolStripMenuItem.Text = "Connect"
         '
         'ReconnectToolStripMenuItem
         '
         Me.ReconnectToolStripMenuItem.Name = "ReconnectToolStripMenuItem"
-        Me.ReconnectToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.ReconnectToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.ReconnectToolStripMenuItem.Text = "Reconnect"
         '
         'PauseToolStripMenuItem
         '
         Me.PauseToolStripMenuItem.Name = "PauseToolStripMenuItem"
-        Me.PauseToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.PauseToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.PauseToolStripMenuItem.Text = "Pause"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(127, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(327, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(127, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(327, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'Timer1
@@ -231,6 +232,12 @@ Partial Class frmMain
         Me.cbStartAtLogin.Text = "Start with Windows"
         Me.cbStartAtLogin.UseVisualStyleBackColor = True
         '
+        'MadeWithToolStripMenuItem
+        '
+        Me.MadeWithToolStripMenuItem.Name = "MadeWithToolStripMenuItem"
+        Me.MadeWithToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.MadeWithToolStripMenuItem.Text = "Made with ❤ by Bartholomew ""Not MentaL"" Ho"
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSave
@@ -285,4 +292,5 @@ Partial Class frmMain
     Friend WithEvents btnAddScreen As Button
     Friend WithEvents PauseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents cbStartAtLogin As CheckBox
+    Friend WithEvents MadeWithToolStripMenuItem As ToolStripMenuItem
 End Class
