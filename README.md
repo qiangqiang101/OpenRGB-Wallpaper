@@ -46,5 +46,5 @@ Note:
 3. You can have more than one screen at a time, just add another <Screen></Screen> into Screens.
 
 # Special Thanks
-[OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
-[OpenRGB.NET SDK by diogotr7](https://github.com/diogotr7/OpenRGB.NET)
+- [OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
+- [OpenRGB.NET SDK by diogotr7](https://github.com/diogotr7/OpenRGB.NET)
