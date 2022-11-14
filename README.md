@@ -44,3 +44,7 @@ Note:
 1. The name of Screen must matching with the name on E1.31.
 2. The Connect on the Toolbox menu only works if wallpaper is setting to Autoconnect false.
 3. You can have more than one screen at a time, just add another <Screen></Screen> into Screens.
+
+# Special Thanks
+[OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
+[OpenRGB.NET SDK by diogotr7](https://github.com/diogotr7/OpenRGB.NET)
