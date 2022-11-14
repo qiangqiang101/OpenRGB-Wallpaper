@@ -1,4 +1,5 @@
 ﻿Imports Win32Wrapper
+Imports System.Linq
 
 Public Class frmMain
 
@@ -30,20 +31,31 @@ Public Class frmMain
                 .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
                 .CompositingQuality = Drawing2D.CompositingQuality.HighSpeed
                 .InterpolationMode = Drawing2D.InterpolationMode.NearestNeighbor
+                .LEDShape = LEDShape.Rectangle
                 .StartWithWindows = False
+                .NoToasters = False
+                .TimerIntervals = 30
+                .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
                 .Screens = screenList
                 .SaveSilentXml()
             End With
             UserSettings = New UserSettingData(UserSettingFile).InstanceXml
         End If
 
-        cmbSmoothing.DataSource = [Enum].GetValues(GetType(Drawing2D.SmoothingMode))
-        cmbCompositing.DataSource = [Enum].GetValues(GetType(Drawing2D.CompositingQuality))
-        cmbInterpolation.DataSource = [Enum].GetValues(GetType(Drawing2D.InterpolationMode))
+        cmbSmoothing.DataSource = [Enum].GetValues(GetType(Drawing2D.SmoothingMode)).Cast(Of Drawing2D.SmoothingMode).ToList.Where(Function(x) x <> Drawing2D.SmoothingMode.Invalid).ToArray
+        cmbCompositing.DataSource = [Enum].GetValues(GetType(Drawing2D.CompositingQuality)).Cast(Of Drawing2D.CompositingQuality).ToList.Where(Function(x) x <> Drawing2D.CompositingQuality.Invalid).ToArray
+        cmbInterpolation.DataSource = [Enum].GetValues(GetType(Drawing2D.InterpolationMode)).Cast(Of Drawing2D.InterpolationMode).ToList.Where(Function(x) x <> Drawing2D.InterpolationMode.Invalid).ToArray
+        cmbLedShape.DataSource = [Enum].GetValues(GetType(LEDShape)).Cast(Of LEDShape)
 
         cmbSmoothing.SelectedItem = UserSettings.SmoothingMode
         cmbCompositing.SelectedItem = UserSettings.CompositingQuality
         cmbInterpolation.SelectedItem = UserSettings.InterpolationMode
+        cmbLedShape.SelectedItem = UserSettings.LEDShape
+        cbNoToaster.Checked = UserSettings.NoToasters
+        tbTimerInterval.Value = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+        lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
+        btnBackColor.BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
+
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
             With newTab
@@ -61,9 +73,11 @@ Public Class frmMain
         Next
         cbStartAtLogin.Checked = UserSettings.StartWithWindows
 
-        niNotify.Visible = True
-        niNotify.ShowBalloonTip(1000)
-        niNotify.Text = "OpenRGB Wallpaper"
+        If Not UserSettings.NoToasters Then
+            niNotify.Visible = True
+            niNotify.ShowBalloonTip(1000)
+            niNotify.Text = "OpenRGB Wallpaper"
+        End If
     End Sub
 
     Private Sub SetAsWallpaper()
@@ -90,6 +104,7 @@ Public Class frmMain
                 .StartPosition = FormStartPosition.Manual
                 .Location = screen.Position
                 .Size = screen.Size
+                .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
                 .Show()
                 W32.SetParent(.Handle, workerw)
             End With
@@ -97,6 +112,16 @@ Public Class frmMain
         Next
 
         Timer1.Stop()
+    End Sub
+
+    Private Sub ResetWallpaper()
+        For Each form In wpForms
+            form.oRgbClient.Dispose()
+            form.Close()
+        Next
+        wpForms.Clear()
+
+        SetAsWallpaper()
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -129,16 +154,20 @@ Public Class frmMain
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Dim OpenRGB As Process() = Process.GetProcessesByName("OpenRGB")
         If OpenRGB.Length = 0 Then
-            niNotify.BalloonTipText = "Waiting OpenRGB process to startup, this might take several seconds."
-            niNotify.Visible = True
-            niNotify.ShowBalloonTip(1000)
-            niNotify.Text = "OpenRGB Wallpaper"
+            If Not UserSettings.NoToasters Then
+                niNotify.BalloonTipText = "Waiting OpenRGB process to startup, this might take several seconds."
+                niNotify.Visible = True
+                niNotify.ShowBalloonTip(1000)
+                niNotify.Text = "OpenRGB Wallpaper"
+            End If
             Timer1.Interval = 60000
         Else
-            niNotify.BalloonTipText = "OpenRGB process found, applying Wallpaper(s)."
-            niNotify.Visible = True
-            niNotify.ShowBalloonTip(1000)
-            niNotify.Text = "OpenRGB Wallpaper"
+            If Not UserSettings.NoToasters Then
+                niNotify.BalloonTipText = "OpenRGB process found, applying Wallpaper(s)."
+                niNotify.Visible = True
+                niNotify.ShowBalloonTip(1000)
+                niNotify.Text = "OpenRGB Wallpaper"
+            End If
             Threading.Thread.Sleep(5000)
             SetAsWallpaper()
         End If
@@ -155,6 +184,10 @@ Public Class frmMain
             .SmoothingMode = cmbSmoothing.SelectedItem
             .CompositingQuality = cmbCompositing.SelectedItem
             .InterpolationMode = cmbInterpolation.SelectedItem
+            .LEDShape = cmbLedShape.SelectedItem
+            .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
+            .NoToasters = cbNoToaster.Checked
+            .TimerIntervals = tbTimerInterval.Value
             Dim newScreenList As New List(Of Screen)
             For Each tp As TabPage In tcScreen.TabPages
                 Dim uc As ucScreen = tp.Tag
@@ -170,6 +203,8 @@ Public Class frmMain
         If hiddenAutoStart Then
             If cbStartAtLogin.Checked Then CreateShortcutInStartUp() Else DeleteShortcutInStartup()
         End If
+
+        ResetWallpaper()
 
         Visible = False
     End Sub
@@ -233,5 +268,15 @@ Public Class frmMain
 
     Private Sub MadeWithToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MadeWithToolStripMenuItem.Click
         Process.Start("https://imnotmental.com/")
+    End Sub
+
+    Private Sub tbTimerInterval_Scroll(sender As Object, e As EventArgs) Handles tbTimerInterval.Scroll
+        lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
+    End Sub
+
+    Private Sub btnBackColor_Click(sender As Object, e As EventArgs) Handles btnBackColor.Click
+        If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
+            btnBackColor.BackColor = ColorDialog1.Color
+        End If
     End Sub
 End Class

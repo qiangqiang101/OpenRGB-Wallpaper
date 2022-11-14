@@ -3,13 +3,14 @@ Imports OpenRGB.NET
 
 Public Class frmWallpaper
 
-    Dim oRgbClient As OpenRGBClient = Nothing
+    Public oRgbClient As OpenRGBClient = Nothing
     Dim renderString As String = Nothing
     Public IsPaused As Boolean = False
 
     Public Property WScreen() As Screen
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
         DoubleBuffered = True
         Connect(WScreen)
     End Sub
@@ -66,11 +67,19 @@ Public Class frmWallpaper
                     For j As Integer = 0 To matrix.GetUpperBound(0)
                         For i As Integer = 0 To matrix.GetUpperBound(0)
                             Dim rgbColor = wallpaper.Colors(count).ToColor
+
                             Using sb As New SolidBrush(rgbColor)
                                 Dim X As Single = rectangleSize.Width * i
                                 Dim Y As Single = rectangleSize.Height * j
 
-                                graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                Select Case UserSettings.LEDShape
+                                    Case LEDShape.Rectangle
+                                        graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                    Case LEDShape.RoundedRectangle
+                                        graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+                                    Case LEDShape.Sphere
+                                        graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                End Select
                             End Using
                             count += 1
                             If count >= wallpaper.Leds.Count Then count = 0

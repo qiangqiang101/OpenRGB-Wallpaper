@@ -35,14 +35,14 @@ Partial Class ucScreen
         Me.txtProtocol = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txtDisplayY = New System.Windows.Forms.TextBox()
-        Me.txtDisplayX = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDisplayHeight = New System.Windows.Forms.TextBox()
         Me.txtDisplayWidth = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtDisplayY = New System.Windows.Forms.TextBox()
+        Me.txtDisplayX = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.txtMatrixHeight = New System.Windows.Forms.TextBox()
         Me.txtMatrixWidth = New System.Windows.Forms.TextBox()
@@ -50,6 +50,7 @@ Partial Class ucScreen
         Me.Label13 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
         Me.btnRemove = New System.Windows.Forms.Button()
+        Me.lblNotify = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -182,38 +183,6 @@ Partial Class ucScreen
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Display"
         '
-        'txtDisplayY
-        '
-        Me.txtDisplayY.Location = New System.Drawing.Point(302, 22)
-        Me.txtDisplayY.Name = "txtDisplayY"
-        Me.txtDisplayY.Size = New System.Drawing.Size(120, 23)
-        Me.txtDisplayY.TabIndex = 1
-        '
-        'txtDisplayX
-        '
-        Me.txtDisplayX.Location = New System.Drawing.Point(77, 22)
-        Me.txtDisplayX.Name = "txtDisplayX"
-        Me.txtDisplayX.Size = New System.Drawing.Size(120, 23)
-        Me.txtDisplayX.TabIndex = 0
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 25)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(14, 15)
-        Me.Label6.TabIndex = 5
-        Me.Label6.Text = "X"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(203, 25)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(14, 15)
-        Me.Label7.TabIndex = 7
-        Me.Label7.Text = "Y"
-        '
         'txtDisplayHeight
         '
         Me.txtDisplayHeight.Location = New System.Drawing.Point(302, 51)
@@ -245,6 +214,38 @@ Partial Class ucScreen
         Me.Label9.Size = New System.Drawing.Size(43, 15)
         Me.Label9.TabIndex = 11
         Me.Label9.Text = "Height"
+        '
+        'txtDisplayY
+        '
+        Me.txtDisplayY.Location = New System.Drawing.Point(302, 22)
+        Me.txtDisplayY.Name = "txtDisplayY"
+        Me.txtDisplayY.Size = New System.Drawing.Size(120, 23)
+        Me.txtDisplayY.TabIndex = 1
+        '
+        'txtDisplayX
+        '
+        Me.txtDisplayX.Location = New System.Drawing.Point(77, 22)
+        Me.txtDisplayX.Name = "txtDisplayX"
+        Me.txtDisplayX.Size = New System.Drawing.Size(120, 23)
+        Me.txtDisplayX.TabIndex = 0
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 25)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(14, 15)
+        Me.Label6.TabIndex = 5
+        Me.Label6.Text = "X"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(203, 25)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(14, 15)
+        Me.Label7.TabIndex = 7
+        Me.Label7.Text = "Y"
         '
         'GroupBox3
         '
@@ -309,11 +310,23 @@ Partial Class ucScreen
         Me.btnRemove.Text = "Remove"
         Me.btnRemove.UseVisualStyleBackColor = True
         '
+        'lblNotify
+        '
+        Me.lblNotify.ForeColor = System.Drawing.Color.Red
+        Me.lblNotify.Location = New System.Drawing.Point(108, 293)
+        Me.lblNotify.Name = "lblNotify"
+        Me.lblNotify.Size = New System.Drawing.Size(221, 25)
+        Me.lblNotify.TabIndex = 5
+        Me.lblNotify.Text = "You have unsave changes."
+        Me.lblNotify.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblNotify.Visible = False
+        '
         'ucScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Transparent
+        Me.Controls.Add(Me.lblNotify)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnApply)
         Me.Controls.Add(Me.GroupBox3)
@@ -361,4 +374,5 @@ Partial Class ucScreen
     Friend WithEvents Label13 As Label
     Friend WithEvents btnApply As Button
     Friend WithEvents btnRemove As Button
+    Friend WithEvents lblNotify As Label
 End Class

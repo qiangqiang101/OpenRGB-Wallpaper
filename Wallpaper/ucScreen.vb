@@ -17,6 +17,8 @@
 
         txtMatrixWidth.Text = WScreen.MatrixWidth
         txtMatrixHeight.Text = WScreen.MatrixHeight
+
+        lblNotify.Visible = False
     End Sub
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
@@ -35,6 +37,8 @@
                 .MatrixHeight = CInt(txtMatrixHeight.Text)
             End With
             WScreen = newScreen
+
+            lblNotify.Visible = False
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
@@ -50,4 +54,11 @@
             End Try
         End If
     End Sub
+
+    Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
+        txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtMatrixHeight.TextChanged, txtMatrixWidth.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
+        cbAutoconnect.CheckedChanged
+        lblNotify.Visible = True
+    End Sub
+
 End Class

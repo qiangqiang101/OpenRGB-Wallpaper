@@ -24,7 +24,11 @@ Public Structure UserSettingData
     Public SmoothingMode As Drawing2D.SmoothingMode
     Public CompositingQuality As Drawing2D.CompositingQuality
     Public InterpolationMode As Drawing2D.InterpolationMode
+    Public LEDShape As LEDShape
     Public StartWithWindows As Boolean
+    Public NoToasters As Boolean
+    Public TimerIntervals As Integer
+    Public BackgroundColor As String
 
     Public Screens As List(Of Screen)
 
@@ -117,3 +121,9 @@ Public Structure Screen
     Public MatrixHeight As Integer
 
 End Structure
+
+Public Enum LEDShape
+    Rectangle
+    RoundedRectangle
+    Sphere
+End Enum
