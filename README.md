@@ -9,7 +9,7 @@
 [<img src="https://i.ytimg.com/vi/kz963sRInoQ/maxresdefault.jpg" width="50%">](https://www.youtube.com/watch?v=kz963sRInoQ "OpenRGB Wallpaper")
 
 # Download
-https://github.com/qiangqiang101/OpenRGB-Wallpaper
+https://github.com/qiangqiang101/OpenRGB-Wallpaper/releases
 
 # Build yourself
 You need Visual Studio 2022 or newer, run Wallpaper.sln to begin.
