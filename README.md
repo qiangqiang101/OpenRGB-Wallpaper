@@ -1,3 +1,13 @@
+[![HitCount](https://hits.dwyl.com/qiangqiang101/OpenRGB-Wallpaper.svg?style=flat-square&show=unique)](http://hits.dwyl.com/qiangqiang101/OpenRGB-Wallpaper)
+![Github All Releases](https://img.shields.io/github/downloads/qiangqiang101/OpenRGB-Wallpaper/total.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/qiangqiang101/OpenRGB-Wallpaper)
+![GitHub](https://img.shields.io/github/license/qiangqiang101/OpenRGB-Wallpaper)
+![GitHub branch checks state](https://img.shields.io/github/checks-status/qiangqiang101/OpenRGB-Wallpaper/master)
+![GitHub issues](https://img.shields.io/github/issues/qiangqiang101/OpenRGB-Wallpaper)
+![GitHub forks](https://img.shields.io/github/forks/qiangqiang101/OpenRGB-Wallpaper?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/qiangqiang101/OpenRGB-Wallpaper?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCAZlasvEy1euunP1M7nwj5Q?style=social)
+
 # OpenRGB Wallpaper
  Trying to sync your display with your RGB peripherals? You got it!
  
