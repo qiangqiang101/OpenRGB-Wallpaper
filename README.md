@@ -16,13 +16,10 @@
 Trying to sync your display with your RGB peripherals? You got it!
 This application allows you to emulate your wallpaper like a LED Matrix and sync with your other RGB devices using [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB). This application currently only works on Windows OS, tested on Windows 10 ver 21H1 and Windows 11 ver 21H2.
  
-## Screenshots 
+# Screenshots 
  ![0ECE82BCE3726BBEBD66EDAAD31DA2CE](https://user-images.githubusercontent.com/11488961/201486325-d19da505-4772-4ead-9985-83800e4a2582.png)
  ![C77368CA92B597AB0DB0F6580C13C43D](https://user-images.githubusercontent.com/11488961/201486328-6dc75e04-df6c-45e4-95e2-71cc54fbe34a.png)
  ![C4515847EF2CF131A3B40A05EB31CCCC](https://user-images.githubusercontent.com/11488961/201486330-6346c5ba-2877-40b1-bf58-04e820bb7667.png)
-
-## Video
-[<img src="https://i.ytimg.com/vi/kz963sRInoQ/maxresdefault.jpg" width="50%">](https://www.youtube.com/watch?v=kz963sRInoQ "OpenRGB Wallpaper")
 
 # Download
 https://github.com/qiangqiang101/OpenRGB-Wallpaper/releases
@@ -75,3 +72,7 @@ Width  Height  LEDs
 # Special Thanks
 - [OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
 - [OpenRGB.NET SDK by diogotr7](https://github.com/diogotr7/OpenRGB.NET)
+
+# Video
+<video src='https://user-images.githubusercontent.com/11488961/202005200-335f0e59-1bc4-46fa-bd34-ecd81395707b.mov' width=180 />
+<video src='https://user-images.githubusercontent.com/11488961/202003013-ad6310d6-2cd6-4228-b41c-40690122471a.mov' width=180 />
