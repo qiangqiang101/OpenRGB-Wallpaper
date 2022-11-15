@@ -14,7 +14,7 @@
  ![image](https://user-images.githubusercontent.com/11488961/201601205-465ca003-1300-4caa-a7e5-1897fb00119f.png)
 
 Trying to sync your display with your RGB peripherals? You got it!
-This application allows you to emulate your wallpaper like a LED Matrix and sync with your other RGB devices using [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB). This application currently only works on Windows OS, tested on Windows 10 ver 21H1 and Windows 11.
+This application allows you to emulate your wallpaper like a LED Matrix and sync with your other RGB devices using [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB). This application currently only works on Windows OS, tested on Windows 10 ver 21H1 and Windows 11 ver 21H2.
  
 ## Screenshots 
  ![0ECE82BCE3726BBEBD66EDAAD31DA2CE](https://user-images.githubusercontent.com/11488961/201486325-d19da505-4772-4ead-9985-83800e4a2582.png)
