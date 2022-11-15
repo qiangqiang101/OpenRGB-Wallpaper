@@ -37,6 +37,10 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnBackColor = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cmbLedShape = New System.Windows.Forms.ComboBox()
         Me.lblTimerInterval = New System.Windows.Forms.Label()
         Me.tbTimerInterval = New System.Windows.Forms.TrackBar()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -51,11 +55,9 @@ Partial Class frmMain
         Me.btnAddScreen = New System.Windows.Forms.Button()
         Me.cbStartAtLogin = New System.Windows.Forms.CheckBox()
         Me.cbNoToaster = New System.Windows.Forms.CheckBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.cmbLedShape = New System.Windows.Forms.ComboBox()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.btnBackColor = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmbPixelOffset = New System.Windows.Forms.ComboBox()
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -134,6 +136,8 @@ Partial Class frmMain
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.cmbPixelOffset)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.btnBackColor)
         Me.GroupBox1.Controls.Add(Me.Label4)
@@ -148,15 +152,51 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.cmbSmoothing)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(460, 222)
+        Me.GroupBox1.Size = New System.Drawing.Size(460, 251)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Graphics settings"
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 222)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(103, 15)
+        Me.Label5.TabIndex = 12
+        Me.Label5.Text = "Background Color"
+        '
+        'btnBackColor
+        '
+        Me.btnBackColor.BackColor = System.Drawing.Color.Black
+        Me.btnBackColor.Location = New System.Drawing.Point(148, 218)
+        Me.btnBackColor.Name = "btnBackColor"
+        Me.btnBackColor.Size = New System.Drawing.Size(306, 23)
+        Me.btnBackColor.TabIndex = 6
+        Me.btnBackColor.UseVisualStyleBackColor = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 141)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(62, 15)
+        Me.Label4.TabIndex = 10
+        Me.Label4.Text = "LED Shape"
+        '
+        'cmbLedShape
+        '
+        Me.cmbLedShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLedShape.FormattingEnabled = True
+        Me.cmbLedShape.Location = New System.Drawing.Point(148, 138)
+        Me.cmbLedShape.Name = "cmbLedShape"
+        Me.cmbLedShape.Size = New System.Drawing.Size(306, 23)
+        Me.cmbLedShape.TabIndex = 4
+        '
         'lblTimerInterval
         '
         Me.lblTimerInterval.AutoSize = True
-        Me.lblTimerInterval.Location = New System.Drawing.Point(6, 151)
+        Me.lblTimerInterval.Location = New System.Drawing.Point(6, 180)
         Me.lblTimerInterval.Name = "lblTimerInterval"
         Me.lblTimerInterval.Size = New System.Drawing.Size(87, 15)
         Me.lblTimerInterval.TabIndex = 8
@@ -164,12 +204,12 @@ Partial Class frmMain
         '
         'tbTimerInterval
         '
-        Me.tbTimerInterval.Location = New System.Drawing.Point(148, 138)
+        Me.tbTimerInterval.Location = New System.Drawing.Point(148, 167)
         Me.tbTimerInterval.Maximum = 200
         Me.tbTimerInterval.Minimum = 5
         Me.tbTimerInterval.Name = "tbTimerInterval"
         Me.tbTimerInterval.Size = New System.Drawing.Size(306, 45)
-        Me.tbTimerInterval.TabIndex = 3
+        Me.tbTimerInterval.TabIndex = 5
         Me.tbTimerInterval.TickStyle = System.Windows.Forms.TickStyle.Both
         Me.tbTimerInterval.Value = 10
         '
@@ -230,7 +270,7 @@ Partial Class frmMain
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(268, 661)
+        Me.btnSave.Location = New System.Drawing.Point(730, 448)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 25)
         Me.btnSave.TabIndex = 5
@@ -239,17 +279,17 @@ Partial Class frmMain
         '
         'tcScreen
         '
-        Me.tcScreen.Location = New System.Drawing.Point(12, 271)
+        Me.tcScreen.Location = New System.Drawing.Point(478, 43)
         Me.tcScreen.Name = "tcScreen"
         Me.tcScreen.SelectedIndex = 0
-        Me.tcScreen.Size = New System.Drawing.Size(460, 353)
+        Me.tcScreen.Size = New System.Drawing.Size(460, 400)
         Me.tcScreen.TabIndex = 2
         '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(373, 661)
+        Me.btnCancel.Location = New System.Drawing.Point(835, 448)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 25)
         Me.btnCancel.TabIndex = 6
@@ -258,7 +298,7 @@ Partial Class frmMain
         '
         'btnAddScreen
         '
-        Me.btnAddScreen.Location = New System.Drawing.Point(373, 240)
+        Me.btnAddScreen.Location = New System.Drawing.Point(839, 12)
         Me.btnAddScreen.Name = "btnAddScreen"
         Me.btnAddScreen.Size = New System.Drawing.Size(99, 25)
         Me.btnAddScreen.TabIndex = 1
@@ -268,7 +308,7 @@ Partial Class frmMain
         'cbStartAtLogin
         '
         Me.cbStartAtLogin.AutoSize = True
-        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 630)
+        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 269)
         Me.cbStartAtLogin.Name = "cbStartAtLogin"
         Me.cbStartAtLogin.Size = New System.Drawing.Size(128, 19)
         Me.cbStartAtLogin.TabIndex = 3
@@ -278,48 +318,30 @@ Partial Class frmMain
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(217, 630)
+        Me.cbNoToaster.Location = New System.Drawing.Point(217, 269)
         Me.cbNoToaster.Name = "cbNoToaster"
         Me.cbNoToaster.Size = New System.Drawing.Size(150, 19)
         Me.cbNoToaster.TabIndex = 4
         Me.cbNoToaster.Text = "Do Not Display Toasters"
         Me.cbNoToaster.UseVisualStyleBackColor = True
         '
-        'Label4
+        'Label6
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 112)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(62, 15)
-        Me.Label4.TabIndex = 10
-        Me.Label4.Text = "LED Shape"
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 112)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(101, 15)
+        Me.Label6.TabIndex = 14
+        Me.Label6.Text = "Pixel Offset Mode"
         '
-        'cmbLedShape
+        'cmbPixelOffset
         '
-        Me.cmbLedShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbLedShape.FormattingEnabled = True
-        Me.cmbLedShape.Location = New System.Drawing.Point(148, 109)
-        Me.cmbLedShape.Name = "cmbLedShape"
-        Me.cmbLedShape.Size = New System.Drawing.Size(306, 23)
-        Me.cmbLedShape.TabIndex = 3
-        '
-        'btnBackColor
-        '
-        Me.btnBackColor.BackColor = System.Drawing.Color.Black
-        Me.btnBackColor.Location = New System.Drawing.Point(148, 189)
-        Me.btnBackColor.Name = "btnBackColor"
-        Me.btnBackColor.Size = New System.Drawing.Size(306, 23)
-        Me.btnBackColor.TabIndex = 11
-        Me.btnBackColor.UseVisualStyleBackColor = False
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 193)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(103, 15)
-        Me.Label5.TabIndex = 12
-        Me.Label5.Text = "Background Color"
+        Me.cmbPixelOffset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPixelOffset.FormattingEnabled = True
+        Me.cmbPixelOffset.Location = New System.Drawing.Point(148, 109)
+        Me.cmbPixelOffset.Name = "cmbPixelOffset"
+        Me.cmbPixelOffset.Size = New System.Drawing.Size(306, 23)
+        Me.cmbPixelOffset.TabIndex = 3
         '
         'frmMain
         '
@@ -327,7 +349,7 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(484, 698)
+        Me.ClientSize = New System.Drawing.Size(946, 485)
         Me.ControlBox = False
         Me.Controls.Add(Me.cbNoToaster)
         Me.Controls.Add(Me.cbStartAtLogin)
@@ -386,4 +408,6 @@ Partial Class frmMain
     Friend WithEvents Label5 As Label
     Friend WithEvents btnBackColor As Button
     Friend WithEvents ColorDialog1 As ColorDialog
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbPixelOffset As ComboBox
 End Class

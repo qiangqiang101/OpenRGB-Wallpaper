@@ -6,11 +6,13 @@ Public Class frmWallpaper
     Public oRgbClient As OpenRGBClient = Nothing
     Dim renderString As String = Nothing
     Public IsPaused As Boolean = False
+    Public BackImg As Image = Nothing
 
     Public Property WScreen() As Screen
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
+        BackImg = WScreen.BackgroundImage.Base64ToImage
         DoubleBuffered = True
         Connect(WScreen)
     End Sub
@@ -51,6 +53,7 @@ Public Class frmWallpaper
         graphic.SmoothingMode = UserSettings.SmoothingMode
         graphic.CompositingQuality = UserSettings.CompositingQuality
         graphic.InterpolationMode = UserSettings.InterpolationMode
+        graphic.PixelOffsetMode = UserSettings.PixelOffsetMode
 
         Try
             If oRgbClient IsNot Nothing Then
@@ -85,6 +88,8 @@ Public Class frmWallpaper
                             If count >= wallpaper.Leds.Count Then count = 0
                         Next
                     Next
+
+                    If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
                 End If
             End If
         Catch ex As Exception

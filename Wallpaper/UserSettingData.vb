@@ -24,6 +24,7 @@ Public Structure UserSettingData
     Public SmoothingMode As Drawing2D.SmoothingMode
     Public CompositingQuality As Drawing2D.CompositingQuality
     Public InterpolationMode As Drawing2D.InterpolationMode
+    Public PixelOffsetMode As Drawing2D.PixelOffsetMode
     Public LEDShape As LEDShape
     Public StartWithWindows As Boolean
     Public NoToasters As Boolean
@@ -115,6 +116,7 @@ Public Structure Screen
     'Display
     Public Position As Point
     Public Size As Size
+    Public BackgroundImage As String
 
     'Matrix
     Public MatrixWidth As Integer

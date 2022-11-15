@@ -1,4 +1,6 @@
 ﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
+Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports OpenRGB.NET
 
@@ -68,6 +70,34 @@ Module Helper
 
         path.CloseFigure()
         Return path
+    End Function
+
+    <Extension>
+    Public Function Base64ToImage(Image As String) As Image
+        Try
+            If Image = Nothing Then
+                Return Nothing
+            Else
+                Dim b64 As String = Image.Replace(" ", "+")
+                Dim bite() As Byte = Convert.FromBase64String(b64)
+                Dim stream As New MemoryStream(bite)
+                Return Drawing.Image.FromStream(stream)
+            End If
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+
+    <Extension>
+    Public Function ImageToBase64(img As Image, Optional forceFormat As ImageFormat = Nothing, Optional formatting As Base64FormattingOptions = Base64FormattingOptions.InsertLineBreaks) As String
+        Try
+            If forceFormat Is Nothing Then forceFormat = img.RawFormat
+            Dim stream As New MemoryStream
+            img.Save(stream, forceFormat)
+            Return Convert.ToBase64String(stream.ToArray, formatting)
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 
 End Module

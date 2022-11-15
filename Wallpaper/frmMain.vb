@@ -31,6 +31,7 @@ Public Class frmMain
                 .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
                 .CompositingQuality = Drawing2D.CompositingQuality.HighSpeed
                 .InterpolationMode = Drawing2D.InterpolationMode.NearestNeighbor
+                .PixelOffsetMode = Drawing2D.PixelOffsetMode.HighSpeed
                 .LEDShape = LEDShape.Rectangle
                 .StartWithWindows = False
                 .NoToasters = False
@@ -46,10 +47,12 @@ Public Class frmMain
         cmbCompositing.DataSource = [Enum].GetValues(GetType(Drawing2D.CompositingQuality)).Cast(Of Drawing2D.CompositingQuality).ToList.Where(Function(x) x <> Drawing2D.CompositingQuality.Invalid).ToArray
         cmbInterpolation.DataSource = [Enum].GetValues(GetType(Drawing2D.InterpolationMode)).Cast(Of Drawing2D.InterpolationMode).ToList.Where(Function(x) x <> Drawing2D.InterpolationMode.Invalid).ToArray
         cmbLedShape.DataSource = [Enum].GetValues(GetType(LEDShape)).Cast(Of LEDShape)
+        cmbPixelOffset.DataSource = [Enum].GetValues(GetType(Drawing2D.PixelOffsetMode)).Cast(Of Drawing2D.PixelOffsetMode).ToList.Where(Function(x) x <> Drawing2D.PixelOffsetMode.Invalid).ToArray
 
         cmbSmoothing.SelectedItem = UserSettings.SmoothingMode
         cmbCompositing.SelectedItem = UserSettings.CompositingQuality
         cmbInterpolation.SelectedItem = UserSettings.InterpolationMode
+        cmbPixelOffset.SelectedItem = UserSettings.PixelOffsetMode
         cmbLedShape.SelectedItem = UserSettings.LEDShape
         cbNoToaster.Checked = UserSettings.NoToasters
         tbTimerInterval.Value = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
@@ -184,6 +187,7 @@ Public Class frmMain
             .SmoothingMode = cmbSmoothing.SelectedItem
             .CompositingQuality = cmbCompositing.SelectedItem
             .InterpolationMode = cmbInterpolation.SelectedItem
+            .PixelOffsetMode = cmbPixelOffset.SelectedItem
             .LEDShape = cmbLedShape.SelectedItem
             .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
             .NoToasters = cbNoToaster.Checked

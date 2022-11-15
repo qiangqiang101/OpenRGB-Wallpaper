@@ -1,4 +1,6 @@
-﻿Public Class ucScreen
+﻿Imports System.Drawing.Imaging
+
+Public Class ucScreen
 
     Public Property WScreen() As Screen
 
@@ -18,6 +20,8 @@
         txtMatrixWidth.Text = WScreen.MatrixWidth
         txtMatrixHeight.Text = WScreen.MatrixHeight
 
+        pbImage.BackgroundImage = WScreen.BackgroundImage.Base64ToImage
+
         lblNotify.Visible = False
     End Sub
 
@@ -35,6 +39,7 @@
                 .Size = New Size(CInt(txtDisplayWidth.Text), CInt(txtDisplayHeight.Text))
                 .MatrixWidth = CInt(txtMatrixWidth.Text)
                 .MatrixHeight = CInt(txtMatrixHeight.Text)
+                .BackgroundImage = pbImage.BackgroundImage.ImageToBase64(Imaging.ImageFormat.Png)
             End With
             WScreen = newScreen
 
@@ -57,8 +62,14 @@
 
     Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
         txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtMatrixHeight.TextChanged, txtMatrixWidth.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
-        cbAutoconnect.CheckedChanged
+        cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged
         lblNotify.Visible = True
     End Sub
 
+    Private Sub pbImage_Click(sender As Object, e As EventArgs) Handles pbImage.Click
+        Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = False, .Title = "Select Image file..."}
+        If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
+            pbImage.BackgroundImage = Image.FromFile(ofd.FileName)
+        End If
+    End Sub
 End Class
