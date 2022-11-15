@@ -21,6 +21,7 @@ Public Class ucScreen
         txtMatrixHeight.Text = WScreen.MatrixHeight
 
         pbImage.BackgroundImage = WScreen.BackgroundImage.Base64ToImage
+        If pbImage.BackgroundImage IsNot Nothing Then btnDelImage.Show()
 
         lblNotify.Visible = False
     End Sub
@@ -63,6 +64,14 @@ Public Class ucScreen
     Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
         txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtMatrixHeight.TextChanged, txtMatrixWidth.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
         cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged
+
+        If sender Is txtMatrixWidth Or sender Is txtMatrixHeight Then
+            Try
+                txtTotalLEDs.Text = CInt(txtMatrixWidth.Text) * CInt(txtMatrixHeight.Text)
+            Catch ex As Exception
+            End Try
+        End If
+
         lblNotify.Visible = True
     End Sub
 
@@ -70,6 +79,12 @@ Public Class ucScreen
         Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = False, .Title = "Select Image file..."}
         If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
             pbImage.BackgroundImage = Image.FromFile(ofd.FileName)
+            btnDelImage.Show()
         End If
+    End Sub
+
+    Private Sub btnDelImage_Click(sender As Object, e As EventArgs) Handles btnDelImage.Click
+        pbImage.BackgroundImage = Nothing
+        btnDelImage.Hide()
     End Sub
 End Class

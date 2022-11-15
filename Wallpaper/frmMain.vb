@@ -37,6 +37,7 @@ Public Class frmMain
                 .NoToasters = False
                 .TimerIntervals = 30
                 .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
+                .LEDPadding = 0
                 .Screens = screenList
                 .SaveSilentXml()
             End With
@@ -58,6 +59,7 @@ Public Class frmMain
         tbTimerInterval.Value = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
         lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
         btnBackColor.BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
+        txtLEDPadding.Text = UserSettings.LEDPadding
 
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
@@ -192,6 +194,7 @@ Public Class frmMain
             .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
             .NoToasters = cbNoToaster.Checked
             .TimerIntervals = tbTimerInterval.Value
+            .LEDPadding = CInt(txtLEDPadding.Text)
             Dim newScreenList As New List(Of Screen)
             For Each tp As TabPage In tcScreen.TabPages
                 Dim uc As ucScreen = tp.Tag
@@ -282,5 +285,9 @@ Public Class frmMain
         If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
             btnBackColor.BackColor = ColorDialog1.Color
         End If
+    End Sub
+
+    Private Sub lblWallpaperDownload_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblWallpaperDownload.LinkClicked
+        Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/tree/master/Wallpaper-Wallpaper")
     End Sub
 End Class

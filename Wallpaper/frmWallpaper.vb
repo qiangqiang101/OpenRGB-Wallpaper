@@ -72,17 +72,22 @@ Public Class frmWallpaper
                             Dim rgbColor = wallpaper.Colors(count).ToColor
 
                             Using sb As New SolidBrush(rgbColor)
-                                Dim X As Single = rectangleSize.Width * i
-                                Dim Y As Single = rectangleSize.Height * j
+                                Using pen As New Pen(BackColor, UserSettings.LEDPadding)
+                                    Dim X As Single = rectangleSize.Width * i
+                                    Dim Y As Single = rectangleSize.Height * j
 
-                                Select Case UserSettings.LEDShape
-                                    Case LEDShape.Rectangle
-                                        graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                    Case LEDShape.RoundedRectangle
-                                        graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-                                    Case LEDShape.Sphere
-                                        graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                End Select
+                                    Select Case UserSettings.LEDShape
+                                        Case LEDShape.Rectangle
+                                            graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                        Case LEDShape.RoundedRectangle
+                                            graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+                                        Case LEDShape.Sphere
+                                            graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                    End Select
+                                End Using
                             End Using
                             count += 1
                             If count >= wallpaper.Leds.Count Then count = 0

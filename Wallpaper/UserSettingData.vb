@@ -30,6 +30,7 @@ Public Structure UserSettingData
     Public NoToasters As Boolean
     Public TimerIntervals As Integer
     Public BackgroundColor As String
+    Public LEDPadding As Single
 
     Public Screens As List(Of Screen)
 
