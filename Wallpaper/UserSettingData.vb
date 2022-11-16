@@ -31,6 +31,8 @@ Public Structure UserSettingData
     Public TimerIntervals As Integer
     Public BackgroundColor As String
     Public LEDPadding As Single
+    'Public Smoothness As Integer
+    'Public DirectDraw As Boolean
 
     Public Screens As List(Of Screen)
 

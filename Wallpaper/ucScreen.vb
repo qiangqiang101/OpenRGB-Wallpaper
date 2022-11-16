@@ -76,11 +76,13 @@ Public Class ucScreen
     End Sub
 
     Private Sub pbImage_Click(sender As Object, e As EventArgs) Handles pbImage.Click
-        Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = False, .Title = "Select Image file..."}
-        If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
-            pbImage.BackgroundImage = Image.FromFile(ofd.FileName)
-            btnDelImage.Show()
-        End If
+        'Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = False, .Title = "Select Image file..."}
+        'If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
+        '    pbImage.BackgroundImage = Image.FromFile(ofd.FileName)
+        '    btnDelImage.Show()
+        'End If
+        Dim imgDialog As New frmImgDialog With {.ParentPB = pbImage, .ParentDelBtn = btnDelImage}
+        imgDialog.Show()
     End Sub
 
     Private Sub btnDelImage_Click(sender As Object, e As EventArgs) Handles btnDelImage.Click

@@ -2,12 +2,15 @@
 Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports System.Runtime.InteropServices
 Imports OpenRGB.NET
 
 Module Helper
 
     Public UserSettingFile As String = $"{My.Application.Info.DirectoryPath}\UserSettings.xml"
     Public UserSettings As UserSettingData = New UserSettingData(UserSettingFile).InstanceXml
+    Public UserImageFile As String = $"{My.Application.Info.DirectoryPath}\UserImageDB.bin"
+    Public UserImage As ImageData = New ImageData(UserImageFile).Instance
 
     <Extension>
     Public Function ToColor(modelcolor As Models.Color) As Color
@@ -91,10 +94,14 @@ Module Helper
     <Extension>
     Public Function ImageToBase64(img As Image, Optional forceFormat As ImageFormat = Nothing, Optional formatting As Base64FormattingOptions = Base64FormattingOptions.InsertLineBreaks) As String
         Try
-            If forceFormat Is Nothing Then forceFormat = img.RawFormat
-            Dim stream As New MemoryStream
-            img.Save(stream, forceFormat)
-            Return Convert.ToBase64String(stream.ToArray, formatting)
+            If img IsNot Nothing Then
+                If forceFormat Is Nothing Then forceFormat = img.RawFormat
+                Dim stream As New MemoryStream
+                img.Save(stream, forceFormat)
+                Return Convert.ToBase64String(stream.ToArray, formatting)
+            Else
+                Return Nothing
+            End If
         Catch ex As Exception
             Return Nothing
         End Try

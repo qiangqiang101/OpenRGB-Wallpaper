@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Drawing.Drawing2D
 Imports OpenRGB.NET
 
 Public Class frmWallpaper
@@ -9,6 +10,18 @@ Public Class frmWallpaper
     Public BackImg As Image = Nothing
 
     Public Property WScreen() As Screen
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        SetStyle(ControlStyles.UserPaint, True)
+        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+    End Sub
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
@@ -39,7 +52,9 @@ Public Class frmWallpaper
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If Not IsPaused Then Invalidate()
+        If Not IsPaused Then
+            Invalidate()
+        End If
     End Sub
 
     Private Sub frmWallpaper_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -48,16 +63,73 @@ Public Class frmWallpaper
         End If
     End Sub
 
-    Private Sub frmWallpaper_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
-        Dim graphic As Graphics = e.Graphics
+    'Cause rendering slow
+    'Private Sub GenerateWallpaper(graphic As Graphics, size As SizeF)
+    '    Using rgbImg As New Bitmap(CInt(size.Width), CInt(size.Height))
+    '        Using g As Graphics = Graphics.FromImage(rgbImg)
+    '            PrepareGraphics(g)
+
+    '            Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
+
+    '            Dim Width As Integer = WScreen.MatrixWidth
+    '            Dim Height As Integer = WScreen.MatrixHeight
+
+    '            Dim rectangleSize As New SizeF(size.Width / (wallpaper.Leds.Count / Height), size.Height / Height)
+
+    '            Dim matrix(Width - 1, Height - 1) As String
+    '            Dim count As Integer = 0
+    '            For j As Integer = 0 To matrix.GetUpperBound(0)
+    '                For i As Integer = 0 To matrix.GetUpperBound(0)
+    '                    Dim rgbColor = wallpaper.Colors(count).ToColor
+
+    '                    Dim X As Single = rectangleSize.Width * i
+    '                    Dim Y As Single = rectangleSize.Height * j
+
+    '                    Using sb As New SolidBrush(rgbColor)
+    '                        Using pen As New Pen(BackColor, UserSettings.LEDPadding)
+
+    '                            Select Case UserSettings.LEDShape
+    '                                Case LEDShape.Rectangle
+    '                                    g.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+    '                                Case LEDShape.RoundedRectangle
+    '                                    g.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+    '                                Case LEDShape.Sphere
+    '                                    g.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+    '                            End Select
+    '                        End Using
+    '                    End Using
+    '                    count += 1
+    '                    If count >= wallpaper.Leds.Count Then count = 0
+    '                Next
+    '            Next
+    '        End Using
+
+    '        Dim cr As New RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + UserSettings.Smoothness, ClientRectangle.Height + UserSettings.Smoothness)
+    '        If rgbImg IsNot Nothing Then graphic.DrawImage(rgbImg, cr)
+    '    End Using
+
+    '    If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
+    'End Sub
+
+    Private Sub PrepareGraphics(graphic As Graphics)
         graphic.SmoothingMode = UserSettings.SmoothingMode
         graphic.CompositingQuality = UserSettings.CompositingQuality
         graphic.InterpolationMode = UserSettings.InterpolationMode
         graphic.PixelOffsetMode = UserSettings.PixelOffsetMode
+    End Sub
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        Dim graphic As Graphics = e.Graphics
+        PrepareGraphics(graphic)
 
         Try
             If oRgbClient IsNot Nothing Then
                 If oRgbClient.Connected Then
+                    'GenerateWallpaper(graphic, New Size(Width / UserSettings.Smoothness, Height / UserSettings.Smoothness))
+
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
 
                     Dim Width As Integer = WScreen.MatrixWidth
@@ -72,22 +144,36 @@ Public Class frmWallpaper
                             Dim rgbColor = wallpaper.Colors(count).ToColor
 
                             Using sb As New SolidBrush(rgbColor)
-                                Using pen As New Pen(BackColor, UserSettings.LEDPadding)
+                                If UserSettings.LEDPadding >= 1 Then
+                                    Using pen As New Pen(BackColor, UserSettings.LEDPadding)
+                                        Dim X As Single = rectangleSize.Width * i
+                                        Dim Y As Single = rectangleSize.Height * j
+
+                                        Select Case UserSettings.LEDShape
+                                            Case LEDShape.Rectangle
+                                                graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                                graphic.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                            Case LEDShape.RoundedRectangle
+                                                graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+                                                graphic.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
+                                            Case LEDShape.Sphere
+                                                graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                                graphic.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
+                                        End Select
+                                    End Using
+                                Else
                                     Dim X As Single = rectangleSize.Width * i
                                     Dim Y As Single = rectangleSize.Height * j
 
                                     Select Case UserSettings.LEDShape
                                         Case LEDShape.Rectangle
                                             graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
                                         Case LEDShape.RoundedRectangle
                                             graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
                                         Case LEDShape.Sphere
                                             graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                            If UserSettings.LEDPadding >= 1 Then graphic.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
                                     End Select
-                                End Using
+                                End If
                             End Using
                             count += 1
                             If count >= wallpaper.Leds.Count Then count = 0
@@ -108,6 +194,7 @@ Public Class frmWallpaper
         Catch ex As Exception
         End Try
 
+        MyBase.OnPaint(e)
     End Sub
 
     Private Sub frmWallpaper_DoubleClick(sender As Object, e As EventArgs) Handles Me.DoubleClick

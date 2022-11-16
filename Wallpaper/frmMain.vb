@@ -43,6 +43,14 @@ Public Class frmMain
             End With
             UserSettings = New UserSettingData(UserSettingFile).InstanceXml
         End If
+        If Not IO.File.Exists(UserImageFile) Then
+            Dim newUserImage As New ImageData(UserImageFile)
+            With newUserImage
+                .ImagesLib = New List(Of ImageLib)
+                .SaveSilent()
+            End With
+            UserImage = New ImageData(UserImageFile).Instance
+        End If
 
         cmbSmoothing.DataSource = [Enum].GetValues(GetType(Drawing2D.SmoothingMode)).Cast(Of Drawing2D.SmoothingMode).ToList.Where(Function(x) x <> Drawing2D.SmoothingMode.Invalid).ToArray
         cmbCompositing.DataSource = [Enum].GetValues(GetType(Drawing2D.CompositingQuality)).Cast(Of Drawing2D.CompositingQuality).ToList.Where(Function(x) x <> Drawing2D.CompositingQuality.Invalid).ToArray
@@ -290,4 +298,37 @@ Public Class frmMain
     Private Sub lblWallpaperDownload_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblWallpaperDownload.LinkClicked
         Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/tree/master/Wallpaper-Wallpaper")
     End Sub
+
+    Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
+        Dim newUserSetting As New UserSettingData
+        With newUserSetting
+            .FileName = UserSettingFile
+            .SmoothingMode = cmbSmoothing.SelectedItem
+            .CompositingQuality = cmbCompositing.SelectedItem
+            .InterpolationMode = cmbInterpolation.SelectedItem
+            .PixelOffsetMode = cmbPixelOffset.SelectedItem
+            .LEDShape = cmbLedShape.SelectedItem
+            .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
+            .NoToasters = cbNoToaster.Checked
+            .TimerIntervals = tbTimerInterval.Value
+            .LEDPadding = CInt(txtLEDPadding.Text)
+            Dim newScreenList As New List(Of Screen)
+            For Each tp As TabPage In tcScreen.TabPages
+                Dim uc As ucScreen = tp.Tag
+                newScreenList.Add(uc.WScreen)
+            Next
+            .Screens = newScreenList
+            .StartWithWindows = cbStartAtLogin.Checked
+            .SaveSilentXml()
+        End With
+
+        UserSettings = New UserSettingData(UserSettingFile).InstanceXml
+
+        If hiddenAutoStart Then
+            If cbStartAtLogin.Checked Then CreateShortcutInStartUp() Else DeleteShortcutInStartup()
+        End If
+
+        ResetWallpaper()
+    End Sub
+
 End Class

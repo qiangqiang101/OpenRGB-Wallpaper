@@ -59,9 +59,10 @@ Partial Class frmMain
         Me.cbStartAtLogin = New System.Windows.Forms.CheckBox()
         Me.cbNoToaster = New System.Windows.Forms.CheckBox()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.lblWallpaperDownload = New System.Windows.Forms.LinkLabel()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.btnApply = New System.Windows.Forms.Button()
+        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -158,7 +159,7 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.cmbSmoothing)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(460, 279)
+        Me.GroupBox1.Size = New System.Drawing.Size(460, 280)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Graphics settings"
@@ -205,7 +206,7 @@ Partial Class frmMain
         Me.btnBackColor.Location = New System.Drawing.Point(148, 247)
         Me.btnBackColor.Name = "btnBackColor"
         Me.btnBackColor.Size = New System.Drawing.Size(158, 23)
-        Me.btnBackColor.TabIndex = 7
+        Me.btnBackColor.TabIndex = 8
         Me.btnBackColor.UseVisualStyleBackColor = False
         '
         'Label4
@@ -307,7 +308,7 @@ Partial Class frmMain
         Me.btnSave.Location = New System.Drawing.Point(730, 448)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 25)
-        Me.btnSave.TabIndex = 5
+        Me.btnSave.TabIndex = 6
         Me.btnSave.Text = "Save Changes"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -326,7 +327,7 @@ Partial Class frmMain
         Me.btnCancel.Location = New System.Drawing.Point(835, 448)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 25)
-        Me.btnCancel.TabIndex = 6
+        Me.btnCancel.TabIndex = 7
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -342,7 +343,7 @@ Partial Class frmMain
         'cbStartAtLogin
         '
         Me.cbStartAtLogin.AutoSize = True
-        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 297)
+        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 298)
         Me.cbStartAtLogin.Name = "cbStartAtLogin"
         Me.cbStartAtLogin.Size = New System.Drawing.Size(128, 19)
         Me.cbStartAtLogin.TabIndex = 1
@@ -352,19 +353,12 @@ Partial Class frmMain
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(217, 297)
+        Me.cbNoToaster.Location = New System.Drawing.Point(217, 298)
         Me.cbNoToaster.Name = "cbNoToaster"
         Me.cbNoToaster.Size = New System.Drawing.Size(150, 19)
         Me.cbNoToaster.TabIndex = 2
         Me.cbNoToaster.Text = "Do Not Display Toasters"
         Me.cbNoToaster.UseVisualStyleBackColor = True
-        '
-        'txtLEDPadding
-        '
-        Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
-        Me.txtLEDPadding.Name = "txtLEDPadding"
-        Me.txtLEDPadding.Size = New System.Drawing.Size(158, 23)
-        Me.txtLEDPadding.TabIndex = 5
         '
         'lblWallpaperDownload
         '
@@ -385,6 +379,23 @@ Partial Class frmMain
         Me.Label8.TabIndex = 13
         Me.Label8.Text = "Made with ❤ by Bartholomew ""Not MentaL"" Ho"
         '
+        'btnApply
+        '
+        Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnApply.Location = New System.Drawing.Point(625, 448)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Size = New System.Drawing.Size(99, 25)
+        Me.btnApply.TabIndex = 5
+        Me.btnApply.Text = "Apply"
+        Me.btnApply.UseVisualStyleBackColor = True
+        '
+        'txtLEDPadding
+        '
+        Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
+        Me.txtLEDPadding.Name = "txtLEDPadding"
+        Me.txtLEDPadding.Size = New System.Drawing.Size(158, 23)
+        Me.txtLEDPadding.TabIndex = 5
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSave
@@ -393,6 +404,7 @@ Partial Class frmMain
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(946, 485)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnApply)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.lblWallpaperDownload)
         Me.Controls.Add(Me.cbNoToaster)
@@ -458,4 +470,5 @@ Partial Class frmMain
     Friend WithEvents txtLEDPadding As NumBox
     Friend WithEvents lblWallpaperDownload As LinkLabel
     Friend WithEvents Label8 As Label
+    Friend WithEvents btnApply As Button
 End Class
