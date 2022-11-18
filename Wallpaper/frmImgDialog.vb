@@ -43,7 +43,7 @@ Public Class frmImgDialog
             .SaveSilent()
         End With
 
-        UserSettings = New UserSettingData(UserSettingFile).InstanceXml
+        UserImage = New ImageData(UserImageFile).Instance
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click

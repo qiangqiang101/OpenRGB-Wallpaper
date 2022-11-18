@@ -38,6 +38,9 @@ Public Class frmMain
                 .TimerIntervals = 30
                 .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
                 .LEDPadding = 0
+                .StaticEffect = False
+                .RGBTrasform = RGBTransform.Slide1
+                .RGBPattern = RGBPattern.Rainbow
                 .Screens = screenList
                 .SaveSilentXml()
             End With
@@ -57,17 +60,23 @@ Public Class frmMain
         cmbInterpolation.DataSource = [Enum].GetValues(GetType(Drawing2D.InterpolationMode)).Cast(Of Drawing2D.InterpolationMode).ToList.Where(Function(x) x <> Drawing2D.InterpolationMode.Invalid).ToArray
         cmbLedShape.DataSource = [Enum].GetValues(GetType(LEDShape)).Cast(Of LEDShape)
         cmbPixelOffset.DataSource = [Enum].GetValues(GetType(Drawing2D.PixelOffsetMode)).Cast(Of Drawing2D.PixelOffsetMode).ToList.Where(Function(x) x <> Drawing2D.PixelOffsetMode.Invalid).ToArray
+        cmbRGBTransform.DataSource = [Enum].GetValues(GetType(RGBTransform)).Cast(Of RGBTransform)
+        cmbRGBPattern.DataSource = [Enum].GetValues(GetType(RGBPattern)).Cast(Of RGBPattern)
 
         cmbSmoothing.SelectedItem = UserSettings.SmoothingMode
         cmbCompositing.SelectedItem = UserSettings.CompositingQuality
         cmbInterpolation.SelectedItem = UserSettings.InterpolationMode
         cmbPixelOffset.SelectedItem = UserSettings.PixelOffsetMode
         cmbLedShape.SelectedItem = UserSettings.LEDShape
+        cmbRGBTransform.SelectedItem = UserSettings.RGBTrasform
+        cmbRGBPattern.SelectedItem = UserSettings.RGBPattern
         cbNoToaster.Checked = UserSettings.NoToasters
         tbTimerInterval.Value = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
         lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
         btnBackColor.BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
         txtLEDPadding.Text = UserSettings.LEDPadding
+        cbStaticEffects.Checked = UserSettings.StaticEffect
+        GroupBox2.Enabled = cbStaticEffects.Checked
 
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
@@ -129,8 +138,10 @@ Public Class frmMain
 
     Private Sub ResetWallpaper()
         For Each form In wpForms
-            form.oRgbClient.Dispose()
-            form.Close()
+            If form.oRgbClient IsNot Nothing Then
+                If form.oRgbClient.Connected Then form.oRgbClient.Dispose()
+                form.Close()
+            End If
         Next
         wpForms.Clear()
 
@@ -181,7 +192,8 @@ Public Class frmMain
                 niNotify.ShowBalloonTip(1000)
                 niNotify.Text = "OpenRGB Wallpaper"
             End If
-            Threading.Thread.Sleep(5000)
+
+            Threading.Thread.Sleep(1000)
             SetAsWallpaper()
         End If
     End Sub
@@ -203,6 +215,9 @@ Public Class frmMain
             .NoToasters = cbNoToaster.Checked
             .TimerIntervals = tbTimerInterval.Value
             .LEDPadding = CInt(txtLEDPadding.Text)
+            .StaticEffect = cbStaticEffects.Checked
+            .RGBPattern = cmbRGBPattern.SelectedItem
+            .RGBTrasform = cmbRGBTransform.SelectedItem
             Dim newScreenList As New List(Of Screen)
             For Each tp As TabPage In tcScreen.TabPages
                 Dim uc As ucScreen = tp.Tag
@@ -312,6 +327,9 @@ Public Class frmMain
             .NoToasters = cbNoToaster.Checked
             .TimerIntervals = tbTimerInterval.Value
             .LEDPadding = CInt(txtLEDPadding.Text)
+            .StaticEffect = cbStaticEffects.Checked
+            .RGBPattern = cmbRGBPattern.SelectedItem
+            .RGBTrasform = cmbRGBTransform.SelectedItem
             Dim newScreenList As New List(Of Screen)
             For Each tp As TabPage In tcScreen.TabPages
                 Dim uc As ucScreen = tp.Tag
@@ -331,4 +349,7 @@ Public Class frmMain
         ResetWallpaper()
     End Sub
 
+    Private Sub cbStaticEffects_CheckedChanged(sender As Object, e As EventArgs) Handles cbStaticEffects.CheckedChanged
+        GroupBox2.Enabled = cbStaticEffects.Checked
+    End Sub
 End Class

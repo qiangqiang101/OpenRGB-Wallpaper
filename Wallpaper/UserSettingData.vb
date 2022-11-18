@@ -31,8 +31,11 @@ Public Structure UserSettingData
     Public TimerIntervals As Integer
     Public BackgroundColor As String
     Public LEDPadding As Single
-    'Public Smoothness As Integer
-    'Public DirectDraw As Boolean
+
+    'Static Effects
+    Public StaticEffect As Boolean
+    Public RGBTrasform As RGBTransform
+    Public RGBPattern As RGBPattern
 
     Public Screens As List(Of Screen)
 
@@ -131,4 +134,22 @@ Public Enum LEDShape
     Rectangle
     RoundedRectangle
     Sphere
+End Enum
+
+Public Enum RGBTransform
+    Slide1
+    Slide2
+    Rotate1
+    Rotate2
+End Enum
+
+Public Enum RGBPattern
+    Rainbow
+    PurplePink
+    YellowPink
+    Cyberpunk
+    YellowToRed
+    Police
+    BlueToRed
+    RedToBlack
 End Enum

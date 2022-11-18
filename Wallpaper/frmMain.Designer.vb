@@ -62,10 +62,17 @@ Partial Class frmMain
         Me.lblWallpaperDownload = New System.Windows.Forms.LinkLabel()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.cbStaticEffects = New System.Windows.Forms.CheckBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cmbRGBPattern = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cmbRGBTransform = New System.Windows.Forms.ComboBox()
         Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'niNotify
@@ -308,7 +315,7 @@ Partial Class frmMain
         Me.btnSave.Location = New System.Drawing.Point(730, 448)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 25)
-        Me.btnSave.TabIndex = 6
+        Me.btnSave.TabIndex = 8
         Me.btnSave.Text = "Save Changes"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -327,7 +334,7 @@ Partial Class frmMain
         Me.btnCancel.Location = New System.Drawing.Point(835, 448)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 25)
-        Me.btnCancel.TabIndex = 7
+        Me.btnCancel.TabIndex = 9
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
@@ -336,7 +343,7 @@ Partial Class frmMain
         Me.btnAddScreen.Location = New System.Drawing.Point(478, 448)
         Me.btnAddScreen.Name = "btnAddScreen"
         Me.btnAddScreen.Size = New System.Drawing.Size(99, 25)
-        Me.btnAddScreen.TabIndex = 4
+        Me.btnAddScreen.TabIndex = 6
         Me.btnAddScreen.Text = "+ Add Screen"
         Me.btnAddScreen.UseVisualStyleBackColor = True
         '
@@ -353,11 +360,11 @@ Partial Class frmMain
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(217, 298)
+        Me.cbNoToaster.Location = New System.Drawing.Point(160, 298)
         Me.cbNoToaster.Name = "cbNoToaster"
-        Me.cbNoToaster.Size = New System.Drawing.Size(150, 19)
+        Me.cbNoToaster.Size = New System.Drawing.Size(135, 19)
         Me.cbNoToaster.TabIndex = 2
-        Me.cbNoToaster.Text = "Do Not Display Toasters"
+        Me.cbNoToaster.Text = "Disable Notifications"
         Me.cbNoToaster.UseVisualStyleBackColor = True
         '
         'lblWallpaperDownload
@@ -366,7 +373,7 @@ Partial Class frmMain
         Me.lblWallpaperDownload.Location = New System.Drawing.Point(12, 427)
         Me.lblWallpaperDownload.Name = "lblWallpaperDownload"
         Me.lblWallpaperDownload.Size = New System.Drawing.Size(86, 15)
-        Me.lblWallpaperDownload.TabIndex = 7
+        Me.lblWallpaperDownload.TabIndex = 5
         Me.lblWallpaperDownload.TabStop = True
         Me.lblWallpaperDownload.Text = "Get Wallpapers"
         '
@@ -385,9 +392,68 @@ Partial Class frmMain
         Me.btnApply.Location = New System.Drawing.Point(625, 448)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
-        Me.btnApply.TabIndex = 5
+        Me.btnApply.TabIndex = 7
         Me.btnApply.Text = "Apply"
         Me.btnApply.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label9)
+        Me.GroupBox2.Controls.Add(Me.cmbRGBPattern)
+        Me.GroupBox2.Controls.Add(Me.Label10)
+        Me.GroupBox2.Controls.Add(Me.cmbRGBTransform)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 323)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(460, 83)
+        Me.GroupBox2.TabIndex = 4
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Static Effects (Only work when not connected to OpenRGB)"
+        '
+        'cbStaticEffects
+        '
+        Me.cbStaticEffects.AutoSize = True
+        Me.cbStaticEffects.Location = New System.Drawing.Point(308, 298)
+        Me.cbStaticEffects.Name = "cbStaticEffects"
+        Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
+        Me.cbStaticEffects.TabIndex = 3
+        Me.cbStaticEffects.Text = "Enable Static Effects"
+        Me.cbStaticEffects.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(6, 54)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(70, 15)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "RGB Pattern"
+        '
+        'cmbRGBPattern
+        '
+        Me.cmbRGBPattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbRGBPattern.FormattingEnabled = True
+        Me.cmbRGBPattern.Location = New System.Drawing.Point(148, 51)
+        Me.cmbRGBPattern.Name = "cmbRGBPattern"
+        Me.cmbRGBPattern.Size = New System.Drawing.Size(306, 23)
+        Me.cmbRGBPattern.TabIndex = 1
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(6, 25)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(85, 15)
+        Me.Label10.TabIndex = 17
+        Me.Label10.Text = "RGB Transform"
+        '
+        'cmbRGBTransform
+        '
+        Me.cmbRGBTransform.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbRGBTransform.FormattingEnabled = True
+        Me.cmbRGBTransform.Location = New System.Drawing.Point(148, 22)
+        Me.cmbRGBTransform.Name = "cmbRGBTransform"
+        Me.cmbRGBTransform.Size = New System.Drawing.Size(306, 23)
+        Me.cmbRGBTransform.TabIndex = 0
         '
         'txtLEDPadding
         '
@@ -404,6 +470,8 @@ Partial Class frmMain
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(946, 485)
         Me.ControlBox = False
+        Me.Controls.Add(Me.cbStaticEffects)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnApply)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.lblWallpaperDownload)
@@ -427,6 +495,8 @@ Partial Class frmMain
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -471,4 +541,10 @@ Partial Class frmMain
     Friend WithEvents lblWallpaperDownload As LinkLabel
     Friend WithEvents Label8 As Label
     Friend WithEvents btnApply As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cmbRGBPattern As ComboBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cmbRGBTransform As ComboBox
+    Friend WithEvents cbStaticEffects As CheckBox
 End Class

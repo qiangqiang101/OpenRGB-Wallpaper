@@ -4,8 +4,11 @@ Imports OpenRGB.NET
 
 Public Class frmWallpaper
 
-    Public oRgbClient As OpenRGBClient = Nothing
     Dim renderString As String = Nothing
+    Dim rgbPosition As Single = 0F
+    Dim StaticEffect As Boolean = False
+
+    Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
     Public BackImg As Image = Nothing
 
@@ -34,7 +37,7 @@ Public Class frmWallpaper
         Try
             oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, ws.Name, ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
         Catch ex As Exception
-            renderString = ex.Message
+            renderString = $"{ex.Message}"
         End Try
     End Sub
 
@@ -54,6 +57,11 @@ Public Class frmWallpaper
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If Not IsPaused Then
             Invalidate()
+
+            If UserSettings.StaticEffect AndAlso StaticEffect Then
+                rgbPosition += 1.0F
+                If rgbPosition >= Single.MaxValue - 1.0F Then rgbPosition = 0F
+            End If
         End If
     End Sub
 
@@ -63,62 +71,66 @@ Public Class frmWallpaper
         End If
     End Sub
 
-    'Cause rendering slow
-    'Private Sub GenerateWallpaper(graphic As Graphics, size As SizeF)
-    '    Using rgbImg As New Bitmap(CInt(size.Width), CInt(size.Height))
-    '        Using g As Graphics = Graphics.FromImage(rgbImg)
-    '            PrepareGraphics(g)
-
-    '            Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
-
-    '            Dim Width As Integer = WScreen.MatrixWidth
-    '            Dim Height As Integer = WScreen.MatrixHeight
-
-    '            Dim rectangleSize As New SizeF(size.Width / (wallpaper.Leds.Count / Height), size.Height / Height)
-
-    '            Dim matrix(Width - 1, Height - 1) As String
-    '            Dim count As Integer = 0
-    '            For j As Integer = 0 To matrix.GetUpperBound(0)
-    '                For i As Integer = 0 To matrix.GetUpperBound(0)
-    '                    Dim rgbColor = wallpaper.Colors(count).ToColor
-
-    '                    Dim X As Single = rectangleSize.Width * i
-    '                    Dim Y As Single = rectangleSize.Height * j
-
-    '                    Using sb As New SolidBrush(rgbColor)
-    '                        Using pen As New Pen(BackColor, UserSettings.LEDPadding)
-
-    '                            Select Case UserSettings.LEDShape
-    '                                Case LEDShape.Rectangle
-    '                                    g.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
-    '                                Case LEDShape.RoundedRectangle
-    '                                    g.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-    '                                Case LEDShape.Sphere
-    '                                    g.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-    '                                    If UserSettings.LEDPadding >= 1 Then g.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
-    '                            End Select
-    '                        End Using
-    '                    End Using
-    '                    count += 1
-    '                    If count >= wallpaper.Leds.Count Then count = 0
-    '                Next
-    '            Next
-    '        End Using
-
-    '        Dim cr As New RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + UserSettings.Smoothness, ClientRectangle.Height + UserSettings.Smoothness)
-    '        If rgbImg IsNot Nothing Then graphic.DrawImage(rgbImg, cr)
-    '    End Using
-
-    '    If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
-    'End Sub
-
     Private Sub PrepareGraphics(graphic As Graphics)
         graphic.SmoothingMode = UserSettings.SmoothingMode
         graphic.CompositingQuality = UserSettings.CompositingQuality
         graphic.InterpolationMode = UserSettings.InterpolationMode
         graphic.PixelOffsetMode = UserSettings.PixelOffsetMode
+    End Sub
+
+    Private Sub GenerateRGBSpectrum(graphic As Graphics, size As Size)
+        Using theBrush As New LinearGradientBrush(Point.Empty, New Point(size.Width, size.Height), Color.Red, Color.Blue)
+            Select Case UserSettings.RGBTrasform
+                Case RGBTransform.Slide1
+                    theBrush.TranslateTransform(rgbPosition, -rgbPosition, MatrixOrder.Prepend)
+                Case RGBTransform.Slide2
+                    theBrush.TranslateTransform(-rgbPosition, rgbPosition, MatrixOrder.Prepend)
+                Case RGBTransform.Rotate1
+                    theBrush.RotateTransform(rgbPosition, MatrixOrder.Prepend)
+                Case RGBTransform.Rotate2
+                    theBrush.RotateTransform(-rgbPosition, MatrixOrder.Prepend)
+            End Select
+
+            Dim colorBlend As New ColorBlend()
+            Select Case UserSettings.RGBPattern
+                Case RGBPattern.BlueToRed
+                    colorBlend.Colors = New Color() {Color.FromArgb(3, 24, 237), Color.FromArgb(122, 13, 125), Color.FromArgb(254, 0, 1)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+                Case RGBPattern.Cyberpunk
+                    colorBlend.Colors = New Color() {Color.FromArgb(206, 253, 66), Color.FromArgb(0, 220, 255), Color.FromArgb(206, 253, 66)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+                Case RGBPattern.Police
+                    colorBlend.Colors = New Color() {Color.Black, Color.FromArgb(0, 0, 135), Color.FromArgb(12, 0, 243), Color.Red, Color.Black}
+                    colorBlend.Positions = New Single() {0F, 0.25F, 0.5F, 0.75F, 1.0F}
+                Case RGBPattern.PurplePink
+                    colorBlend.Colors = New Color() {Color.FromArgb(254, 0, 146), Color.FromArgb(75, 0, 217), Color.FromArgb(254, 0, 146)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+                Case RGBPattern.Rainbow
+                    colorBlend.Colors = New Color() {Color.Purple, Color.Red, Color.Yellow, Color.Lime, Color.Cyan, Color.Blue, Color.Purple}
+                    colorBlend.Positions = New Single() {0F, 0.1666F, 0.3333F, 0.5F, 0.6666F, 0.8333F, 1.0F}
+                Case RGBPattern.RedToBlack
+                    colorBlend.Colors = New Color() {Color.Red, Color.Black, Color.FromArgb(128, 0, 0)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+                Case RGBPattern.YellowPink
+                    colorBlend.Colors = New Color() {Color.FromArgb(241, 249, 5), Color.FromArgb(255, 6, 231), Color.FromArgb(241, 249, 5)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+                Case RGBPattern.YellowToRed
+                    colorBlend.Colors = New Color() {Color.FromArgb(245, 188, 64), Color.FromArgb(254, 64, 125), Color.FromArgb(249, 30, 31)}
+                    colorBlend.Positions = New Single() {0F, 0.5F, 1.0F}
+            End Select
+
+            theBrush.InterpolationColors = colorBlend
+
+            PrepareGraphics(graphic)
+
+            Dim rgbImg As New Bitmap(size.Width, size.Height)
+            Using g As Graphics = Graphics.FromImage(rgbImg)
+                PrepareGraphics(g)
+                g.FillRectangle(theBrush, 0, 0, size.Width, size.Height)
+            End Using
+
+            If rgbImg IsNot Nothing Then graphic.DrawImage(rgbImg, ClientRectangle)
+        End Using
     End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
@@ -128,7 +140,7 @@ Public Class frmWallpaper
         Try
             If oRgbClient IsNot Nothing Then
                 If oRgbClient.Connected Then
-                    'GenerateWallpaper(graphic, New Size(Width / UserSettings.Smoothness, Height / UserSettings.Smoothness))
+                    StaticEffect = False
 
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
 
@@ -179,12 +191,25 @@ Public Class frmWallpaper
                             If count >= wallpaper.Leds.Count Then count = 0
                         Next
                     Next
-
-                    If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
+                Else
+                    StaticEffect = True
                 End If
+            Else
+                StaticEffect = True
             End If
         Catch ex As Exception
-            renderString = ex.Message
+            StaticEffect = True
+            renderString = $"{ex.Message}"
+        End Try
+
+        If StaticEffect Then
+            If UserSettings.StaticEffect Then GenerateRGBSpectrum(graphic, New Size(ClientRectangle.Width / 100, ClientRectangle.Height / 100))
+        End If
+
+        Try
+            If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
+        Catch ex As Exception
+            renderString = $"{ex.Message}"
         End Try
 
         Try
