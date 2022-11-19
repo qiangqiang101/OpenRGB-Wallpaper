@@ -24,13 +24,14 @@ This application allows you to emulate your wallpaper like a LED Matrix and sync
 
 # Download
 https://github.com/qiangqiang101/OpenRGB-Wallpaper/releases
+https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wallpaper/-/releases
 
 # Prerequisite
 - [OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
 - [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
 
 # Build yourself
-You need Visual Studio 2022 or newer, run Wallpaper.sln to begin.
+You need Visual Studio 2022 or newer, run Wallpaper.sln to begin. Click the Build on menu, select Build Solution.
 
 # How To
 1. Download OpenRGB Wallpaper, extract all files to your Hard Drive.
