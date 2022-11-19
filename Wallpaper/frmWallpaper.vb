@@ -11,6 +11,7 @@ Public Class frmWallpaper
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
     Public BackImg As Image = Nothing
+    Public WaitForOpenRGB As Boolean = False
 
     Public Property WScreen() As Screen
 
@@ -30,7 +31,7 @@ Public Class frmWallpaper
         BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
         BackImg = WScreen.BackgroundImage.Base64ToImage
         DoubleBuffered = True
-        Connect(WScreen)
+        If Not WaitForOpenRGB Then Connect(WScreen)
     End Sub
 
     Public Sub Connect(ws As Screen)
@@ -45,7 +46,8 @@ Public Class frmWallpaper
         oRgbClient.Connect()
     End Sub
 
-    Public Sub Reconnect()
+    Public Sub Reconnect(Optional RemoveWaitForOpenRGB As Boolean = False)
+        If RemoveWaitForOpenRGB Then WaitForOpenRGB = False
         If oRgbClient IsNot Nothing Then
             If oRgbClient.Connected Then oRgbClient.Dispose()
         End If
@@ -140,7 +142,7 @@ Public Class frmWallpaper
         Try
             If oRgbClient IsNot Nothing Then
                 If oRgbClient.Connected Then
-                    StaticEffect = False
+                    If StaticEffect Then StaticEffect = False
 
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
 
@@ -192,13 +194,13 @@ Public Class frmWallpaper
                         Next
                     Next
                 Else
-                    StaticEffect = True
+                    If Not StaticEffect Then StaticEffect = True
                 End If
             Else
-                StaticEffect = True
+                If Not StaticEffect Then StaticEffect = True
             End If
         Catch ex As Exception
-            StaticEffect = True
+            If Not StaticEffect Then StaticEffect = True
             renderString = $"{ex.Message}"
         End Try
 

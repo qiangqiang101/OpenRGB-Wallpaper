@@ -5,6 +5,7 @@ Public Class frmMain
 
     Private wpForms As New List(Of frmWallpaper)
     Private hiddenAutoStart As Boolean = False
+    Private CanClose As Boolean = False
 
     Public Property CurrentTabIndex() As Integer = 0
 
@@ -102,7 +103,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub SetAsWallpaper()
+    Private Sub SetAsWallpaper(Optional WaitForOpenRGB As Boolean = False)
         Dim progman = W32.FindWindow("Progman", Nothing)
         Dim result As IntPtr = IntPtr.Zero
         W32.SendMessageTimeout(progman, &H52C, New IntPtr(0), IntPtr.Zero, W32.SendMessageTimeoutFlags.SMTO_NORMAL, 1000, result)
@@ -122,6 +123,7 @@ Public Class frmMain
             Dim newWP As New frmWallpaper
             With newWP
                 .WScreen = screen
+                .WaitForOpenRGB = WaitForOpenRGB
                 .Text = screen.Name
                 .StartPosition = FormStartPosition.Manual
                 .Location = screen.Position
@@ -133,7 +135,7 @@ Public Class frmMain
             wpForms.Add(newWP)
         Next
 
-        Timer1.Stop()
+        If Not WaitForOpenRGB Then Timer1.Stop()
     End Sub
 
     Private Sub ResetWallpaper()
@@ -149,9 +151,12 @@ Public Class frmMain
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        CanClose = True
+
         For Each form In wpForms
             form.Close()
         Next
+
         Me.Close()
     End Sub
 
@@ -185,6 +190,11 @@ Public Class frmMain
                 niNotify.Text = "OpenRGB Wallpaper"
             End If
             Timer1.Interval = 60000
+
+            If UserSettings.StaticEffect Then
+                Threading.Thread.Sleep(1000)
+                SetAsWallpaper(UserSettings.StaticEffect)
+            End If
         Else
             If Not UserSettings.NoToasters Then
                 niNotify.BalloonTipText = "OpenRGB process found, applying Wallpaper(s)."
@@ -193,8 +203,22 @@ Public Class frmMain
                 niNotify.Text = "OpenRGB Wallpaper"
             End If
 
-            Threading.Thread.Sleep(1000)
-            SetAsWallpaper()
+            If UserSettings.StaticEffect Then
+                Threading.Thread.Sleep(1000)
+
+                If wpForms.Count = 0 Then
+                    Threading.Thread.Sleep(1000)
+                    SetAsWallpaper(UserSettings.StaticEffect)
+                Else
+                    For Each form In wpForms
+                        form.Reconnect(UserSettings.StaticEffect)
+                    Next
+                    Timer1.Stop()
+                End If
+            Else
+                Threading.Thread.Sleep(1000)
+                SetAsWallpaper()
+            End If
         End If
     End Sub
 
@@ -351,5 +375,14 @@ Public Class frmMain
 
     Private Sub cbStaticEffects_CheckedChanged(sender As Object, e As EventArgs) Handles cbStaticEffects.CheckedChanged
         GroupBox2.Enabled = cbStaticEffects.Checked
+    End Sub
+
+    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If e.CloseReason = CloseReason.WindowsShutDown Then Return
+
+        If Not CanClose Then
+            e.Cancel = True
+            Visible = False
+        End If
     End Sub
 End Class

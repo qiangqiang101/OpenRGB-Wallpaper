@@ -63,11 +63,11 @@ Partial Class frmMain
         Me.Label8 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.cbStaticEffects = New System.Windows.Forms.CheckBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmbRGBPattern = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRGBTransform = New System.Windows.Forms.ComboBox()
+        Me.cbStaticEffects = New System.Windows.Forms.CheckBox()
         Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -409,16 +409,6 @@ Partial Class frmMain
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Static Effects (Only work when not connected to OpenRGB)"
         '
-        'cbStaticEffects
-        '
-        Me.cbStaticEffects.AutoSize = True
-        Me.cbStaticEffects.Location = New System.Drawing.Point(308, 298)
-        Me.cbStaticEffects.Name = "cbStaticEffects"
-        Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
-        Me.cbStaticEffects.TabIndex = 3
-        Me.cbStaticEffects.Text = "Enable Static Effects"
-        Me.cbStaticEffects.UseVisualStyleBackColor = True
-        '
         'Label9
         '
         Me.Label9.AutoSize = True
@@ -455,6 +445,16 @@ Partial Class frmMain
         Me.cmbRGBTransform.Size = New System.Drawing.Size(306, 23)
         Me.cmbRGBTransform.TabIndex = 0
         '
+        'cbStaticEffects
+        '
+        Me.cbStaticEffects.AutoSize = True
+        Me.cbStaticEffects.Location = New System.Drawing.Point(308, 298)
+        Me.cbStaticEffects.Name = "cbStaticEffects"
+        Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
+        Me.cbStaticEffects.TabIndex = 3
+        Me.cbStaticEffects.Text = "Enable Static Effects"
+        Me.cbStaticEffects.UseVisualStyleBackColor = True
+        '
         'txtLEDPadding
         '
         Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
@@ -469,7 +469,6 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(946, 485)
-        Me.ControlBox = False
         Me.Controls.Add(Me.cbStaticEffects)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnApply)
@@ -487,6 +486,7 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
