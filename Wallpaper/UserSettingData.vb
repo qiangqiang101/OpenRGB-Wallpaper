@@ -29,7 +29,6 @@ Public Structure UserSettingData
     Public StartWithWindows As Boolean
     Public NoToasters As Boolean
     Public TimerIntervals As Integer
-    Public BackgroundColor As String
     Public LEDPadding As Single
 
     'Static Effects
@@ -123,6 +122,8 @@ Public Structure Screen
     Public Position As Point
     Public Size As Size
     Public BackgroundImage As String
+    Public ImageFit As ImageFit
+    Public BackgroundColor As String
 
     'Matrix
     Public MatrixWidth As Integer
@@ -152,4 +153,12 @@ Public Enum RGBPattern
     Police
     BlueToRed
     RedToBlack
+End Enum
+
+Public Enum ImageFit
+    None
+    Fill
+    Fit
+    Stretch
+    Center
 End Enum

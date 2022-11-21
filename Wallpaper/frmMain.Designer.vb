@@ -40,8 +40,6 @@ Partial Class frmMain
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbPixelOffset = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.btnBackColor = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cmbLedShape = New System.Windows.Forms.ComboBox()
         Me.lblTimerInterval = New System.Windows.Forms.Label()
@@ -58,8 +56,6 @@ Partial Class frmMain
         Me.btnAddScreen = New System.Windows.Forms.Button()
         Me.cbStartAtLogin = New System.Windows.Forms.CheckBox()
         Me.cbNoToaster = New System.Windows.Forms.CheckBox()
-        Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.lblWallpaperDownload = New System.Windows.Forms.LinkLabel()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -152,8 +148,6 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.txtLEDPadding)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.cmbPixelOffset)
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.btnBackColor)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.cmbLedShape)
         Me.GroupBox1.Controls.Add(Me.lblTimerInterval)
@@ -166,10 +160,10 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.cmbSmoothing)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(460, 280)
+        Me.GroupBox1.Size = New System.Drawing.Size(316, 245)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Graphics settings"
+        Me.GroupBox1.Text = "Graphics Settings"
         '
         'Label7
         '
@@ -195,26 +189,8 @@ Partial Class frmMain
         Me.cmbPixelOffset.FormattingEnabled = True
         Me.cmbPixelOffset.Location = New System.Drawing.Point(148, 109)
         Me.cmbPixelOffset.Name = "cmbPixelOffset"
-        Me.cmbPixelOffset.Size = New System.Drawing.Size(306, 23)
+        Me.cmbPixelOffset.Size = New System.Drawing.Size(160, 23)
         Me.cmbPixelOffset.TabIndex = 3
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 251)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(103, 15)
-        Me.Label5.TabIndex = 12
-        Me.Label5.Text = "Background Color"
-        '
-        'btnBackColor
-        '
-        Me.btnBackColor.BackColor = System.Drawing.Color.Black
-        Me.btnBackColor.Location = New System.Drawing.Point(148, 247)
-        Me.btnBackColor.Name = "btnBackColor"
-        Me.btnBackColor.Size = New System.Drawing.Size(158, 23)
-        Me.btnBackColor.TabIndex = 8
-        Me.btnBackColor.UseVisualStyleBackColor = False
         '
         'Label4
         '
@@ -231,7 +207,7 @@ Partial Class frmMain
         Me.cmbLedShape.FormattingEnabled = True
         Me.cmbLedShape.Location = New System.Drawing.Point(148, 138)
         Me.cmbLedShape.Name = "cmbLedShape"
-        Me.cmbLedShape.Size = New System.Drawing.Size(306, 23)
+        Me.cmbLedShape.Size = New System.Drawing.Size(160, 23)
         Me.cmbLedShape.TabIndex = 4
         '
         'lblTimerInterval
@@ -247,9 +223,9 @@ Partial Class frmMain
         '
         Me.tbTimerInterval.Location = New System.Drawing.Point(148, 196)
         Me.tbTimerInterval.Maximum = 200
-        Me.tbTimerInterval.Minimum = 5
+        Me.tbTimerInterval.Minimum = 1
         Me.tbTimerInterval.Name = "tbTimerInterval"
-        Me.tbTimerInterval.Size = New System.Drawing.Size(306, 45)
+        Me.tbTimerInterval.Size = New System.Drawing.Size(160, 45)
         Me.tbTimerInterval.TabIndex = 6
         Me.tbTimerInterval.TickFrequency = 10
         Me.tbTimerInterval.TickStyle = System.Windows.Forms.TickStyle.Both
@@ -270,7 +246,7 @@ Partial Class frmMain
         Me.cmbInterpolation.FormattingEnabled = True
         Me.cmbInterpolation.Location = New System.Drawing.Point(148, 80)
         Me.cmbInterpolation.Name = "cmbInterpolation"
-        Me.cmbInterpolation.Size = New System.Drawing.Size(306, 23)
+        Me.cmbInterpolation.Size = New System.Drawing.Size(160, 23)
         Me.cmbInterpolation.TabIndex = 2
         '
         'Label2
@@ -288,7 +264,7 @@ Partial Class frmMain
         Me.cmbCompositing.FormattingEnabled = True
         Me.cmbCompositing.Location = New System.Drawing.Point(148, 51)
         Me.cmbCompositing.Name = "cmbCompositing"
-        Me.cmbCompositing.Size = New System.Drawing.Size(306, 23)
+        Me.cmbCompositing.Size = New System.Drawing.Size(160, 23)
         Me.cmbCompositing.TabIndex = 1
         '
         'Label1
@@ -306,13 +282,13 @@ Partial Class frmMain
         Me.cmbSmoothing.FormattingEnabled = True
         Me.cmbSmoothing.Location = New System.Drawing.Point(148, 22)
         Me.cmbSmoothing.Name = "cmbSmoothing"
-        Me.cmbSmoothing.Size = New System.Drawing.Size(306, 23)
+        Me.cmbSmoothing.Size = New System.Drawing.Size(160, 23)
         Me.cmbSmoothing.TabIndex = 0
         '
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(730, 448)
+        Me.btnSave.Location = New System.Drawing.Point(753, 414)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 25)
         Me.btnSave.TabIndex = 8
@@ -321,17 +297,18 @@ Partial Class frmMain
         '
         'tcScreen
         '
-        Me.tcScreen.Location = New System.Drawing.Point(478, 12)
+        Me.tcScreen.Location = New System.Drawing.Point(331, 9)
+        Me.tcScreen.Margin = New System.Windows.Forms.Padding(0)
         Me.tcScreen.Name = "tcScreen"
         Me.tcScreen.SelectedIndex = 0
-        Me.tcScreen.Size = New System.Drawing.Size(460, 430)
+        Me.tcScreen.Size = New System.Drawing.Size(629, 398)
         Me.tcScreen.TabIndex = 3
         '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(835, 448)
+        Me.btnCancel.Location = New System.Drawing.Point(858, 414)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 25)
         Me.btnCancel.TabIndex = 9
@@ -340,7 +317,8 @@ Partial Class frmMain
         '
         'btnAddScreen
         '
-        Me.btnAddScreen.Location = New System.Drawing.Point(478, 448)
+        Me.btnAddScreen.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.btnAddScreen.Location = New System.Drawing.Point(331, 414)
         Me.btnAddScreen.Name = "btnAddScreen"
         Me.btnAddScreen.Size = New System.Drawing.Size(99, 25)
         Me.btnAddScreen.TabIndex = 6
@@ -350,7 +328,7 @@ Partial Class frmMain
         'cbStartAtLogin
         '
         Me.cbStartAtLogin.AutoSize = True
-        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 298)
+        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 263)
         Me.cbStartAtLogin.Name = "cbStartAtLogin"
         Me.cbStartAtLogin.Size = New System.Drawing.Size(128, 19)
         Me.cbStartAtLogin.TabIndex = 1
@@ -360,27 +338,18 @@ Partial Class frmMain
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(160, 298)
+        Me.cbNoToaster.Location = New System.Drawing.Point(160, 263)
         Me.cbNoToaster.Name = "cbNoToaster"
         Me.cbNoToaster.Size = New System.Drawing.Size(135, 19)
         Me.cbNoToaster.TabIndex = 2
         Me.cbNoToaster.Text = "Disable Notifications"
         Me.cbNoToaster.UseVisualStyleBackColor = True
         '
-        'lblWallpaperDownload
-        '
-        Me.lblWallpaperDownload.AutoSize = True
-        Me.lblWallpaperDownload.Location = New System.Drawing.Point(12, 427)
-        Me.lblWallpaperDownload.Name = "lblWallpaperDownload"
-        Me.lblWallpaperDownload.Size = New System.Drawing.Size(86, 15)
-        Me.lblWallpaperDownload.TabIndex = 5
-        Me.lblWallpaperDownload.TabStop = True
-        Me.lblWallpaperDownload.Text = "Get Wallpapers"
-        '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 461)
+        Me.Label8.Location = New System.Drawing.Point(12, 427)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(263, 15)
         Me.Label8.TabIndex = 13
@@ -389,7 +358,7 @@ Partial Class frmMain
         'btnApply
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnApply.Location = New System.Drawing.Point(625, 448)
+        Me.btnApply.Location = New System.Drawing.Point(648, 414)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
         Me.btnApply.TabIndex = 7
@@ -402,9 +371,9 @@ Partial Class frmMain
         Me.GroupBox2.Controls.Add(Me.cmbRGBPattern)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Controls.Add(Me.cmbRGBTransform)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 323)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 313)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(460, 83)
+        Me.GroupBox2.Size = New System.Drawing.Size(316, 94)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Static Effects (Only work when not connected to OpenRGB)"
@@ -412,7 +381,7 @@ Partial Class frmMain
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 54)
+        Me.Label9.Location = New System.Drawing.Point(8, 68)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(70, 15)
         Me.Label9.TabIndex = 18
@@ -422,15 +391,15 @@ Partial Class frmMain
         '
         Me.cmbRGBPattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRGBPattern.FormattingEnabled = True
-        Me.cmbRGBPattern.Location = New System.Drawing.Point(148, 51)
+        Me.cmbRGBPattern.Location = New System.Drawing.Point(150, 65)
         Me.cmbRGBPattern.Name = "cmbRGBPattern"
-        Me.cmbRGBPattern.Size = New System.Drawing.Size(306, 23)
+        Me.cmbRGBPattern.Size = New System.Drawing.Size(160, 23)
         Me.cmbRGBPattern.TabIndex = 1
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 25)
+        Me.Label10.Location = New System.Drawing.Point(8, 39)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(85, 15)
         Me.Label10.TabIndex = 17
@@ -440,15 +409,15 @@ Partial Class frmMain
         '
         Me.cmbRGBTransform.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRGBTransform.FormattingEnabled = True
-        Me.cmbRGBTransform.Location = New System.Drawing.Point(148, 22)
+        Me.cmbRGBTransform.Location = New System.Drawing.Point(150, 36)
         Me.cmbRGBTransform.Name = "cmbRGBTransform"
-        Me.cmbRGBTransform.Size = New System.Drawing.Size(306, 23)
+        Me.cmbRGBTransform.Size = New System.Drawing.Size(160, 23)
         Me.cmbRGBTransform.TabIndex = 0
         '
         'cbStaticEffects
         '
         Me.cbStaticEffects.AutoSize = True
-        Me.cbStaticEffects.Location = New System.Drawing.Point(308, 298)
+        Me.cbStaticEffects.Location = New System.Drawing.Point(12, 288)
         Me.cbStaticEffects.Name = "cbStaticEffects"
         Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
         Me.cbStaticEffects.TabIndex = 3
@@ -459,7 +428,7 @@ Partial Class frmMain
         '
         Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
         Me.txtLEDPadding.Name = "txtLEDPadding"
-        Me.txtLEDPadding.Size = New System.Drawing.Size(158, 23)
+        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
         Me.txtLEDPadding.TabIndex = 5
         '
         'frmMain
@@ -468,12 +437,11 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(946, 485)
+        Me.ClientSize = New System.Drawing.Size(969, 451)
         Me.Controls.Add(Me.cbStaticEffects)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnApply)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.lblWallpaperDownload)
         Me.Controls.Add(Me.cbNoToaster)
         Me.Controls.Add(Me.cbStartAtLogin)
         Me.Controls.Add(Me.btnAddScreen)
@@ -531,14 +499,10 @@ Partial Class frmMain
     Friend WithEvents cbNoToaster As CheckBox
     Friend WithEvents Label4 As Label
     Friend WithEvents cmbLedShape As ComboBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents btnBackColor As Button
-    Friend WithEvents ColorDialog1 As ColorDialog
     Friend WithEvents Label6 As Label
     Friend WithEvents cmbPixelOffset As ComboBox
     Friend WithEvents Label7 As Label
     Friend WithEvents txtLEDPadding As NumBox
-    Friend WithEvents lblWallpaperDownload As LinkLabel
     Friend WithEvents Label8 As Label
     Friend WithEvents btnApply As Button
     Friend WithEvents GroupBox2 As GroupBox

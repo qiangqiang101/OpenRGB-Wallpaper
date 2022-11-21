@@ -5,6 +5,8 @@ Public Class ucScreen
     Public Property WScreen() As Screen
 
     Private Sub ucScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cmbImageFit.DataSource = [Enum].GetValues(GetType(ImageFit)).Cast(Of ImageFit)
+
         txtIPAddress.Text = WScreen.IPAddress
         txtPort.Text = WScreen.Port
         txtClientName.Text = WScreen.Name
@@ -23,7 +25,11 @@ Public Class ucScreen
         pbImage.BackgroundImage = WScreen.BackgroundImage.Base64ToImage
         If pbImage.BackgroundImage IsNot Nothing Then btnDelImage.Show()
 
+        btnBackColor.BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
+        cmbImageFit.SelectedItem = WScreen.ImageFit
+
         lblNotify.Visible = False
+        btnApply.Enabled = False
     End Sub
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
@@ -41,10 +47,13 @@ Public Class ucScreen
                 .MatrixWidth = CInt(txtMatrixWidth.Text)
                 .MatrixHeight = CInt(txtMatrixHeight.Text)
                 .BackgroundImage = pbImage.BackgroundImage.ImageToBase64(Imaging.ImageFormat.Png)
+                .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
+                .ImageFit = cmbImageFit.SelectedItem
             End With
             WScreen = newScreen
 
             lblNotify.Visible = False
+            btnApply.Enabled = False
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
         End Try
@@ -63,7 +72,7 @@ Public Class ucScreen
 
     Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
         txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtMatrixHeight.TextChanged, txtMatrixWidth.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
-        cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged
+        cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged, cmbImageFit.SelectedIndexChanged, btnBackColor.BackColorChanged
 
         If sender Is txtMatrixWidth Or sender Is txtMatrixHeight Then
             Try
@@ -73,20 +82,26 @@ Public Class ucScreen
         End If
 
         lblNotify.Visible = True
-    End Sub
-
-    Private Sub pbImage_Click(sender As Object, e As EventArgs) Handles pbImage.Click
-        'Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = False, .Title = "Select Image file..."}
-        'If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
-        '    pbImage.BackgroundImage = Image.FromFile(ofd.FileName)
-        '    btnDelImage.Show()
-        'End If
-        Dim imgDialog As New frmImgDialog With {.ParentPB = pbImage, .ParentDelBtn = btnDelImage}
-        imgDialog.Show()
+        btnApply.Enabled = True
     End Sub
 
     Private Sub btnDelImage_Click(sender As Object, e As EventArgs) Handles btnDelImage.Click
         pbImage.BackgroundImage = Nothing
         btnDelImage.Hide()
+    End Sub
+
+    Private Sub btnChgImage_Click(sender As Object, e As EventArgs) Handles btnChgImage.Click, pbImage.Click
+        Dim imgDialog As New frmImgDialog With {.ParentPB = pbImage, .ParentDelBtn = btnDelImage}
+        imgDialog.Show()
+    End Sub
+
+    Private Sub lblWallpaperDownload_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblWallpaperDownload.LinkClicked
+        Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/tree/master/Wallpaper-Wallpaper")
+    End Sub
+
+    Private Sub btnBackColor_Click(sender As Object, e As EventArgs) Handles btnBackColor.Click
+        If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
+            btnBackColor.BackColor = ColorDialog1.Color
+        End If
     End Sub
 End Class

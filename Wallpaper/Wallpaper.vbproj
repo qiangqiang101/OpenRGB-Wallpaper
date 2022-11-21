@@ -89,9 +89,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Win32Wrapper">
-      <HintPath>..\Win32Wrapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -154,6 +151,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserSettingData.vb" />
+    <Compile Include="Win32Wrapper.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmImgDialog.resx">

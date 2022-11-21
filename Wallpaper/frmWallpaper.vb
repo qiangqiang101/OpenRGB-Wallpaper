@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
 Imports OpenRGB.NET
 
 Public Class frmWallpaper
@@ -11,6 +12,7 @@ Public Class frmWallpaper
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
     Public BackImg As Image = Nothing
+    Public ImgFit As ImageFit = ImageFit.Stretch
     Public WaitForOpenRGB As Boolean = False
 
     Public Property WScreen() As Screen
@@ -28,9 +30,12 @@ Public Class frmWallpaper
     End Sub
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
+        BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
         BackImg = WScreen.BackgroundImage.Base64ToImage
+        ImgFit = WScreen.ImageFit
         DoubleBuffered = True
+        If ImgFit = ImageFit.Fit Then BackImg = BackImg.ResizeImage(ClientRectangle.Size, True)
+
         If Not WaitForOpenRGB Then Connect(WScreen)
     End Sub
 
@@ -209,15 +214,68 @@ Public Class frmWallpaper
         End If
 
         Try
-            If BackImg IsNot Nothing Then graphic.DrawImage(BackImg, ClientRectangle)
+            If BackImg IsNot Nothing Then
+                Select Case ImgFit
+                    Case ImageFit.None
+                        graphic.DrawImage(BackImg, ClientRectangle.X, ClientRectangle.Y, New Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height), GraphicsUnit.Pixel)
+                    Case ImageFit.Center
+                        Dim imgSize As Integer = BackImg.Width + BackImg.Height
+                        Dim crSize As Integer = ClientRectangle.Width + ClientRectangle.Height
+                        Dim iX As Integer = (ClientRectangle.Width - BackImg.Width) / 2
+                        Dim iY As Integer = (ClientRectangle.Height - BackImg.Height) / 2
+
+                        If crSize > imgSize Then
+                            graphic.DrawImage(BackImg, iX, iY, New Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height), GraphicsUnit.Pixel)
+                        Else
+                            graphic.DrawImage(BackImg, iX, iY, New Rectangle(0, 0, BackImg.Width, BackImg.Height), GraphicsUnit.Pixel)
+                        End If
+                    Case ImageFit.Stretch
+                        graphic.DrawImage(BackImg, New RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height), New RectangleF(0, 0, BackImg.Width, BackImg.Height), GraphicsUnit.Pixel)
+                    Case ImageFit.Fill, ImageFit.Fit
+                        Dim aspectRatio As Double
+                        Dim newHeight, newWidth As Integer
+                        Dim maxWidth As Integer = Width
+                        Dim maxHeight As Integer = Width
+
+                        If BackImg.Width > maxWidth Or BackImg.Height > maxHeight Then
+                            If BackImg.Width >= BackImg.Height Then ' image is wider than tall
+                                newWidth = maxWidth
+                                aspectRatio = BackImg.Width / maxWidth
+                                newHeight = CInt(BackImg.Height / aspectRatio)
+                            Else ' image is taller than wide
+                                newHeight = maxHeight
+                                aspectRatio = BackImg.Height / maxHeight
+                                newWidth = CInt(BackImg.Width / aspectRatio)
+                            End If
+                        Else
+                            If BackImg.Width > BackImg.Height Then
+                                newWidth = maxWidth
+                                aspectRatio = BackImg.Width / maxWidth
+                                newHeight = CInt(BackImg.Height / aspectRatio)
+                            Else
+                                newHeight = maxHeight
+                                aspectRatio = BackImg.Height / maxHeight
+                                newWidth = CInt(BackImg.Width / aspectRatio)
+                            End If
+                        End If
+
+                        Dim newX As Integer = (Width - newWidth) / 2
+                        Dim newY As Integer = (Height - newHeight) / 2
+
+                        graphic.DrawImage(BackImg, New RectangleF(newX, newY, newWidth, newHeight))
+                End Select
+
+            End If
         Catch ex As Exception
             renderString = $"{ex.Message}"
         End Try
 
         Try
-            Using sb As New SolidBrush(Color.White)
-                graphic.DrawString(renderString, Font, sb, New RectangleF(20.0F, 20.0F, ClientRectangle.Width - 20.0F, ClientRectangle.Height - 20.0F))
-            End Using
+            If renderString <> Nothing Then
+                Using sb As New SolidBrush(Color.White)
+                    graphic.DrawString(renderString, Font, sb, New RectangleF(20.0F, 20.0F, ClientRectangle.Width - 20.0F, ClientRectangle.Height - 20.0F))
+                End Using
+            End If
         Catch ex As Exception
         End Try
 

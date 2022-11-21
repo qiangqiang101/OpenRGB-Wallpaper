@@ -21,7 +21,7 @@ Public Class frmImgDialog
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        Dim ofd As New OpenFileDialog() With {.Filter = ImageCodecInfo.GetImageEncoders().Aggregate("All Files (*.*)|*.*", Function(s, c) $"{s}|{c.CodecName.Substring(8).Replace("Codec", "Files").Trim()} ({c.FilenameExtension})|{c.FilenameExtension}"), .Multiselect = True, .Title = "Select Image file..."}
+        Dim ofd As New OpenFileDialog() With {.Filter = "PNG Files (*.PNG)|*.PNG", .Multiselect = True, .Title = "Select Image file..."}
         If ofd.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
             For Each file In ofd.FileNames
                 Dim lvi As New ListViewItem(Path.GetFileName(file)) With {.Tag = Image.FromFile(file).ImageToBase64}
@@ -33,17 +33,21 @@ Public Class frmImgDialog
     End Sub
 
     Private Sub SaveUserImage()
-        Dim newImage As New ImageData(UserImageFile)
-        With newImage
-            Dim newImagesLib As New List(Of ImageLib)
-            For Each lvi As ListViewItem In lvFiles.Items
-                newImagesLib.Add(New ImageLib() With {.FileName = lvi.SubItems(0).Text, .Image = lvi.Tag.ToString})
-            Next
-            .ImagesLib = newImagesLib
-            .SaveSilent()
-        End With
+        Try
+            Dim newImage As New ImageData(UserImageFile)
+            With newImage
+                Dim newImagesLib As New List(Of ImageLib)
+                For Each lvi As ListViewItem In lvFiles.Items
+                    newImagesLib.Add(New ImageLib() With {.FileName = lvi.SubItems(0).Text, .Image = lvi.Tag.ToString})
+                Next
+                .ImagesLib = newImagesLib
+                .SaveSilent()
+            End With
 
-        UserImage = New ImageData(UserImageFile).Instance
+            UserImage = New ImageData(UserImageFile).Instance
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
+        End Try
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click

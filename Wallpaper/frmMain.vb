@@ -1,7 +1,4 @@
-﻿Imports Win32Wrapper
-Imports System.Linq
-
-Public Class frmMain
+﻿Public Class frmMain
 
     Private wpForms As New List(Of frmWallpaper)
     Private hiddenAutoStart As Boolean = False
@@ -23,6 +20,7 @@ Public Class frmMain
                 .Autoconnect = False
                 .Timeout = 1000
                 .ProtocolVersion = 2
+                .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
             End With
             Dim screenList As New List(Of Screen)
             screenList.Add(currScreen)
@@ -31,13 +29,12 @@ Public Class frmMain
             With newUserSetting
                 .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
                 .CompositingQuality = Drawing2D.CompositingQuality.HighSpeed
-                .InterpolationMode = Drawing2D.InterpolationMode.NearestNeighbor
+                .InterpolationMode = Drawing2D.InterpolationMode.Bilinear
                 .PixelOffsetMode = Drawing2D.PixelOffsetMode.HighSpeed
                 .LEDShape = LEDShape.Rectangle
                 .StartWithWindows = False
                 .NoToasters = False
                 .TimerIntervals = 30
-                .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
                 .LEDPadding = 0
                 .StaticEffect = False
                 .RGBTrasform = RGBTransform.Slide1
@@ -72,9 +69,8 @@ Public Class frmMain
         cmbRGBTransform.SelectedItem = UserSettings.RGBTrasform
         cmbRGBPattern.SelectedItem = UserSettings.RGBPattern
         cbNoToaster.Checked = UserSettings.NoToasters
-        tbTimerInterval.Value = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+        tbTimerInterval.Value = If(UserSettings.TimerIntervals < 1, 30, UserSettings.TimerIntervals)
         lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
-        btnBackColor.BackColor = ColorTranslator.FromHtml(UserSettings.BackgroundColor)
         txtLEDPadding.Text = UserSettings.LEDPadding
         cbStaticEffects.Checked = UserSettings.StaticEffect
         GroupBox2.Enabled = cbStaticEffects.Checked
@@ -235,7 +231,6 @@ Public Class frmMain
             .InterpolationMode = cmbInterpolation.SelectedItem
             .PixelOffsetMode = cmbPixelOffset.SelectedItem
             .LEDShape = cmbLedShape.SelectedItem
-            .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
             .NoToasters = cbNoToaster.Checked
             .TimerIntervals = tbTimerInterval.Value
             .LEDPadding = CInt(txtLEDPadding.Text)
@@ -328,16 +323,6 @@ Public Class frmMain
         lblTimerInterval.Text = $"Tick Interval ({tbTimerInterval.Value})"
     End Sub
 
-    Private Sub btnBackColor_Click(sender As Object, e As EventArgs) Handles btnBackColor.Click
-        If ColorDialog1.ShowDialog <> DialogResult.Cancel Then
-            btnBackColor.BackColor = ColorDialog1.Color
-        End If
-    End Sub
-
-    Private Sub lblWallpaperDownload_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblWallpaperDownload.LinkClicked
-        Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/tree/master/Wallpaper-Wallpaper")
-    End Sub
-
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
         Dim newUserSetting As New UserSettingData
         With newUserSetting
@@ -347,7 +332,6 @@ Public Class frmMain
             .InterpolationMode = cmbInterpolation.SelectedItem
             .PixelOffsetMode = cmbPixelOffset.SelectedItem
             .LEDShape = cmbLedShape.SelectedItem
-            .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
             .NoToasters = cbNoToaster.Checked
             .TimerIntervals = tbTimerInterval.Value
             .LEDPadding = CInt(txtLEDPadding.Text)
