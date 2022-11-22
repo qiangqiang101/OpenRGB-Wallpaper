@@ -43,12 +43,18 @@ Public Class frmWallpaper
         Try
             oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, ws.Name, ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
         Catch ex As Exception
-            renderString = $"{ex.Message}"
+            renderString = $"46 Connect Error: {ex.Message}"
+            Log(ex)
         End Try
     End Sub
 
     Public Sub Connect()
-        oRgbClient.Connect()
+        Try
+            oRgbClient.Connect()
+        Catch ex As Exception
+            renderString = $"54 Connect Error: {ex.Message}"
+            Log(ex)
+        End Try
     End Sub
 
     Public Sub Reconnect(Optional RemoveWaitForOpenRGB As Boolean = False)
@@ -57,8 +63,13 @@ Public Class frmWallpaper
             If oRgbClient.Connected Then oRgbClient.Dispose()
         End If
 
-        Connect(WScreen)
-        renderString = Nothing
+        Try
+            Connect(WScreen)
+            renderString = Nothing
+        Catch ex As Exception
+            renderString = $"68 Reconnect Error: {ex.Message}"
+            Log(ex)
+        End Try
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -206,7 +217,8 @@ Public Class frmWallpaper
             End If
         Catch ex As Exception
             If Not StaticEffect Then StaticEffect = True
-            renderString = $"{ex.Message}"
+            renderString = $"220 On Paint: {ex.Message}"
+            Log(ex)
         End Try
 
         If StaticEffect Then
@@ -267,7 +279,8 @@ Public Class frmWallpaper
 
             End If
         Catch ex As Exception
-            renderString = $"{ex.Message}"
+            renderString = $"282 On Paint: {ex.Message}"
+            Log(ex)
         End Try
 
         Try
@@ -277,20 +290,10 @@ Public Class frmWallpaper
                 End Using
             End If
         Catch ex As Exception
+            Log(ex)
         End Try
 
         MyBase.OnPaint(e)
-    End Sub
-
-    Private Sub frmWallpaper_DoubleClick(sender As Object, e As EventArgs) Handles Me.DoubleClick
-        If Me.FormBorderStyle = FormBorderStyle.None Then
-            Me.FormBorderStyle = FormBorderStyle.Sizable
-            Me.TopMost = True
-            Me.WindowState = FormWindowState.Maximized
-        Else
-            Me.FormBorderStyle = FormBorderStyle.None
-            Me.TopMost = False
-        End If
     End Sub
 
 End Class

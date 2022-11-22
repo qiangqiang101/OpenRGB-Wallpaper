@@ -1,4 +1,4 @@
-﻿Imports IWshRuntimeLibrary
+﻿
 
 Public Class frmMain
 
@@ -194,6 +194,7 @@ Public Class frmMain
                 SetAsWallpaper(UserSettings.StaticEffect)
             End If
         Else
+            Timer1.Interval = 60000
             If Not UserSettings.NoToasters Then
                 niNotify.BalloonTipText = "OpenRGB process found, applying Wallpaper(s)."
                 niNotify.Visible = True
@@ -258,26 +259,6 @@ Public Class frmMain
         ResetWallpaper()
 
         Visible = False
-    End Sub
-
-    Private Sub CreateShortcutInStartUp()
-        Dim wshShell As New WshShell()
-        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
-
-        Dim shortcut As IWshShortcut = CType(wshShell.CreateShortcut($"{startupFolder}\{Application.ProductName}.lnk"), IWshShortcut)
-        With shortcut
-            .TargetPath = Application.ExecutablePath
-            .WorkingDirectory = Application.StartupPath
-            .Description = "Launch OpenRGB Wallpaper"
-            .Save()
-        End With
-    End Sub
-
-    Private Sub DeleteShortcutInStartup()
-        'Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
-        Dim shortcut As String = $"{startupFolder}\{Application.ProductName}.lnk"
-        If IO.File.Exists(shortcut) Then IO.File.Delete(shortcut)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

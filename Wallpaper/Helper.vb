@@ -2,8 +2,8 @@
 Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Runtime.CompilerServices
-Imports System.Runtime.InteropServices
 Imports OpenRGB.NET
+Imports IWshRuntimeLibrary
 
 Module Helper
 
@@ -131,5 +131,29 @@ Module Helper
         End Using
         Return newImage
     End Function
+
+    Public Sub CreateShortcutInStartUp()
+        Dim wshShell As New WshShell()
+        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
+
+        Dim shortcut As IWshShortcut = CType(wshShell.CreateShortcut($"{startupFolder}\{Application.ProductName}.lnk"), IWshShortcut)
+        With shortcut
+            .TargetPath = Application.ExecutablePath
+            .WorkingDirectory = Application.StartupPath
+            .Description = "Launch OpenRGB Wallpaper"
+            .Save()
+        End With
+    End Sub
+
+    Public Sub DeleteShortcutInStartup()
+        'Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
+        Dim shortcut As String = $"{startupFolder}\{Application.ProductName}.lnk"
+        If IO.File.Exists(shortcut) Then IO.File.Delete(shortcut)
+    End Sub
+
+    Public Sub Log(ex As Exception)
+        IO.File.AppendAllText(IO.Path.Combine($"{My.Application.Info.DirectoryPath}\", $"{Now.ToString("dd-MM-yyyy")}.log"), $"{Now.ToShortTimeString}: {ex.Message}{ex.StackTrace}{vbNewLine}")
+    End Sub
 
 End Module
