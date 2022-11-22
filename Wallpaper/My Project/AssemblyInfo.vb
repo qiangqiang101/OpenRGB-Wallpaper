@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("OpenRGB Wallpaper")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("Turn your wallpaper into an OpenRGB device. You can now control the RGB lighting on your wallpaper and synchronize wallpaper with other OpenRGB compatible devices by OpenRGB.")>
 <Assembly: AssemblyCompany("Zettabyte Technology")>
 <Assembly: AssemblyProduct("OpenRGB Wallpaper")>
 <Assembly: AssemblyCopyright("Copyright © 2022 Zettabyte Technology")>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.7")>
-<Assembly: AssemblyFileVersion("1.0.0.7")>
+<Assembly: AssemblyVersion("1.0.0.8")>
+<Assembly: AssemblyFileVersion("1.0.0.8")>

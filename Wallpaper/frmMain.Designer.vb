@@ -32,12 +32,12 @@ Partial Class frmMain
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MadeWithToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbPixelOffset = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -64,7 +64,6 @@ Partial Class frmMain
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRGBTransform = New System.Windows.Forms.ComboBox()
         Me.cbStaticEffects = New System.Windows.Forms.CheckBox()
-        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,60 +80,54 @@ Partial Class frmMain
         '
         'taskbarMenu
         '
-        Me.taskbarMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectToolStripMenuItem, Me.ReconnectToolStripMenuItem, Me.PauseToolStripMenuItem, Me.ToolStripSeparator1, Me.SettingsToolStripMenuItem, Me.HelpToolStripMenuItem, Me.MadeWithToolStripMenuItem, Me.ToolStripSeparator2, Me.ExitToolStripMenuItem})
+        Me.taskbarMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectToolStripMenuItem, Me.ReconnectToolStripMenuItem, Me.PauseToolStripMenuItem, Me.ToolStripSeparator1, Me.SettingsToolStripMenuItem, Me.HelpToolStripMenuItem, Me.ToolStripSeparator2, Me.ExitToolStripMenuItem})
         Me.taskbarMenu.Name = "taskbarMenu"
-        Me.taskbarMenu.Size = New System.Drawing.Size(331, 170)
+        Me.taskbarMenu.Size = New System.Drawing.Size(131, 148)
         '
         'ConnectToolStripMenuItem
         '
         Me.ConnectToolStripMenuItem.Name = "ConnectToolStripMenuItem"
-        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.ConnectToolStripMenuItem.Text = "Connect"
         '
         'ReconnectToolStripMenuItem
         '
         Me.ReconnectToolStripMenuItem.Name = "ReconnectToolStripMenuItem"
-        Me.ReconnectToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.ReconnectToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.ReconnectToolStripMenuItem.Text = "Reconnect"
         '
         'PauseToolStripMenuItem
         '
         Me.PauseToolStripMenuItem.Name = "PauseToolStripMenuItem"
-        Me.PauseToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.PauseToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.PauseToolStripMenuItem.Text = "Pause"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(327, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(127, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'MadeWithToolStripMenuItem
-        '
-        Me.MadeWithToolStripMenuItem.Name = "MadeWithToolStripMenuItem"
-        Me.MadeWithToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
-        Me.MadeWithToolStripMenuItem.Text = "Made with ❤ by Bartholomew ""Not MentaL"" Ho"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(327, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(127, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(330, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'Timer1
@@ -173,6 +166,13 @@ Partial Class frmMain
         Me.Label7.Size = New System.Drawing.Size(74, 15)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "LED Padding"
+        '
+        'txtLEDPadding
+        '
+        Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
+        Me.txtLEDPadding.Name = "txtLEDPadding"
+        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
+        Me.txtLEDPadding.TabIndex = 5
         '
         'Label6
         '
@@ -424,13 +424,6 @@ Partial Class frmMain
         Me.cbStaticEffects.Text = "Enable Static Effects"
         Me.cbStaticEffects.UseVisualStyleBackColor = True
         '
-        'txtLEDPadding
-        '
-        Me.txtLEDPadding.Location = New System.Drawing.Point(148, 167)
-        Me.txtLEDPadding.Name = "txtLEDPadding"
-        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
-        Me.txtLEDPadding.TabIndex = 5
-        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSave
@@ -493,7 +486,6 @@ Partial Class frmMain
     Friend WithEvents btnAddScreen As Button
     Friend WithEvents PauseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents cbStartAtLogin As CheckBox
-    Friend WithEvents MadeWithToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents lblTimerInterval As Label
     Friend WithEvents tbTimerInterval As TrackBar
     Friend WithEvents cbNoToaster As CheckBox

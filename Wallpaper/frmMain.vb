@@ -1,4 +1,6 @@
-﻿Public Class frmMain
+﻿Imports IWshRuntimeLibrary
+
+Public Class frmMain
 
     Private wpForms As New List(Of frmWallpaper)
     Private hiddenAutoStart As Boolean = False
@@ -259,22 +261,23 @@
     End Sub
 
     Private Sub CreateShortcutInStartUp()
-        Try
-            Dim regKey = My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
-            regKey.SetValue(Application.ProductName, Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
-            regKey.Flush()
-            regKey.Close()
-        Catch ex As Exception
-        End Try
+        Dim wshShell As New WshShell()
+        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
+
+        Dim shortcut As IWshShortcut = CType(wshShell.CreateShortcut($"{startupFolder}\{Application.ProductName}.lnk"), IWshShortcut)
+        With shortcut
+            .TargetPath = Application.ExecutablePath
+            .WorkingDirectory = Application.StartupPath
+            .Description = "Launch OpenRGB Wallpaper"
+            .Save()
+        End With
     End Sub
 
     Private Sub DeleteShortcutInStartup()
-        Try
-            Dim regKey = My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
-            regKey.DeleteValue(Application.ProductName)
-            regKey.Close()
-        Catch ex As Exception
-        End Try
+        'Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        Dim startupFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.Startup)
+        Dim shortcut As String = $"{startupFolder}\{Application.ProductName}.lnk"
+        If IO.File.Exists(shortcut) Then IO.File.Delete(shortcut)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -313,10 +316,6 @@
 
     Private Sub cbStartAtLogin_CheckedChanged(sender As Object, e As EventArgs) Handles cbStartAtLogin.CheckedChanged
         hiddenAutoStart = True
-    End Sub
-
-    Private Sub MadeWithToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MadeWithToolStripMenuItem.Click
-        Process.Start("https://imnotmental.com/")
     End Sub
 
     Private Sub tbTimerInterval_Scroll(sender As Object, e As EventArgs) Handles tbTimerInterval.Scroll
@@ -368,5 +367,9 @@
             e.Cancel = True
             Visible = False
         End If
+    End Sub
+
+    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
+        Process.Start("https://imnotmental.com/")
     End Sub
 End Class
