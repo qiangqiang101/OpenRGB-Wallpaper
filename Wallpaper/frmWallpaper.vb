@@ -41,6 +41,7 @@ Public Class frmWallpaper
 
     Public Sub Connect(ws As Screen)
         Try
+            If Not oRgbClient Is Nothing Then oRgbClient.Dispose()
             oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, ws.Name, ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
         Catch ex As Exception
             renderString = $"46 Connect Error: {ex.Message}"
@@ -172,6 +173,8 @@ Public Class frmWallpaper
                     For j As Integer = 0 To matrix.GetUpperBound(0)
                         For i As Integer = 0 To matrix.GetUpperBound(0)
                             Dim rgbColor = wallpaper.Colors(count).ToColor
+
+
 
                             Using sb As New SolidBrush(rgbColor)
                                 If UserSettings.LEDPadding >= 1 Then

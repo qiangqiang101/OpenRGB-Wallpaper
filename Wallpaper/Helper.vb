@@ -156,4 +156,43 @@ Module Helper
         IO.File.AppendAllText(IO.Path.Combine($"{My.Application.Info.DirectoryPath}\", $"{Now.ToString("dd-MM-yyyy")}.log"), $"{Now.ToShortTimeString}: {ex.Message}{ex.StackTrace}{vbNewLine}")
     End Sub
 
+    <Extension>
+    Public Function RectToImage(brush As SolidBrush, pen As Pen, size As SizeF, shape As LEDShape) As Image
+        Dim bitRect As New Bitmap(CInt(size.Width), CInt(size.Height))
+        bitRect.Tag = brush.Color
+        Dim graphic As Graphics = Graphics.FromImage(bitRect)
+
+        Select Case shape
+            Case LEDShape.Rectangle
+                graphic.FillRectangle(brush, New RectangleF(0, 0, size.Width, size.Height))
+                graphic.DrawRectangle(pen, New Rectangle(0, 0, size.Width, size.Height))
+            Case LEDShape.RoundedRectangle
+                graphic.FillRoundedRectangle(brush, New Rectangle(0, 0, size.Width, size.Height), 10)
+                graphic.DrawRoundedRectangle(pen, New Rectangle(0, 0, size.Width, size.Height), 10)
+            Case LEDShape.Sphere
+                graphic.FillEllipse(brush, New RectangleF(0, 0, size.Width, size.Height))
+                graphic.DrawEllipse(pen, New Rectangle(0, 0, size.Width, size.Height))
+        End Select
+
+        Return bitRect
+    End Function
+
+    <Extension>
+    Public Function RectToImage(brush As SolidBrush, size As SizeF, shape As LEDShape) As Image
+        Dim bitRect As New Bitmap(CInt(size.Width), CInt(size.Height))
+        bitRect.Tag = brush.Color
+        Dim graphic As Graphics = Graphics.FromImage(bitRect)
+
+        Select Case shape
+            Case LEDShape.Rectangle
+                graphic.FillRectangle(brush, New RectangleF(0, 0, size.Width, size.Height))
+            Case LEDShape.RoundedRectangle
+                graphic.FillRoundedRectangle(brush, New Rectangle(0, 0, size.Width, size.Height), 10)
+            Case LEDShape.Sphere
+                graphic.FillEllipse(brush, New RectangleF(0, 0, size.Width, size.Height))
+        End Select
+
+        Return bitRect
+    End Function
+
 End Module
