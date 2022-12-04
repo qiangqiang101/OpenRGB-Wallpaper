@@ -30,7 +30,7 @@ https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wallpaper/-/releases
 - [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
 
 # About Virus
-From the latest release [test result](https://www.virustotal.com/gui/file/9ccabc208d2e819f62f0e742f398fcae9e98e3e574bee73906b0d8dbf5a237e1/detection) shows that 3 out of 72 vendors detected as Malicious, it's false positive, you're safe, if you have doubts, you can build the project by yourself, build instructions can be found below.
+From the latest release [test result](https://www.virustotal.com/gui/file/997f71f0c5fef3c339f841eb606e7c8986e08ee99fbe649504564c86c14a9313/detection) shows that 3 out of 72 vendors detected as Malicious, it's false positive, you're safe, if you have doubts, you can build the project by yourself, build instructions can be found below.
 
 # Build yourself
 You need Visual Studio 2022 or newer, run Wallpaper.sln to begin. Click the Build on menu, select Build Solution.
