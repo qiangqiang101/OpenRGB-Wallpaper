@@ -14,8 +14,6 @@ Public Class frmMain
             With currScreen
                 .Position = System.Windows.Forms.Screen.FromControl(Me).Bounds.Location
                 .Size = System.Windows.Forms.Screen.FromControl(Me).Bounds.Size
-                .MatrixWidth = 32
-                .MatrixHeight = 18
                 .IPAddress = "127.0.0.1"
                 .Port = 6742
                 .Name = "Wallpaper1"
@@ -274,7 +272,7 @@ Public Class frmMain
             With ucScr
                 .WScreen = New Screen() With {.Autoconnect = False, .IPAddress = "127.0.0.1", .Name = $"Wallpaper{UserSettings.Screens.Count + 1}", .Port = 6742,
                     .ProtocolVersion = 2, .Timeout = 1000, .Position = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Location,
-                    .Size = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size, .MatrixWidth = 32, .MatrixHeight = 18}
+                    .Size = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size}
                 .Dock = DockStyle.Fill
             End With
             newTab.Controls.Add(ucScr)

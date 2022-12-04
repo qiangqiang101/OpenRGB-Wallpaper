@@ -44,13 +44,6 @@ Partial Class ucScreen
         Me.txtDisplayX = New Wallpaper.NumBox(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.txtTotalLEDs = New Wallpaper.NumBox(Me.components)
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtMatrixHeight = New Wallpaper.NumBox(Me.components)
-        Me.txtMatrixWidth = New Wallpaper.NumBox(Me.components)
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.lblNotify = New System.Windows.Forms.Label()
@@ -66,7 +59,6 @@ Partial Class ucScreen
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.pbImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -193,7 +185,7 @@ Partial Class ucScreen
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Location = New System.Drawing.Point(3, 144)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(326, 82)
+        Me.GroupBox2.Size = New System.Drawing.Size(326, 85)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Display"
@@ -262,75 +254,11 @@ Partial Class ucScreen
         Me.Label7.TabIndex = 7
         Me.Label7.Text = "Y"
         '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.txtTotalLEDs)
-        Me.GroupBox3.Controls.Add(Me.Label10)
-        Me.GroupBox3.Controls.Add(Me.txtMatrixHeight)
-        Me.GroupBox3.Controls.Add(Me.txtMatrixWidth)
-        Me.GroupBox3.Controls.Add(Me.Label12)
-        Me.GroupBox3.Controls.Add(Me.Label13)
-        Me.GroupBox3.Location = New System.Drawing.Point(3, 232)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(326, 82)
-        Me.GroupBox3.TabIndex = 2
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Matrix Size"
-        '
-        'txtTotalLEDs
-        '
-        Me.txtTotalLEDs.Location = New System.Drawing.Point(74, 51)
-        Me.txtTotalLEDs.Name = "txtTotalLEDs"
-        Me.txtTotalLEDs.ReadOnly = True
-        Me.txtTotalLEDs.Size = New System.Drawing.Size(80, 23)
-        Me.txtTotalLEDs.TabIndex = 2
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 54)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(60, 15)
-        Me.Label10.TabIndex = 9
-        Me.Label10.Text = "Total LEDs"
-        '
-        'txtMatrixHeight
-        '
-        Me.txtMatrixHeight.Location = New System.Drawing.Point(240, 22)
-        Me.txtMatrixHeight.Name = "txtMatrixHeight"
-        Me.txtMatrixHeight.Size = New System.Drawing.Size(80, 23)
-        Me.txtMatrixHeight.TabIndex = 1
-        '
-        'txtMatrixWidth
-        '
-        Me.txtMatrixWidth.Location = New System.Drawing.Point(74, 22)
-        Me.txtMatrixWidth.Name = "txtMatrixWidth"
-        Me.txtMatrixWidth.Size = New System.Drawing.Size(80, 23)
-        Me.txtMatrixWidth.TabIndex = 0
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(6, 25)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(39, 15)
-        Me.Label12.TabIndex = 5
-        Me.Label12.Text = "Width"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(160, 25)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(43, 15)
-        Me.Label13.TabIndex = 7
-        Me.Label13.Text = "Height"
-        '
         'btnApply
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnApply.Enabled = False
-        Me.btnApply.Location = New System.Drawing.Point(518, 318)
+        Me.btnApply.Location = New System.Drawing.Point(518, 266)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
         Me.btnApply.TabIndex = 5
@@ -340,7 +268,7 @@ Partial Class ucScreen
         'btnRemove
         '
         Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(3, 318)
+        Me.btnRemove.Location = New System.Drawing.Point(3, 266)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(99, 25)
         Me.btnRemove.TabIndex = 4
@@ -352,7 +280,7 @@ Partial Class ucScreen
         Me.lblNotify.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNotify.ForeColor = System.Drawing.Color.Red
-        Me.lblNotify.Location = New System.Drawing.Point(108, 318)
+        Me.lblNotify.Location = New System.Drawing.Point(108, 266)
         Me.lblNotify.Name = "lblNotify"
         Me.lblNotify.Size = New System.Drawing.Size(401, 25)
         Me.lblNotify.TabIndex = 5
@@ -372,7 +300,7 @@ Partial Class ucScreen
         Me.GroupBox4.Controls.Add(Me.pbImage)
         Me.GroupBox4.Location = New System.Drawing.Point(335, 3)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(282, 311)
+        Me.GroupBox4.Size = New System.Drawing.Size(282, 257)
         Me.GroupBox4.TabIndex = 3
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Image"
@@ -380,7 +308,7 @@ Partial Class ucScreen
         'lblWallpaperDownload
         '
         Me.lblWallpaperDownload.AutoSize = True
-        Me.lblWallpaperDownload.Location = New System.Drawing.Point(6, 288)
+        Me.lblWallpaperDownload.Location = New System.Drawing.Point(96, 22)
         Me.lblWallpaperDownload.Name = "lblWallpaperDownload"
         Me.lblWallpaperDownload.Size = New System.Drawing.Size(86, 15)
         Me.lblWallpaperDownload.TabIndex = 4
@@ -389,8 +317,7 @@ Partial Class ucScreen
         '
         'btnChgImage
         '
-        Me.btnChgImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnChgImage.Location = New System.Drawing.Point(6, 22)
+        Me.btnChgImage.Location = New System.Drawing.Point(3, 19)
         Me.btnChgImage.Margin = New System.Windows.Forms.Padding(0)
         Me.btnChgImage.Name = "btnChgImage"
         Me.btnChgImage.Size = New System.Drawing.Size(80, 23)
@@ -401,7 +328,7 @@ Partial Class ucScreen
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(6, 250)
+        Me.Label14.Location = New System.Drawing.Point(6, 232)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(103, 15)
         Me.Label14.TabIndex = 13
@@ -410,7 +337,7 @@ Partial Class ucScreen
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 220)
+        Me.Label11.Location = New System.Drawing.Point(6, 202)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(56, 15)
         Me.Label11.TabIndex = 8
@@ -420,7 +347,7 @@ Partial Class ucScreen
         '
         Me.cmbImageFit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbImageFit.FormattingEnabled = True
-        Me.cmbImageFit.Location = New System.Drawing.Point(116, 217)
+        Me.cmbImageFit.Location = New System.Drawing.Point(116, 199)
         Me.cmbImageFit.Name = "cmbImageFit"
         Me.cmbImageFit.Size = New System.Drawing.Size(160, 23)
         Me.cmbImageFit.TabIndex = 2
@@ -428,7 +355,7 @@ Partial Class ucScreen
         'btnBackColor
         '
         Me.btnBackColor.BackColor = System.Drawing.Color.Black
-        Me.btnBackColor.Location = New System.Drawing.Point(116, 246)
+        Me.btnBackColor.Location = New System.Drawing.Point(116, 228)
         Me.btnBackColor.Name = "btnBackColor"
         Me.btnBackColor.Size = New System.Drawing.Size(80, 23)
         Me.btnBackColor.TabIndex = 3
@@ -436,8 +363,7 @@ Partial Class ucScreen
         '
         'btnDelImage
         '
-        Me.btnDelImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnDelImage.Location = New System.Drawing.Point(196, 22)
+        Me.btnDelImage.Location = New System.Drawing.Point(196, 19)
         Me.btnDelImage.Name = "btnDelImage"
         Me.btnDelImage.Size = New System.Drawing.Size(80, 23)
         Me.btnDelImage.TabIndex = 1
@@ -448,9 +374,9 @@ Partial Class ucScreen
         'pbImage
         '
         Me.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pbImage.Location = New System.Drawing.Point(6, 51)
+        Me.pbImage.Location = New System.Drawing.Point(6, 48)
         Me.pbImage.Name = "pbImage"
-        Me.pbImage.Size = New System.Drawing.Size(270, 160)
+        Me.pbImage.Size = New System.Drawing.Size(270, 145)
         Me.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbImage.TabIndex = 6
         Me.pbImage.TabStop = False
@@ -464,19 +390,16 @@ Partial Class ucScreen
         Me.Controls.Add(Me.lblNotify)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnApply)
-        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ucScreen"
-        Me.Size = New System.Drawing.Size(620, 348)
+        Me.Size = New System.Drawing.Size(620, 296)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.pbImage, System.ComponentModel.ISupportInitialize).EndInit()
@@ -505,18 +428,11 @@ Partial Class ucScreen
     Friend WithEvents txtDisplayX As NumBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents txtMatrixHeight As NumBox
-    Friend WithEvents txtMatrixWidth As NumBox
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label13 As Label
     Friend WithEvents btnApply As Button
     Friend WithEvents btnRemove As Button
     Friend WithEvents lblNotify As Label
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents pbImage As PictureBox
-    Friend WithEvents txtTotalLEDs As NumBox
-    Friend WithEvents Label10 As Label
     Friend WithEvents btnDelImage As Button
     Friend WithEvents btnBackColor As Button
     Friend WithEvents Label11 As Label

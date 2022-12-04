@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
+Imports System.Threading
 Imports OpenRGB.NET
 
 Public Class frmWallpaper
@@ -8,6 +9,7 @@ Public Class frmWallpaper
     Dim renderString As String = Nothing
     Dim rgbPosition As Single = 0F
     Dim StaticEffect As Boolean = False
+    Dim thread As Thread
 
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
@@ -34,7 +36,9 @@ Public Class frmWallpaper
         BackImg = WScreen.BackgroundImage.Base64ToImage
         ImgFit = WScreen.ImageFit
         DoubleBuffered = True
-        If ImgFit = ImageFit.Fit Then BackImg = BackImg.ResizeImage(ClientRectangle.Size, True)
+        If BackImg IsNot Nothing Then
+            If ImgFit = ImageFit.Fit Then BackImg = BackImg.ResizeImage(ClientRectangle.Size, True)
+        End If
 
         If Not WaitForOpenRGB Then Connect(WScreen)
     End Sub
@@ -162,9 +166,10 @@ Public Class frmWallpaper
                     If StaticEffect Then StaticEffect = False
 
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
+                    Dim oMatrix = wallpaper.Zones.FirstOrDefault.MatrixMap
 
-                    Dim Width As Integer = WScreen.MatrixWidth
-                    Dim Height As Integer = WScreen.MatrixHeight
+                    Dim Width As Integer = oMatrix.Width
+                    Dim Height As Integer = oMatrix.Height
 
                     Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
 
@@ -173,8 +178,6 @@ Public Class frmWallpaper
                     For j As Integer = 0 To matrix.GetUpperBound(0)
                         For i As Integer = 0 To matrix.GetUpperBound(0)
                             Dim rgbColor = wallpaper.Colors(count).ToColor
-
-
 
                             Using sb As New SolidBrush(rgbColor)
                                 If UserSettings.LEDPadding >= 1 Then

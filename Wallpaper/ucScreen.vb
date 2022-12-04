@@ -19,9 +19,6 @@ Public Class ucScreen
         txtDisplayWidth.Text = WScreen.Size.Width
         txtDisplayHeight.Text = WScreen.Size.Height
 
-        txtMatrixWidth.Text = WScreen.MatrixWidth
-        txtMatrixHeight.Text = WScreen.MatrixHeight
-
         pbImage.BackgroundImage = WScreen.BackgroundImage.Base64ToImage
         If pbImage.BackgroundImage IsNot Nothing Then btnDelImage.Show()
 
@@ -44,8 +41,6 @@ Public Class ucScreen
                 .Autoconnect = cbAutoconnect.Checked
                 .Position = New Point(CInt(txtDisplayX.Text), CInt(txtDisplayY.Text))
                 .Size = New Size(CInt(txtDisplayWidth.Text), CInt(txtDisplayHeight.Text))
-                .MatrixWidth = CInt(txtMatrixWidth.Text)
-                .MatrixHeight = CInt(txtMatrixHeight.Text)
                 .BackgroundImage = pbImage.BackgroundImage.ImageToBase64(Imaging.ImageFormat.Png)
                 .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
                 .ImageFit = cmbImageFit.SelectedItem
@@ -71,15 +66,8 @@ Public Class ucScreen
     End Sub
 
     Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
-        txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtMatrixHeight.TextChanged, txtMatrixWidth.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
+        txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
         cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged, cmbImageFit.SelectedIndexChanged, btnBackColor.BackColorChanged
-
-        If sender Is txtMatrixWidth Or sender Is txtMatrixHeight Then
-            Try
-                txtTotalLEDs.Text = CInt(txtMatrixWidth.Text) * CInt(txtMatrixHeight.Text)
-            Catch ex As Exception
-            End Try
-        End If
 
         lblNotify.Visible = True
         btnApply.Enabled = True
@@ -96,7 +84,7 @@ Public Class ucScreen
     End Sub
 
     Private Sub lblWallpaperDownload_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblWallpaperDownload.LinkClicked
-        Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/tree/master/Wallpaper-Wallpaper")
+        Process.Start("https://github.com/qiangqiang101/OpenRGB-Wallpaper/wiki/Wallpapers")
     End Sub
 
     Private Sub btnBackColor_Click(sender As Object, e As EventArgs) Handles btnBackColor.Click

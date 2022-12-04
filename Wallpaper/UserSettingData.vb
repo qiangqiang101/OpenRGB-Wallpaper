@@ -125,10 +125,6 @@ Public Structure Screen
     Public ImageFit As ImageFit
     Public BackgroundColor As String
 
-    'Matrix
-    Public MatrixWidth As Integer
-    Public MatrixHeight As Integer
-
 End Structure
 
 Public Enum LEDShape
