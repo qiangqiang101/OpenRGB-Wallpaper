@@ -156,6 +156,10 @@ Module Helper
         IO.File.AppendAllText(IO.Path.Combine($"{My.Application.Info.DirectoryPath}\", $"{Now.ToString("dd-MM-yyyy")}.log"), $"{Now.ToShortTimeString}: {ex.Message}{ex.StackTrace}{vbNewLine}")
     End Sub
 
+    Public Sub Log(text As String)
+        IO.File.AppendAllText(IO.Path.Combine($"{My.Application.Info.DirectoryPath}\", $"{Now.ToString("dd-MM-yyyy")}.log"), $"{Now.ToShortTimeString}: {text}{vbNewLine}")
+    End Sub
+
     <Extension>
     Public Function RectToImage(brush As SolidBrush, pen As Pen, size As SizeF, shape As LEDShape) As Image
         Dim bitRect As New Bitmap(CInt(size.Width), CInt(size.Height))

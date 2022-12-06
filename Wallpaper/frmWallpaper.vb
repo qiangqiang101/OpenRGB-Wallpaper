@@ -9,7 +9,6 @@ Public Class frmWallpaper
     Dim renderString As String = Nothing
     Dim rgbPosition As Single = 0F
     Dim StaticEffect As Boolean = False
-    Dim thread As Thread
 
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
