@@ -46,7 +46,7 @@ Start Universe: 1
 Start Channel: 1
 Number of LEDs: 576
 Type: Matrix
-Matrix Width: 36
+Matrix Width: 32
 Matrix Height: 18
 Matrix Order: Horizontal Top Left
 RGB Order: GRB
