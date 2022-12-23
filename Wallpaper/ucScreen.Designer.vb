@@ -258,7 +258,7 @@ Partial Class ucScreen
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnApply.Enabled = False
-        Me.btnApply.Location = New System.Drawing.Point(518, 266)
+        Me.btnApply.Location = New System.Drawing.Point(232, 570)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
         Me.btnApply.TabIndex = 5
@@ -268,7 +268,7 @@ Partial Class ucScreen
         'btnRemove
         '
         Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(3, 266)
+        Me.btnRemove.Location = New System.Drawing.Point(3, 570)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(99, 25)
         Me.btnRemove.TabIndex = 4
@@ -280,9 +280,9 @@ Partial Class ucScreen
         Me.lblNotify.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNotify.ForeColor = System.Drawing.Color.Red
-        Me.lblNotify.Location = New System.Drawing.Point(108, 266)
+        Me.lblNotify.Location = New System.Drawing.Point(3, 538)
         Me.lblNotify.Name = "lblNotify"
-        Me.lblNotify.Size = New System.Drawing.Size(401, 25)
+        Me.lblNotify.Size = New System.Drawing.Size(328, 29)
         Me.lblNotify.TabIndex = 5
         Me.lblNotify.Text = "You have unsave changes."
         Me.lblNotify.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -298,9 +298,9 @@ Partial Class ucScreen
         Me.GroupBox4.Controls.Add(Me.btnBackColor)
         Me.GroupBox4.Controls.Add(Me.btnDelImage)
         Me.GroupBox4.Controls.Add(Me.pbImage)
-        Me.GroupBox4.Location = New System.Drawing.Point(335, 3)
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 235)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(282, 257)
+        Me.GroupBox4.Size = New System.Drawing.Size(326, 300)
         Me.GroupBox4.TabIndex = 3
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Image"
@@ -308,7 +308,7 @@ Partial Class ucScreen
         'lblWallpaperDownload
         '
         Me.lblWallpaperDownload.AutoSize = True
-        Me.lblWallpaperDownload.Location = New System.Drawing.Point(96, 22)
+        Me.lblWallpaperDownload.Location = New System.Drawing.Point(119, 23)
         Me.lblWallpaperDownload.Name = "lblWallpaperDownload"
         Me.lblWallpaperDownload.Size = New System.Drawing.Size(86, 15)
         Me.lblWallpaperDownload.TabIndex = 4
@@ -317,7 +317,7 @@ Partial Class ucScreen
         '
         'btnChgImage
         '
-        Me.btnChgImage.Location = New System.Drawing.Point(3, 19)
+        Me.btnChgImage.Location = New System.Drawing.Point(6, 22)
         Me.btnChgImage.Margin = New System.Windows.Forms.Padding(0)
         Me.btnChgImage.Name = "btnChgImage"
         Me.btnChgImage.Size = New System.Drawing.Size(80, 23)
@@ -328,7 +328,7 @@ Partial Class ucScreen
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(6, 232)
+        Me.Label14.Location = New System.Drawing.Point(6, 275)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(103, 15)
         Me.Label14.TabIndex = 13
@@ -337,7 +337,7 @@ Partial Class ucScreen
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 202)
+        Me.Label11.Location = New System.Drawing.Point(6, 245)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(56, 15)
         Me.Label11.TabIndex = 8
@@ -347,7 +347,7 @@ Partial Class ucScreen
         '
         Me.cmbImageFit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbImageFit.FormattingEnabled = True
-        Me.cmbImageFit.Location = New System.Drawing.Point(116, 199)
+        Me.cmbImageFit.Location = New System.Drawing.Point(160, 242)
         Me.cmbImageFit.Name = "cmbImageFit"
         Me.cmbImageFit.Size = New System.Drawing.Size(160, 23)
         Me.cmbImageFit.TabIndex = 2
@@ -355,7 +355,7 @@ Partial Class ucScreen
         'btnBackColor
         '
         Me.btnBackColor.BackColor = System.Drawing.Color.Black
-        Me.btnBackColor.Location = New System.Drawing.Point(116, 228)
+        Me.btnBackColor.Location = New System.Drawing.Point(160, 271)
         Me.btnBackColor.Name = "btnBackColor"
         Me.btnBackColor.Size = New System.Drawing.Size(80, 23)
         Me.btnBackColor.TabIndex = 3
@@ -363,7 +363,7 @@ Partial Class ucScreen
         '
         'btnDelImage
         '
-        Me.btnDelImage.Location = New System.Drawing.Point(196, 19)
+        Me.btnDelImage.Location = New System.Drawing.Point(240, 19)
         Me.btnDelImage.Name = "btnDelImage"
         Me.btnDelImage.Size = New System.Drawing.Size(80, 23)
         Me.btnDelImage.TabIndex = 1
@@ -376,7 +376,7 @@ Partial Class ucScreen
         Me.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pbImage.Location = New System.Drawing.Point(6, 48)
         Me.pbImage.Name = "pbImage"
-        Me.pbImage.Size = New System.Drawing.Size(270, 145)
+        Me.pbImage.Size = New System.Drawing.Size(314, 188)
         Me.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbImage.TabIndex = 6
         Me.pbImage.TabStop = False
@@ -395,7 +395,7 @@ Partial Class ucScreen
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ucScreen"
-        Me.Size = New System.Drawing.Size(620, 296)
+        Me.Size = New System.Drawing.Size(334, 600)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)

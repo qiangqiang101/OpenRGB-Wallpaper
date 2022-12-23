@@ -15,6 +15,7 @@ Public Class frmWallpaper
     Public BackImg As Image = Nothing
     Public ImgFit As ImageFit = ImageFit.Stretch
     Public WaitForOpenRGB As Boolean = False
+    Public cpuUsage As New PerformanceCounter("Processor", "% Processor Time", "_Total")
 
     Public Property WScreen() As Screen
 
@@ -25,16 +26,14 @@ Public Class frmWallpaper
 
         ' Add any initialization after the InitializeComponent() call.
 
-        SetStyle(ControlStyles.UserPaint, True)
-        SetStyle(ControlStyles.AllPaintingInWmPaint, True)
-        SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        DoubleBuffered = True
     End Sub
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
         BackImg = WScreen.BackgroundImage.Base64ToImage
         ImgFit = WScreen.ImageFit
-        DoubleBuffered = True
+
         If BackImg IsNot Nothing Then
             If ImgFit = ImageFit.Fit Then BackImg = BackImg.ResizeImage(ClientRectangle.Size, True)
         End If
@@ -47,7 +46,7 @@ Public Class frmWallpaper
             If Not oRgbClient Is Nothing Then oRgbClient.Dispose()
             oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, ws.Name, ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
         Catch ex As Exception
-            renderString = $"46 Connect Error: {ex.Message}"
+            renderString = $"48 Connect Error: {ex.Message}"
             Log(ex)
         End Try
     End Sub
@@ -56,7 +55,7 @@ Public Class frmWallpaper
         Try
             oRgbClient.Connect()
         Catch ex As Exception
-            renderString = $"54 Connect Error: {ex.Message}"
+            renderString = $"57 Connect Error: {ex.Message}"
             Log(ex)
         End Try
     End Sub
@@ -71,13 +70,21 @@ Public Class frmWallpaper
             Connect(WScreen)
             renderString = Nothing
         Catch ex As Exception
-            renderString = $"68 Reconnect Error: {ex.Message}"
+            renderString = $"72 Reconnect Error: {ex.Message}"
             Log(ex)
         End Try
     End Sub
 
+    Private Function HighCpuUsage() As Boolean
+        If UserSettings.AutoPause Then
+            Return CInt(Math.Ceiling(cpuUsage.NextValue)) >= UserSettings.CpuUsagePauseValue
+        Else
+            Return False
+        End If
+    End Function
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        If Not IsPaused Then
+        If Not IsPaused AndAlso Not HighCpuUsage() Then
             Invalidate()
 
             If UserSettings.StaticEffect AndAlso StaticEffect Then
@@ -145,7 +152,7 @@ Public Class frmWallpaper
 
             PrepareGraphics(graphic)
 
-            Dim rgbImg As New Bitmap(size.Width, size.Height)
+            Dim rgbImg As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppPArgb)
             Using g As Graphics = Graphics.FromImage(rgbImg)
                 PrepareGraphics(g)
                 g.FillRectangle(theBrush, 0, 0, size.Width, size.Height)
@@ -158,6 +165,7 @@ Public Class frmWallpaper
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         Dim graphic As Graphics = e.Graphics
         PrepareGraphics(graphic)
+        graphic.Clear(BackColor)
 
         Try
             If oRgbClient IsNot Nothing Then
@@ -179,36 +187,20 @@ Public Class frmWallpaper
                             Dim rgbColor = wallpaper.Colors(count).ToColor
 
                             Using sb As New SolidBrush(rgbColor)
-                                If UserSettings.LEDPadding >= 1 Then
-                                    Using pen As New Pen(BackColor, UserSettings.LEDPadding)
-                                        Dim X As Single = rectangleSize.Width * i
-                                        Dim Y As Single = rectangleSize.Height * j
+                                Dim X As Single = rectangleSize.Width * i
+                                Dim Y As Single = rectangleSize.Height * j
+                                Dim W As Single = rectangleSize.Width
+                                Dim H As Single = rectangleSize.Height
+                                Dim P As Single = UserSettings.LEDPadding
 
-                                        Select Case UserSettings.LEDShape
-                                            Case LEDShape.Rectangle
-                                                graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                                graphic.DrawRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                            Case LEDShape.RoundedRectangle
-                                                graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-                                                graphic.DrawRoundedRectangle(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-                                            Case LEDShape.Sphere
-                                                graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                                graphic.DrawEllipse(pen, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                        End Select
-                                    End Using
-                                Else
-                                    Dim X As Single = rectangleSize.Width * i
-                                    Dim Y As Single = rectangleSize.Height * j
-
-                                    Select Case UserSettings.LEDShape
-                                        Case LEDShape.Rectangle
-                                            graphic.FillRectangle(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                        Case LEDShape.RoundedRectangle
-                                            graphic.FillRoundedRectangle(sb, New Rectangle(X, Y, rectangleSize.Width, rectangleSize.Height), 10)
-                                        Case LEDShape.Sphere
-                                            graphic.FillEllipse(sb, New RectangleF(X, Y, rectangleSize.Width, rectangleSize.Height))
-                                    End Select
-                                End If
+                                Select Case UserSettings.LEDShape
+                                    Case LEDShape.Rectangle
+                                        graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                    Case LEDShape.RoundedRectangle
+                                        graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
+                                    Case LEDShape.Sphere
+                                        graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                End Select
                             End Using
                             count += 1
                             If count >= wallpaper.Leds.Count Then count = 0
@@ -222,7 +214,7 @@ Public Class frmWallpaper
             End If
         Catch ex As Exception
             If Not StaticEffect Then StaticEffect = True
-            renderString = $"220 On Paint: {ex.Message}"
+            renderString = $"208 On Paint: {ex.Message}"
             Log(ex)
         End Try
 
@@ -284,15 +276,13 @@ Public Class frmWallpaper
 
             End If
         Catch ex As Exception
-            renderString = $"282 On Paint: {ex.Message}"
+            renderString = $"270 On Paint: {ex.Message}"
             Log(ex)
         End Try
 
         Try
             If renderString <> Nothing Then
-                Using sb As New SolidBrush(Color.White)
-                    graphic.DrawString(renderString, Font, sb, New RectangleF(20.0F, 20.0F, ClientRectangle.Width - 20.0F, ClientRectangle.Height - 20.0F))
-                End Using
+                TextRenderer.DrawText(graphic, renderString, Font, New Point(20, 20), Color.White)
             End If
         Catch ex As Exception
             Log(ex)

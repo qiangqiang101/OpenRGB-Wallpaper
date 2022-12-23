@@ -26,10 +26,15 @@ Public Structure UserSettingData
     Public InterpolationMode As Drawing2D.InterpolationMode
     Public PixelOffsetMode As Drawing2D.PixelOffsetMode
     Public LEDShape As LEDShape
+    Public LEDPadding As Single
+    Public TimerIntervals As Integer
+    Public RoundedRectangleCornerRadius As Integer
+
+    'General
     Public StartWithWindows As Boolean
     Public NoToasters As Boolean
-    Public TimerIntervals As Integer
-    Public LEDPadding As Single
+    Public AutoPause As Boolean
+    Public CpuUsagePauseValue As Integer
 
     'Static Effects
     Public StaticEffect As Boolean

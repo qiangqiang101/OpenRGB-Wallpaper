@@ -39,6 +39,9 @@ Public Class frmMain
                 .StaticEffect = False
                 .RGBTrasform = RGBTransform.Slide1
                 .RGBPattern = RGBPattern.Rainbow
+                .RoundedRectangleCornerRadius = 10
+                .AutoPause = True
+                .CpuUsagePauseValue = 70
                 .Screens = screenList
                 .SaveSilentXml()
             End With
@@ -74,6 +77,14 @@ Public Class frmMain
         txtLEDPadding.Text = UserSettings.LEDPadding
         cbStaticEffects.Checked = UserSettings.StaticEffect
         GroupBox2.Enabled = cbStaticEffects.Checked
+
+        txtRoundRectRadius.Text = UserSettings.RoundedRectangleCornerRadius
+        numCPUUsageValue.Value = If(UserSettings.CpuUsagePauseValue = 0, 10, UserSettings.CpuUsagePauseValue)
+        cbAutoPause.Checked = UserSettings.AutoPause
+        cbAutoPause.Text = $"Automatically pause when CPU Usage reaches {numCPUUsageValue.Value}%"
+
+        txtRoundRectRadius.Enabled = (cmbLedShape.SelectedItem = LEDShape.RoundedRectangle)
+        numCPUUsageValue.Enabled = cbAutoPause.Checked
 
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
@@ -245,6 +256,9 @@ Public Class frmMain
             Next
             .Screens = newScreenList
             .StartWithWindows = cbStartAtLogin.Checked
+            .RoundedRectangleCornerRadius = CInt(txtRoundRectRadius.Text)
+            .AutoPause = cbAutoPause.Checked
+            .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
             .SaveXml()
         End With
 
@@ -323,6 +337,9 @@ Public Class frmMain
             Next
             .Screens = newScreenList
             .StartWithWindows = cbStartAtLogin.Checked
+            .RoundedRectangleCornerRadius = CInt(txtRoundRectRadius.Text)
+            .AutoPause = cbAutoPause.Checked
+            .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
             .SaveSilentXml()
         End With
 
@@ -339,6 +356,14 @@ Public Class frmMain
         GroupBox2.Enabled = cbStaticEffects.Checked
     End Sub
 
+    Private Sub cbAutoPause_CheckedChanged(sender As Object, e As EventArgs) Handles cbAutoPause.CheckedChanged
+        numCPUUsageValue.Enabled = cbAutoPause.Checked
+    End Sub
+
+    Private Sub cmbLedShape_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLedShape.SelectedIndexChanged
+        txtRoundRectRadius.Enabled = (cmbLedShape.SelectedItem = LEDShape.RoundedRectangle)
+    End Sub
+
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If e.CloseReason = CloseReason.WindowsShutDown Then Return
 
@@ -350,5 +375,9 @@ Public Class frmMain
 
     Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
         Process.Start("https://imnotmental.com/")
+    End Sub
+
+    Private Sub numCPUUsageValue_ValueChanged(sender As Object, e As EventArgs) Handles numCPUUsageValue.ValueChanged
+        cbAutoPause.Text = $"Automatically pause when CPU Usage reaches {numCPUUsageValue.Value}%"
     End Sub
 End Class
