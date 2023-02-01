@@ -212,18 +212,21 @@ Public Class W32
     '<DllImport("user32.dll")>
     'Public Shared Function GetDCEx(ByVal hWnd As IntPtr, ByVal hrgnClip As IntPtr, ByVal flags As DeviceContextValues) As IntPtr
     'End Function
-    '<DllImport("user32.dll", EntryPoint:="GetDesktopWindow")>
-    'Public Shared Function GetDesktopWindow() As IntPtr
-    'End Function
-    '<DllImport("user32.dll")>
-    'Public Shared Function GetForegroundWindow() As IntPtr
-    'End Function
+    <DllImport("user32.dll", EntryPoint:="GetDesktopWindow")>
+    Public Shared Function GetDesktopWindow() As IntPtr
+    End Function
+    <DllImport("user32.dll")>
+    Public Shared Function GetForegroundWindow() As IntPtr
+    End Function
     '<DllImport("user32.dll", ExactSpelling:=True, CharSet:=CharSet.Auto)>
     'Public Shared Function GetParent(ByVal hWnd As IntPtr) As IntPtr
     'End Function
-    '<DllImport("user32.dll")>
-    'Public Shared Function GetShellWindow() As IntPtr
-    'End Function
+    <DllImport("user32.dll")>
+    Public Shared Function GetShellWindow() As IntPtr
+    End Function
+    <DllImport("user32.dll", SetLastError:=True)>
+    Public Shared Function GetWindowRect(ByVal hWnd As IntPtr, <Out> ByRef rc As RECT) As Integer
+    End Function
     '<DllImport("user32.dll", EntryPoint:="GetSystemMetrics")>
     'Public Shared Function GetSystemMetrics(ByVal abc As Integer) As Integer
     'End Function

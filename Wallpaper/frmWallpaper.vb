@@ -3,12 +3,14 @@ Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
 Imports System.Threading
 Imports OpenRGB.NET
+Imports swfScreen = System.Windows.Forms.Screen
 
 Public Class frmWallpaper
 
     Dim renderString As String = Nothing
     Dim rgbPosition As Single = 0F
     Dim StaticEffect As Boolean = False
+    Dim OffColor As Color = Color.FromArgb(255, 0, 0, 0)
 
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
@@ -185,23 +187,25 @@ Public Class frmWallpaper
                     For j As Integer = 0 To matrix.GetUpperBound(0)
                         For i As Integer = 0 To matrix.GetUpperBound(0)
                             Dim rgbColor = wallpaper.Colors(count).ToColor
+                            If rgbColor <> OffColor Then
+                                Using sb As New SolidBrush(rgbColor)
+                                    Dim X As Single = rectangleSize.Width * i
+                                    Dim Y As Single = rectangleSize.Height * j
+                                    Dim W As Single = rectangleSize.Width
+                                    Dim H As Single = rectangleSize.Height
+                                    Dim P As Single = UserSettings.LEDPadding
 
-                            Using sb As New SolidBrush(rgbColor)
-                                Dim X As Single = rectangleSize.Width * i
-                                Dim Y As Single = rectangleSize.Height * j
-                                Dim W As Single = rectangleSize.Width
-                                Dim H As Single = rectangleSize.Height
-                                Dim P As Single = UserSettings.LEDPadding
+                                    Select Case UserSettings.LEDShape
+                                        Case LEDShape.Rectangle
+                                            graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                        Case LEDShape.RoundedRectangle
+                                            graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
+                                        Case LEDShape.Sphere
+                                            graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                    End Select
+                                End Using
+                            End If
 
-                                Select Case UserSettings.LEDShape
-                                    Case LEDShape.Rectangle
-                                        graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                    Case LEDShape.RoundedRectangle
-                                        graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
-                                    Case LEDShape.Sphere
-                                        graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                End Select
-                            End Using
                             count += 1
                             If count >= wallpaper.Leds.Count Then count = 0
                         Next
