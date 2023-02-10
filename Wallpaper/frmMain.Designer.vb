@@ -66,10 +66,11 @@ Partial Class frmMain
         Me.cbStaticEffects = New System.Windows.Forms.CheckBox()
         Me.cbAutoPause = New System.Windows.Forms.CheckBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtRoundRectRadius = New Wallpaper.NumBox(Me.components)
-        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.numCPUUsageValue = New System.Windows.Forms.NumericUpDown()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.txtRoundRectRadius = New Wallpaper.NumBox(Me.components)
+        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -454,20 +455,6 @@ Partial Class frmMain
         Me.Label11.TabIndex = 20
         Me.Label11.Text = "CPU Usage Pause Value"
         '
-        'txtRoundRectRadius
-        '
-        Me.txtRoundRectRadius.Location = New System.Drawing.Point(177, 167)
-        Me.txtRoundRectRadius.Name = "txtRoundRectRadius"
-        Me.txtRoundRectRadius.Size = New System.Drawing.Size(80, 23)
-        Me.txtRoundRectRadius.TabIndex = 5
-        '
-        'txtLEDPadding
-        '
-        Me.txtLEDPadding.Location = New System.Drawing.Point(177, 196)
-        Me.txtLEDPadding.Name = "txtLEDPadding"
-        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
-        Me.txtLEDPadding.TabIndex = 6
-        '
         'numCPUUsageValue
         '
         Me.numCPUUsageValue.Location = New System.Drawing.Point(189, 347)
@@ -485,6 +472,25 @@ Partial Class frmMain
         Me.Label12.Size = New System.Drawing.Size(17, 15)
         Me.Label12.TabIndex = 21
         Me.Label12.Text = "%"
+        '
+        'Timer2
+        '
+        Me.Timer2.Enabled = True
+        Me.Timer2.Interval = 5000
+        '
+        'txtRoundRectRadius
+        '
+        Me.txtRoundRectRadius.Location = New System.Drawing.Point(177, 167)
+        Me.txtRoundRectRadius.Name = "txtRoundRectRadius"
+        Me.txtRoundRectRadius.Size = New System.Drawing.Size(80, 23)
+        Me.txtRoundRectRadius.TabIndex = 5
+        '
+        'txtLEDPadding
+        '
+        Me.txtLEDPadding.Location = New System.Drawing.Point(177, 196)
+        Me.txtLEDPadding.Name = "txtLEDPadding"
+        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
+        Me.txtLEDPadding.TabIndex = 6
         '
         'frmMain
         '
@@ -576,4 +582,5 @@ Partial Class frmMain
     Friend WithEvents Label11 As Label
     Friend WithEvents numCPUUsageValue As NumericUpDown
     Friend WithEvents Label12 As Label
+    Friend WithEvents Timer2 As Timer
 End Class

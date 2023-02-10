@@ -8,7 +8,12 @@ Public Class frmMain
 
     Public Property CurrentTabIndex() As Integer = 0
 
+    Private explorerPID As Integer = 0
+
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim explorer As Process = Process.GetProcessesByName("explorer").FirstOrDefault
+        explorerPID = explorer.Id
+
         If Not IO.File.Exists(UserSettingFile) Then
             Dim currScreen As New Screen()
             With currScreen
@@ -107,6 +112,26 @@ Public Class frmMain
             niNotify.Visible = True
             niNotify.ShowBalloonTip(1000)
             niNotify.Text = "OpenRGB Wallpaper"
+        End If
+
+        Dim OpenRGB As Process() = Process.GetProcessesByName("OpenRGB")
+        If OpenRGB.Length <> 0 Then
+            If UserSettings.StaticEffect Then
+                Threading.Thread.Sleep(1000)
+
+                If wpForms.Count = 0 Then
+                    Threading.Thread.Sleep(1000)
+                    SetAsWallpaper(UserSettings.StaticEffect)
+                Else
+                    For Each form In wpForms
+                        form.Reconnect(UserSettings.StaticEffect)
+                    Next
+                    Timer1.Stop()
+                End If
+            Else
+                Threading.Thread.Sleep(1000)
+                SetAsWallpaper()
+            End If
         End If
     End Sub
 
@@ -226,6 +251,17 @@ Public Class frmMain
             Else
                 Threading.Thread.Sleep(1000)
                 SetAsWallpaper()
+            End If
+        End If
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+        Dim OpenRGB As Process() = Process.GetProcessesByName("OpenRGB")
+        Dim explorer As Process = Process.GetProcessesByName("explorer").FirstOrDefault
+        If explorer.Id <> explorerPID Then
+            If Not OpenRGB.Length = 0 Then
+                ResetWallpaper()
+                explorerPID = explorer.Id
             End If
         End If
     End Sub
@@ -379,5 +415,9 @@ Public Class frmMain
 
     Private Sub numCPUUsageValue_ValueChanged(sender As Object, e As EventArgs) Handles numCPUUsageValue.ValueChanged
         cbAutoPause.Text = $"Automatically pause when CPU Usage reaches {numCPUUsageValue.Value}%"
+    End Sub
+
+    Private Sub niNotify_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles niNotify.MouseDoubleClick
+        Visible = True
     End Sub
 End Class
