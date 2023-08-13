@@ -71,6 +71,7 @@ Partial Class frmMain
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.txtRoundRectRadius = New Wallpaper.NumBox(Me.components)
         Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
+        Me.cbGrayscaleIcon = New System.Windows.Forms.CheckBox()
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -350,7 +351,7 @@ Partial Class frmMain
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(162, 296)
+        Me.cbNoToaster.Location = New System.Drawing.Point(12, 321)
         Me.cbNoToaster.Name = "cbNoToaster"
         Me.cbNoToaster.Size = New System.Drawing.Size(135, 19)
         Me.cbNoToaster.TabIndex = 2
@@ -383,7 +384,7 @@ Partial Class frmMain
         Me.GroupBox2.Controls.Add(Me.cmbRGBPattern)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Controls.Add(Me.cmbRGBTransform)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 400)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 451)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(343, 82)
         Me.GroupBox2.TabIndex = 6
@@ -429,7 +430,7 @@ Partial Class frmMain
         'cbStaticEffects
         '
         Me.cbStaticEffects.AutoSize = True
-        Me.cbStaticEffects.Location = New System.Drawing.Point(12, 375)
+        Me.cbStaticEffects.Location = New System.Drawing.Point(12, 426)
         Me.cbStaticEffects.Name = "cbStaticEffects"
         Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
         Me.cbStaticEffects.TabIndex = 5
@@ -439,7 +440,7 @@ Partial Class frmMain
         'cbAutoPause
         '
         Me.cbAutoPause.AutoSize = True
-        Me.cbAutoPause.Location = New System.Drawing.Point(12, 321)
+        Me.cbAutoPause.Location = New System.Drawing.Point(12, 346)
         Me.cbAutoPause.Name = "cbAutoPause"
         Me.cbAutoPause.Size = New System.Drawing.Size(292, 19)
         Me.cbAutoPause.TabIndex = 3
@@ -449,7 +450,7 @@ Partial Class frmMain
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(12, 349)
+        Me.Label11.Location = New System.Drawing.Point(12, 374)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(130, 15)
         Me.Label11.TabIndex = 20
@@ -457,7 +458,7 @@ Partial Class frmMain
         '
         'numCPUUsageValue
         '
-        Me.numCPUUsageValue.Location = New System.Drawing.Point(189, 347)
+        Me.numCPUUsageValue.Location = New System.Drawing.Point(189, 372)
         Me.numCPUUsageValue.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.numCPUUsageValue.Name = "numCPUUsageValue"
         Me.numCPUUsageValue.Size = New System.Drawing.Size(80, 23)
@@ -467,7 +468,7 @@ Partial Class frmMain
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(275, 349)
+        Me.Label12.Location = New System.Drawing.Point(275, 374)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(17, 15)
         Me.Label12.TabIndex = 21
@@ -492,6 +493,16 @@ Partial Class frmMain
         Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
         Me.txtLEDPadding.TabIndex = 6
         '
+        'cbGrayscaleIcon
+        '
+        Me.cbGrayscaleIcon.AutoSize = True
+        Me.cbGrayscaleIcon.Location = New System.Drawing.Point(12, 401)
+        Me.cbGrayscaleIcon.Name = "cbGrayscaleIcon"
+        Me.cbGrayscaleIcon.Size = New System.Drawing.Size(126, 19)
+        Me.cbGrayscaleIcon.TabIndex = 22
+        Me.cbGrayscaleIcon.Text = "Grayscale Tray Icon"
+        Me.cbGrayscaleIcon.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSave
@@ -499,6 +510,7 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(708, 706)
+        Me.Controls.Add(Me.cbGrayscaleIcon)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.numCPUUsageValue)
         Me.Controls.Add(Me.Label11)
@@ -576,6 +588,7 @@ Partial Class frmMain
     Friend WithEvents Label10 As Label
     Friend WithEvents cmbRGBTransform As ComboBox
     Friend WithEvents cbStaticEffects As CheckBox
+    Friend WithEvents cbGrayscaleIcon As CheckBox
     Friend WithEvents Label5 As Label
     Friend WithEvents txtRoundRectRadius As NumBox
     Friend WithEvents cbAutoPause As CheckBox

@@ -31,6 +31,14 @@ Public Class frmWallpaper
         DoubleBuffered = True
     End Sub
 
+    Protected Overloads Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim MyCreateParams As CreateParams = MyBase.CreateParams
+            MyCreateParams.ExStyle = MyCreateParams.ExStyle Or &H80
+            Return MyCreateParams
+        End Get
+    End Property
+
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
         BackImg = WScreen.BackgroundImage.Base64ToImage

@@ -82,6 +82,7 @@ Public Class frmMain
         txtLEDPadding.Text = UserSettings.LEDPadding
         cbStaticEffects.Checked = UserSettings.StaticEffect
         GroupBox2.Enabled = cbStaticEffects.Checked
+        cbGrayscaleIcon.Checked = UserSettings.GrayscaleTrayIcon
 
         txtRoundRectRadius.Text = UserSettings.RoundedRectangleCornerRadius
         numCPUUsageValue.Value = If(UserSettings.CpuUsagePauseValue = 0, 10, UserSettings.CpuUsagePauseValue)
@@ -133,6 +134,8 @@ Public Class frmMain
                 SetAsWallpaper()
             End If
         End If
+
+        If UserSettings.GrayscaleTrayIcon Then niNotify.Icon = My.Resources.orgbwico Else niNotify.Icon = My.Resources.openrgbwall
     End Sub
 
     Private Sub SetAsWallpaper(Optional WaitForOpenRGB As Boolean = False)
@@ -295,6 +298,7 @@ Public Class frmMain
             .RoundedRectangleCornerRadius = CInt(txtRoundRectRadius.Text)
             .AutoPause = cbAutoPause.Checked
             .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
+            .GrayscaleTrayIcon = cbGrayscaleIcon.Checked
             .SaveXml()
         End With
 
@@ -305,6 +309,7 @@ Public Class frmMain
         End If
 
         ResetWallpaper()
+        If UserSettings.GrayscaleTrayIcon Then niNotify.Icon = My.Resources.orgbwico Else niNotify.Icon = My.Resources.openrgbwall
 
         Visible = False
     End Sub
@@ -376,6 +381,7 @@ Public Class frmMain
             .RoundedRectangleCornerRadius = CInt(txtRoundRectRadius.Text)
             .AutoPause = cbAutoPause.Checked
             .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
+            .GrayscaleTrayIcon = cbGrayscaleIcon.Checked
             .SaveSilentXml()
         End With
 
@@ -386,6 +392,7 @@ Public Class frmMain
         End If
 
         ResetWallpaper()
+        If UserSettings.GrayscaleTrayIcon Then niNotify.Icon = My.Resources.orgbwico Else niNotify.Icon = My.Resources.openrgbwall
     End Sub
 
     Private Sub cbStaticEffects_CheckedChanged(sender As Object, e As EventArgs) Handles cbStaticEffects.CheckedChanged

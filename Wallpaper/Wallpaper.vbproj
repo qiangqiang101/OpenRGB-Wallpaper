@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="openrgbwall.ico" />
+    <None Include="orgbwico.ico" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">

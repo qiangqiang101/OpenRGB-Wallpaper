@@ -35,6 +35,7 @@ Public Structure UserSettingData
     Public NoToasters As Boolean
     Public AutoPause As Boolean
     Public CpuUsagePauseValue As Integer
+    Public GrayscaleTrayIcon As Boolean
 
     'Static Effects
     Public StaticEffect As Boolean
