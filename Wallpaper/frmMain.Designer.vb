@@ -37,7 +37,9 @@ Partial Class frmMain
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtRoundRectRadius = New Wallpaper.NumBox(Me.components)
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbPixelOffset = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -69,14 +71,18 @@ Partial Class frmMain
         Me.numCPUUsageValue = New System.Windows.Forms.NumericUpDown()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.txtRoundRectRadius = New Wallpaper.NumBox(Me.components)
-        Me.txtLEDPadding = New Wallpaper.NumBox(Me.components)
         Me.cbGrayscaleIcon = New System.Windows.Forms.CheckBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.cbVSync = New System.Windows.Forms.CheckBox()
+        Me.cbAntialias = New System.Windows.Forms.CheckBox()
         Me.taskbarMenu.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.tbTimerInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.numCPUUsageValue, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'niNotify
@@ -146,16 +152,8 @@ Partial Class frmMain
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.txtRoundRectRadius)
-        Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Controls.Add(Me.txtLEDPadding)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.cmbPixelOffset)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.cmbLedShape)
-        Me.GroupBox1.Controls.Add(Me.lblTimerInterval)
-        Me.GroupBox1.Controls.Add(Me.tbTimerInterval)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.cmbInterpolation)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -164,28 +162,42 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.cmbSmoothing)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(343, 278)
+        Me.GroupBox1.Size = New System.Drawing.Size(343, 142)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Graphics Settings"
+        Me.GroupBox1.Text = "Graphics Settings GDI"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 170)
+        Me.Label5.Location = New System.Drawing.Point(6, 54)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(148, 15)
         Me.Label5.TabIndex = 18
         Me.Label5.Text = "Rounded Rectangle Radius"
         '
+        'txtRoundRectRadius
+        '
+        Me.txtRoundRectRadius.Location = New System.Drawing.Point(177, 51)
+        Me.txtRoundRectRadius.Name = "txtRoundRectRadius"
+        Me.txtRoundRectRadius.Size = New System.Drawing.Size(80, 23)
+        Me.txtRoundRectRadius.TabIndex = 5
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 199)
+        Me.Label7.Location = New System.Drawing.Point(6, 83)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(74, 15)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "LED Padding"
+        '
+        'txtLEDPadding
+        '
+        Me.txtLEDPadding.Location = New System.Drawing.Point(177, 80)
+        Me.txtLEDPadding.Name = "txtLEDPadding"
+        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
+        Me.txtLEDPadding.TabIndex = 6
         '
         'Label6
         '
@@ -208,7 +220,7 @@ Partial Class frmMain
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 141)
+        Me.Label4.Location = New System.Drawing.Point(6, 25)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(62, 15)
         Me.Label4.TabIndex = 10
@@ -218,7 +230,7 @@ Partial Class frmMain
         '
         Me.cmbLedShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLedShape.FormattingEnabled = True
-        Me.cmbLedShape.Location = New System.Drawing.Point(177, 138)
+        Me.cmbLedShape.Location = New System.Drawing.Point(177, 22)
         Me.cmbLedShape.Name = "cmbLedShape"
         Me.cmbLedShape.Size = New System.Drawing.Size(160, 23)
         Me.cmbLedShape.TabIndex = 4
@@ -226,7 +238,7 @@ Partial Class frmMain
         'lblTimerInterval
         '
         Me.lblTimerInterval.AutoSize = True
-        Me.lblTimerInterval.Location = New System.Drawing.Point(6, 238)
+        Me.lblTimerInterval.Location = New System.Drawing.Point(6, 122)
         Me.lblTimerInterval.Name = "lblTimerInterval"
         Me.lblTimerInterval.Size = New System.Drawing.Size(87, 15)
         Me.lblTimerInterval.TabIndex = 8
@@ -234,7 +246,7 @@ Partial Class frmMain
         '
         'tbTimerInterval
         '
-        Me.tbTimerInterval.Location = New System.Drawing.Point(177, 225)
+        Me.tbTimerInterval.Location = New System.Drawing.Point(177, 109)
         Me.tbTimerInterval.Maximum = 200
         Me.tbTimerInterval.Minimum = 1
         Me.tbTimerInterval.Name = "tbTimerInterval"
@@ -301,10 +313,10 @@ Partial Class frmMain
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(492, 669)
+        Me.btnSave.Location = New System.Drawing.Point(492, 694)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 25)
-        Me.btnSave.TabIndex = 9
+        Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "Save Changes"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -314,47 +326,47 @@ Partial Class frmMain
         Me.tcScreen.Margin = New System.Windows.Forms.Padding(0)
         Me.tcScreen.Name = "tcScreen"
         Me.tcScreen.SelectedIndex = 0
-        Me.tcScreen.Size = New System.Drawing.Size(340, 626)
+        Me.tcScreen.Size = New System.Drawing.Size(340, 651)
         Me.tcScreen.TabIndex = 3
         '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(597, 669)
+        Me.btnCancel.Location = New System.Drawing.Point(597, 694)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 25)
-        Me.btnCancel.TabIndex = 10
+        Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'btnAddScreen
         '
         Me.btnAddScreen.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnAddScreen.Location = New System.Drawing.Point(358, 638)
+        Me.btnAddScreen.Location = New System.Drawing.Point(358, 663)
         Me.btnAddScreen.Name = "btnAddScreen"
         Me.btnAddScreen.Size = New System.Drawing.Size(99, 25)
-        Me.btnAddScreen.TabIndex = 7
+        Me.btnAddScreen.TabIndex = 13
         Me.btnAddScreen.Text = "+ Add Screen"
         Me.btnAddScreen.UseVisualStyleBackColor = True
         '
         'cbStartAtLogin
         '
         Me.cbStartAtLogin.AutoSize = True
-        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 296)
+        Me.cbStartAtLogin.Location = New System.Drawing.Point(12, 383)
         Me.cbStartAtLogin.Name = "cbStartAtLogin"
         Me.cbStartAtLogin.Size = New System.Drawing.Size(128, 19)
-        Me.cbStartAtLogin.TabIndex = 1
+        Me.cbStartAtLogin.TabIndex = 3
         Me.cbStartAtLogin.Text = "Start with Windows"
         Me.cbStartAtLogin.UseVisualStyleBackColor = True
         '
         'cbNoToaster
         '
         Me.cbNoToaster.AutoSize = True
-        Me.cbNoToaster.Location = New System.Drawing.Point(12, 321)
+        Me.cbNoToaster.Location = New System.Drawing.Point(12, 408)
         Me.cbNoToaster.Name = "cbNoToaster"
         Me.cbNoToaster.Size = New System.Drawing.Size(135, 19)
-        Me.cbNoToaster.TabIndex = 2
+        Me.cbNoToaster.TabIndex = 4
         Me.cbNoToaster.Text = "Disable Notifications"
         Me.cbNoToaster.UseVisualStyleBackColor = True
         '
@@ -362,7 +374,7 @@ Partial Class frmMain
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 682)
+        Me.Label8.Location = New System.Drawing.Point(12, 707)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(263, 15)
         Me.Label8.TabIndex = 13
@@ -371,10 +383,10 @@ Partial Class frmMain
         'btnApply
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnApply.Location = New System.Drawing.Point(387, 669)
+        Me.btnApply.Location = New System.Drawing.Point(387, 694)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
-        Me.btnApply.TabIndex = 8
+        Me.btnApply.TabIndex = 10
         Me.btnApply.Text = "Apply"
         Me.btnApply.UseVisualStyleBackColor = True
         '
@@ -384,10 +396,10 @@ Partial Class frmMain
         Me.GroupBox2.Controls.Add(Me.cmbRGBPattern)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Controls.Add(Me.cmbRGBTransform)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 451)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 538)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(343, 82)
-        Me.GroupBox2.TabIndex = 6
+        Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Static Effects (Only work when not connected to OpenRGB)"
         '
@@ -430,27 +442,27 @@ Partial Class frmMain
         'cbStaticEffects
         '
         Me.cbStaticEffects.AutoSize = True
-        Me.cbStaticEffects.Location = New System.Drawing.Point(12, 426)
+        Me.cbStaticEffects.Location = New System.Drawing.Point(12, 513)
         Me.cbStaticEffects.Name = "cbStaticEffects"
         Me.cbStaticEffects.Size = New System.Drawing.Size(131, 19)
-        Me.cbStaticEffects.TabIndex = 5
+        Me.cbStaticEffects.TabIndex = 8
         Me.cbStaticEffects.Text = "Enable Static Effects"
         Me.cbStaticEffects.UseVisualStyleBackColor = True
         '
         'cbAutoPause
         '
         Me.cbAutoPause.AutoSize = True
-        Me.cbAutoPause.Location = New System.Drawing.Point(12, 346)
+        Me.cbAutoPause.Location = New System.Drawing.Point(12, 433)
         Me.cbAutoPause.Name = "cbAutoPause"
         Me.cbAutoPause.Size = New System.Drawing.Size(292, 19)
-        Me.cbAutoPause.TabIndex = 3
+        Me.cbAutoPause.TabIndex = 5
         Me.cbAutoPause.Text = "Automatically pause when CPU Usage reaches N%"
         Me.cbAutoPause.UseVisualStyleBackColor = True
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(12, 374)
+        Me.Label11.Location = New System.Drawing.Point(12, 461)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(130, 15)
         Me.Label11.TabIndex = 20
@@ -458,17 +470,17 @@ Partial Class frmMain
         '
         'numCPUUsageValue
         '
-        Me.numCPUUsageValue.Location = New System.Drawing.Point(189, 372)
+        Me.numCPUUsageValue.Location = New System.Drawing.Point(189, 459)
         Me.numCPUUsageValue.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.numCPUUsageValue.Name = "numCPUUsageValue"
         Me.numCPUUsageValue.Size = New System.Drawing.Size(80, 23)
-        Me.numCPUUsageValue.TabIndex = 4
+        Me.numCPUUsageValue.TabIndex = 6
         Me.numCPUUsageValue.Value = New Decimal(New Integer() {10, 0, 0, 0})
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(275, 374)
+        Me.Label12.Location = New System.Drawing.Point(275, 461)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(17, 15)
         Me.Label12.TabIndex = 21
@@ -479,29 +491,63 @@ Partial Class frmMain
         Me.Timer2.Enabled = True
         Me.Timer2.Interval = 5000
         '
-        'txtRoundRectRadius
-        '
-        Me.txtRoundRectRadius.Location = New System.Drawing.Point(177, 167)
-        Me.txtRoundRectRadius.Name = "txtRoundRectRadius"
-        Me.txtRoundRectRadius.Size = New System.Drawing.Size(80, 23)
-        Me.txtRoundRectRadius.TabIndex = 5
-        '
-        'txtLEDPadding
-        '
-        Me.txtLEDPadding.Location = New System.Drawing.Point(177, 196)
-        Me.txtLEDPadding.Name = "txtLEDPadding"
-        Me.txtLEDPadding.Size = New System.Drawing.Size(80, 23)
-        Me.txtLEDPadding.TabIndex = 6
-        '
         'cbGrayscaleIcon
         '
         Me.cbGrayscaleIcon.AutoSize = True
-        Me.cbGrayscaleIcon.Location = New System.Drawing.Point(12, 401)
+        Me.cbGrayscaleIcon.Location = New System.Drawing.Point(12, 488)
         Me.cbGrayscaleIcon.Name = "cbGrayscaleIcon"
         Me.cbGrayscaleIcon.Size = New System.Drawing.Size(126, 19)
-        Me.cbGrayscaleIcon.TabIndex = 22
+        Me.cbGrayscaleIcon.TabIndex = 7
         Me.cbGrayscaleIcon.Text = "Grayscale Tray Icon"
         Me.cbGrayscaleIcon.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.Label5)
+        Me.GroupBox3.Controls.Add(Me.cmbLedShape)
+        Me.GroupBox3.Controls.Add(Me.txtRoundRectRadius)
+        Me.GroupBox3.Controls.Add(Me.tbTimerInterval)
+        Me.GroupBox3.Controls.Add(Me.Label7)
+        Me.GroupBox3.Controls.Add(Me.lblTimerInterval)
+        Me.GroupBox3.Controls.Add(Me.txtLEDPadding)
+        Me.GroupBox3.Controls.Add(Me.Label4)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 214)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(343, 163)
+        Me.GroupBox3.TabIndex = 2
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Graphics Settings Global"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.cbAntialias)
+        Me.GroupBox4.Controls.Add(Me.cbVSync)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 160)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(343, 48)
+        Me.GroupBox4.TabIndex = 1
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Graphics Settings Skia && OpenGL"
+        '
+        'cbVSync
+        '
+        Me.cbVSync.AutoSize = True
+        Me.cbVSync.Location = New System.Drawing.Point(6, 22)
+        Me.cbVSync.Name = "cbVSync"
+        Me.cbVSync.Size = New System.Drawing.Size(58, 19)
+        Me.cbVSync.TabIndex = 0
+        Me.cbVSync.Text = "VSync"
+        Me.cbVSync.UseVisualStyleBackColor = True
+        '
+        'cbAntialias
+        '
+        Me.cbAntialias.AutoSize = True
+        Me.cbAntialias.Location = New System.Drawing.Point(177, 22)
+        Me.cbAntialias.Name = "cbAntialias"
+        Me.cbAntialias.Size = New System.Drawing.Size(93, 19)
+        Me.cbAntialias.TabIndex = 1
+        Me.cbAntialias.Text = "Anti-aliasing"
+        Me.cbAntialias.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -509,7 +555,9 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(708, 706)
+        Me.ClientSize = New System.Drawing.Size(708, 731)
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.cbGrayscaleIcon)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.numCPUUsageValue)
@@ -543,6 +591,10 @@ Partial Class frmMain
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.numCPUUsageValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -596,4 +648,8 @@ Partial Class frmMain
     Friend WithEvents numCPUUsageValue As NumericUpDown
     Friend WithEvents Label12 As Label
     Friend WithEvents Timer2 As Timer
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents cbVSync As CheckBox
+    Friend WithEvents cbAntialias As CheckBox
 End Class

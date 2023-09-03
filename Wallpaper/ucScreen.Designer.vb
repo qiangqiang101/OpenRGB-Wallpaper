@@ -57,6 +57,8 @@ Partial Class ucScreen
         Me.btnDelImage = New System.Windows.Forms.Button()
         Me.pbImage = New System.Windows.Forms.PictureBox()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
+        Me.cmbRenderer = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -258,7 +260,7 @@ Partial Class ucScreen
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnApply.Enabled = False
-        Me.btnApply.Location = New System.Drawing.Point(232, 570)
+        Me.btnApply.Location = New System.Drawing.Point(232, 604)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
         Me.btnApply.TabIndex = 5
@@ -268,7 +270,7 @@ Partial Class ucScreen
         'btnRemove
         '
         Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(3, 570)
+        Me.btnRemove.Location = New System.Drawing.Point(3, 604)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(99, 25)
         Me.btnRemove.TabIndex = 4
@@ -280,7 +282,7 @@ Partial Class ucScreen
         Me.lblNotify.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNotify.ForeColor = System.Drawing.Color.Red
-        Me.lblNotify.Location = New System.Drawing.Point(3, 538)
+        Me.lblNotify.Location = New System.Drawing.Point(3, 572)
         Me.lblNotify.Name = "lblNotify"
         Me.lblNotify.Size = New System.Drawing.Size(328, 29)
         Me.lblNotify.TabIndex = 5
@@ -290,6 +292,8 @@ Partial Class ucScreen
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label10)
+        Me.GroupBox4.Controls.Add(Me.cmbRenderer)
         Me.GroupBox4.Controls.Add(Me.lblWallpaperDownload)
         Me.GroupBox4.Controls.Add(Me.btnChgImage)
         Me.GroupBox4.Controls.Add(Me.Label14)
@@ -300,7 +304,7 @@ Partial Class ucScreen
         Me.GroupBox4.Controls.Add(Me.pbImage)
         Me.GroupBox4.Location = New System.Drawing.Point(3, 235)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(326, 300)
+        Me.GroupBox4.Size = New System.Drawing.Size(326, 334)
         Me.GroupBox4.TabIndex = 3
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Image"
@@ -311,7 +315,7 @@ Partial Class ucScreen
         Me.lblWallpaperDownload.Location = New System.Drawing.Point(119, 23)
         Me.lblWallpaperDownload.Name = "lblWallpaperDownload"
         Me.lblWallpaperDownload.Size = New System.Drawing.Size(86, 15)
-        Me.lblWallpaperDownload.TabIndex = 4
+        Me.lblWallpaperDownload.TabIndex = 5
         Me.lblWallpaperDownload.TabStop = True
         Me.lblWallpaperDownload.Text = "Get Wallpapers"
         '
@@ -381,6 +385,24 @@ Partial Class ucScreen
         Me.pbImage.TabIndex = 6
         Me.pbImage.TabStop = False
         '
+        'cmbRenderer
+        '
+        Me.cmbRenderer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbRenderer.FormattingEnabled = True
+        Me.cmbRenderer.Location = New System.Drawing.Point(160, 300)
+        Me.cmbRenderer.Name = "cmbRenderer"
+        Me.cmbRenderer.Size = New System.Drawing.Size(160, 23)
+        Me.cmbRenderer.TabIndex = 4
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(6, 303)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(54, 15)
+        Me.Label10.TabIndex = 15
+        Me.Label10.Text = "Renderer"
+        '
         'ucScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -395,7 +417,7 @@ Partial Class ucScreen
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ucScreen"
-        Me.Size = New System.Drawing.Size(334, 600)
+        Me.Size = New System.Drawing.Size(334, 634)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -441,4 +463,6 @@ Partial Class ucScreen
     Friend WithEvents Label14 As Label
     Friend WithEvents lblWallpaperDownload As LinkLabel
     Friend WithEvents ColorDialog1 As ColorDialog
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cmbRenderer As ComboBox
 End Class

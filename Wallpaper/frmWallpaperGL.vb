@@ -1,11 +1,10 @@
 ﻿Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 Imports OpenRGB.NET
-Imports OpenTK
 Imports SkiaSharp
 Imports SkiaSharp.Views.Desktop
 
-Public Class frmWallpaper
+Public Class frmWallpaperGL
 
     Dim renderString As String = Nothing
     Dim rgbPosition As Single = 0F
@@ -39,11 +38,12 @@ Public Class frmWallpaper
         End Get
     End Property
 
-    Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmWallpaperGL_Load(sender As Object, e As EventArgs) Handles Me.Load
         BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
         skiaView.BackColor = BackColor
         BackSKImg = WScreen.BackgroundImage.Base64ToSKBitmap
         ImgFit = WScreen.ImageFit
+        skiaView.VSync = UserSettings.VSync
 
         If BackSKImg IsNot Nothing Then
             If ImgFit = ImageFit.Fit Then
@@ -58,7 +58,7 @@ Public Class frmWallpaper
     Public Sub Connect(ws As Screen)
         Try
             If Not oRgbClient Is Nothing Then oRgbClient.Dispose()
-            oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, $"{ws.Name} [Skia]", ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
+            oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, $"{ws.Name} [OpenGL]", ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
         Catch ex As Exception
             renderString = $"48 Connect Error: {ex.Message}"
             Log(ex)
@@ -103,19 +103,19 @@ Public Class frmWallpaper
             skiaView.Invalidate()
 
             If UserSettings.StaticEffect AndAlso StaticEffect Then
-                rgbPosition += 100.0F
+                rgbPosition += 1.0F
                 If rgbPosition >= Single.MaxValue - 1.0F Then rgbPosition = 0F
             End If
         End If
     End Sub
 
-    Private Sub frmWallpaper_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+    Private Sub frmWallpaperGL_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         If oRgbClient IsNot Nothing Then
             If oRgbClient.Connected Then oRgbClient.Dispose()
         End If
     End Sub
 
-    Private Sub skiaView_PaintSurface(sender As Object, e As SKPaintSurfaceEventArgs) Handles skiaView.PaintSurface
+    Private Sub skiaView_PaintSurface(sender As Object, e As SKPaintGLSurfaceEventArgs) Handles skiaView.PaintSurface
         Dim canvas = e.Surface.Canvas
         canvas.Clear(BackColor.ToSKColor)
 

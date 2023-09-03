@@ -186,6 +186,18 @@
       <DependentUpon>frmWallpaper.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmWallpaperGDI.Designer.vb">
+      <DependentUpon>frmWallpaperGDI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWallpaperGDI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWallpaperGL.Designer.vb">
+      <DependentUpon>frmWallpaperGL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWallpaperGL.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Helper.vb" />
     <Compile Include="ImageData.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -228,6 +240,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmWallpaper.resx">
       <DependentUpon>frmWallpaper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWallpaperGDI.resx">
+      <DependentUpon>frmWallpaperGDI.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWallpaperGL.resx">
+      <DependentUpon>frmWallpaperGL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

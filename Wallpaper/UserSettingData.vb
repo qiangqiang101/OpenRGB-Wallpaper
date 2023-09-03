@@ -20,15 +20,21 @@ Public Structure UserSettingData
     <XmlIgnore>
     Public Property FileName() As String
 
-    'Graphics
+    'GDI Graphics
     Public SmoothingMode As Drawing2D.SmoothingMode
     Public CompositingQuality As Drawing2D.CompositingQuality
     Public InterpolationMode As Drawing2D.InterpolationMode
     Public PixelOffsetMode As Drawing2D.PixelOffsetMode
+
+    'Global Graphics
     Public LEDShape As LEDShape
     Public LEDPadding As Single
     Public TimerIntervals As Integer
     Public RoundedRectangleCornerRadius As Integer
+
+    'Skia Graphics
+    Public VSync As Boolean
+    Public AntiAlias As Boolean
 
     'General
     Public StartWithWindows As Boolean
@@ -131,6 +137,9 @@ Public Structure Screen
     Public ImageFit As ImageFit
     Public BackgroundColor As String
 
+    'Renderer
+    Public Renderer As Renderer
+
 End Structure
 
 Public Enum LEDShape
@@ -163,4 +172,10 @@ Public Enum ImageFit
     Fit
     Stretch
     Center
+End Enum
+
+Public Enum Renderer
+    GDI
+    Skia
+    OpenGL
 End Enum

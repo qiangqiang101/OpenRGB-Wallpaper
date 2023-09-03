@@ -1,10 +1,11 @@
 ﻿
 
 Imports System.Threading
+Imports System.Windows
 
 Public Class frmMain
 
-    Private wpForms As New List(Of frmWallpaper)
+    Private wpForms As New List(Of Object)
     Private hiddenAutoStart As Boolean = False
     Private CanClose As Boolean = False
 
@@ -28,6 +29,7 @@ Public Class frmMain
                 .Timeout = 1000
                 .ProtocolVersion = 2
                 .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
+                .Renderer = Renderer.Skia
             End With
             Dim screenList As New List(Of Screen)
             screenList.Add(currScreen)
@@ -49,6 +51,8 @@ Public Class frmMain
                 .RoundedRectangleCornerRadius = 10
                 .AutoPause = True
                 .CpuUsagePauseValue = 70
+                .AntiAlias = True
+                .VSync = True
                 .Screens = screenList
                 .SaveSilentXml()
             End With
@@ -93,6 +97,9 @@ Public Class frmMain
 
         txtRoundRectRadius.Enabled = (cmbLedShape.SelectedItem = LEDShape.RoundedRectangle)
         numCPUUsageValue.Enabled = cbAutoPause.Checked
+
+        cbVSync.Checked = UserSettings.VSync
+        cbAntialias.Checked = UserSettings.AntiAlias
 
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
@@ -163,20 +170,53 @@ Public Class frmMain
         'End Try
 
         For Each screen In UserSettings.Screens
-            Dim newWP As New frmWallpaper
-            W32.SetParent(newWP.Handle, workerw)
-            wpForms.Add(newWP)
-            With newWP
-                .WScreen = screen
-                .WaitForOpenRGB = WaitForOpenRGB
-                .Text = screen.Name
-                .StartPosition = FormStartPosition.CenterScreen
-                .Location = screen.Position
-                .Size = screen.Size
-                .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
-                .Timer1.Enabled = True
-                .Show()
-            End With
+            Select Case screen.Renderer
+                Case Renderer.GDI
+                    Dim newWP As New frmWallpaperGDI
+                    W32.SetParent(newWP.Handle, workerw)
+                    wpForms.Add(newWP)
+                    With newWP
+                        .WScreen = screen
+                        .WaitForOpenRGB = WaitForOpenRGB
+                        .Text = screen.Name
+                        .StartPosition = FormStartPosition.CenterScreen
+                        .Location = screen.Position
+                        .Size = screen.Size
+                        .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+                        .Timer1.Enabled = True
+                        .Show()
+                    End With
+                Case Renderer.Skia
+                    Dim newWP As New frmWallpaper
+                    W32.SetParent(newWP.Handle, workerw)
+                    wpForms.Add(newWP)
+                    With newWP
+                        .WScreen = screen
+                        .WaitForOpenRGB = WaitForOpenRGB
+                        .Text = screen.Name
+                        .StartPosition = FormStartPosition.CenterScreen
+                        .Location = screen.Position
+                        .Size = screen.Size
+                        .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+                        .Timer1.Enabled = True
+                        .Show()
+                    End With
+                Case Renderer.OpenGL
+                    Dim newWP As New frmWallpaperGL
+                    W32.SetParent(newWP.Handle, workerw)
+                    wpForms.Add(newWP)
+                    With newWP
+                        .WScreen = screen
+                        .WaitForOpenRGB = WaitForOpenRGB
+                        .Text = screen.Name
+                        .StartPosition = FormStartPosition.CenterScreen
+                        .Location = screen.Position
+                        .Size = screen.Size
+                        .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+                        .Timer1.Enabled = True
+                        .Show()
+                    End With
+            End Select
         Next
 
         If Not WaitForOpenRGB Then Timer1.Stop()
@@ -211,7 +251,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        'Visible = False
+        Visible = False
     End Sub
 
     Private Sub ReconnectToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReconnectToolStripMenuItem.Click
@@ -308,6 +348,8 @@ Public Class frmMain
             .AutoPause = cbAutoPause.Checked
             .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
             .GrayscaleTrayIcon = cbGrayscaleIcon.Checked
+            .VSync = cbVSync.Checked
+            .AntiAlias = cbAntialias.Checked
             .SaveXml()
         End With
 
@@ -391,6 +433,8 @@ Public Class frmMain
             .AutoPause = cbAutoPause.Checked
             .CpuUsagePauseValue = CInt(numCPUUsageValue.Value)
             .GrayscaleTrayIcon = cbGrayscaleIcon.Checked
+            .VSync = cbVSync.Checked
+            .AntiAlias = cbAntialias.Checked
             .SaveSilentXml()
         End With
 

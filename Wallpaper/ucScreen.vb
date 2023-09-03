@@ -6,6 +6,7 @@ Public Class ucScreen
 
     Private Sub ucScreen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cmbImageFit.DataSource = [Enum].GetValues(GetType(ImageFit)).Cast(Of ImageFit)
+        cmbRenderer.DataSource = [Enum].GetValues(GetType(Renderer)).Cast(Of Renderer)
 
         txtIPAddress.Text = WScreen.IPAddress
         txtPort.Text = WScreen.Port
@@ -24,6 +25,7 @@ Public Class ucScreen
 
         btnBackColor.BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
         cmbImageFit.SelectedItem = WScreen.ImageFit
+        cmbRenderer.SelectedItem = WScreen.Renderer
 
         lblNotify.Visible = False
         btnApply.Enabled = False
@@ -44,6 +46,7 @@ Public Class ucScreen
                 .BackgroundImage = pbImage.BackgroundImage.ImageToBase64(Imaging.ImageFormat.Png)
                 .BackgroundColor = ColorTranslator.ToHtml(btnBackColor.BackColor)
                 .ImageFit = cmbImageFit.SelectedItem
+                .Renderer = cmbRenderer.SelectedItem
             End With
             WScreen = newScreen
 
@@ -65,9 +68,9 @@ Public Class ucScreen
         End If
     End Sub
 
-    Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged, txtDisplayWidth.TextChanged,
-        txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
-        cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged, cmbImageFit.SelectedIndexChanged, btnBackColor.BackColorChanged
+    Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtClientName.TextChanged, txtDisplayHeight.TextChanged,
+        txtDisplayWidth.TextChanged, txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
+        cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged, cmbImageFit.SelectedIndexChanged, btnBackColor.BackColorChanged, cmbRenderer.SelectedIndexChanged
 
         lblNotify.Visible = True
         btnApply.Enabled = True
