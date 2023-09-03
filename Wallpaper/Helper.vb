@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports OpenRGB.NET
 Imports IWshRuntimeLibrary
+Imports SkiaSharp
 
 Module Helper
 
@@ -85,6 +86,22 @@ Module Helper
                 Dim bite() As Byte = Convert.FromBase64String(b64)
                 Dim stream As New MemoryStream(bite)
                 Return Drawing.Image.FromStream(stream)
+            End If
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+
+    <Extension>
+    Public Function Base64ToSKBitmap(Image As String) As SKBitmap
+        Try
+            If Image = Nothing Then
+                Return Nothing
+            Else
+                Dim b64 As String = Image.Replace(" ", "+")
+                Dim bite() As Byte = Convert.FromBase64String(b64)
+                Dim stream As New MemoryStream(bite)
+                Return SKBitmap.Decode(stream)
             End If
         Catch ex As Exception
             Return Nothing
@@ -197,6 +214,11 @@ Module Helper
         End Select
 
         Return bitRect
+    End Function
+
+    <Extension>
+    Public Function ToSKColor(color As Color) As SKColor
+        Return New SKColor(color.R, color.G, color.B, color.A)
     End Function
 
 End Module

@@ -3,6 +3,10 @@ Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
 Imports System.Threading
 Imports OpenRGB.NET
+Imports OpenTK
+Imports OpenTK.Graphics.OpenGL
+Imports SkiaSharp
+Imports SkiaSharp.Views.Desktop
 Imports swfScreen = System.Windows.Forms.Screen
 
 Public Class frmWallpaper
@@ -15,6 +19,7 @@ Public Class frmWallpaper
     Public oRgbClient As OpenRGBClient = Nothing
     Public IsPaused As Boolean = False
     Public BackImg As Image = Nothing
+    Public BackSKImg As SKBitmap = Nothing
     Public ImgFit As ImageFit = ImageFit.Stretch
     Public WaitForOpenRGB As Boolean = False
     Public cpuUsage As New PerformanceCounter("Processor", "% Processor Time", "_Total")
@@ -41,7 +46,9 @@ Public Class frmWallpaper
 
     Private Sub frmWallpaper_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BackColor = ColorTranslator.FromHtml(WScreen.BackgroundColor)
+        skiaView.BackColor = BackColor
         BackImg = WScreen.BackgroundImage.Base64ToImage
+        BackSKImg = WScreen.BackgroundImage.Base64ToSKBitmap
         ImgFit = WScreen.ImageFit
 
         If BackImg IsNot Nothing Then
@@ -95,7 +102,8 @@ Public Class frmWallpaper
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If Not IsPaused AndAlso Not HighCpuUsage() Then
-            Invalidate()
+            If StaticEffect Then Invalidate()
+            skiaView.Invalidate()
 
             If UserSettings.StaticEffect AndAlso StaticEffect Then
                 rgbPosition += 1.0F
@@ -110,14 +118,14 @@ Public Class frmWallpaper
         End If
     End Sub
 
-    Private Sub PrepareGraphics(graphic As Graphics)
+    Private Sub PrepareGraphics(graphic As Drawing.Graphics)
         graphic.SmoothingMode = UserSettings.SmoothingMode
         graphic.CompositingQuality = UserSettings.CompositingQuality
         graphic.InterpolationMode = UserSettings.InterpolationMode
         graphic.PixelOffsetMode = UserSettings.PixelOffsetMode
     End Sub
 
-    Private Sub GenerateRGBSpectrum(graphic As Graphics, size As Size)
+    Private Sub GenerateRGBSpectrum(graphic As Drawing.Graphics, size As Size)
         Using theBrush As New LinearGradientBrush(Point.Empty, New Point(size.Width, size.Height), Color.Red, Color.Blue)
             Select Case UserSettings.RGBTrasform
                 Case RGBTransform.Slide1
@@ -162,8 +170,8 @@ Public Class frmWallpaper
 
             PrepareGraphics(graphic)
 
-            Dim rgbImg As New Bitmap(size.Width, size.Height, PixelFormat.Format32bppPArgb)
-            Using g As Graphics = Graphics.FromImage(rgbImg)
+            Dim rgbImg As New Bitmap(size.Width, size.Height, Imaging.PixelFormat.Format32bppPArgb)
+            Using g As Drawing.Graphics = Drawing.Graphics.FromImage(rgbImg)
                 PrepareGraphics(g)
                 g.FillRectangle(theBrush, 0, 0, size.Width, size.Height)
             End Using
@@ -173,9 +181,20 @@ Public Class frmWallpaper
     End Sub
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
-        Dim graphic As Graphics = e.Graphics
-        PrepareGraphics(graphic)
-        graphic.Clear(BackColor)
+        If StaticEffect Then
+            Dim graphic As Drawing.Graphics = e.Graphics
+            PrepareGraphics(graphic)
+            graphic.Clear(BackColor)
+
+            If UserSettings.StaticEffect Then GenerateRGBSpectrum(graphic, New Size(ClientRectangle.Width / 100, ClientRectangle.Height / 100))
+        End If
+
+        MyBase.OnPaint(e)
+    End Sub
+
+    Private Sub skiaView_PaintSurface(sender As Object, e As SKPaintGLSurfaceEventArgs) Handles skiaView.PaintSurface
+        Dim canvas = e.Surface.Canvas
+        canvas.Clear(BackColor.ToSKColor)
 
         Try
             If oRgbClient IsNot Nothing Then
@@ -203,14 +222,23 @@ Public Class frmWallpaper
                                     Dim H As Single = rectangleSize.Height
                                     Dim P As Single = UserSettings.LEDPadding
 
-                                    Select Case UserSettings.LEDShape
-                                        Case LEDShape.Rectangle
-                                            graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                        Case LEDShape.RoundedRectangle
-                                            graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
-                                        Case LEDShape.Sphere
-                                            graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                    End Select
+                                    Using paint As New SKPaint With {.Color = rgbColor.ToSKColor, .IsAntialias = True, .Style = SKPaintStyle.Fill}
+                                        Select Case UserSettings.LEDShape
+                                            Case LEDShape.Rectangle
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                canvas.DrawRect(rect, paint)
+                                            Case LEDShape.RoundedRectangle
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                Using rrect As New SKRoundRect(rect, UserSettings.RoundedRectangleCornerRadius)
+                                                    canvas.DrawRoundRect(rrect, paint)
+                                                End Using
+                                            Case LEDShape.Sphere
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                Using rrect As New SKRoundRect(rect, 360)
+                                                    canvas.DrawRoundRect(rrect, paint)
+                                                End Using
+                                        End Select
+                                    End Using
                                 End Using
                             End If
 
@@ -230,60 +258,57 @@ Public Class frmWallpaper
             Log(ex)
         End Try
 
-        If StaticEffect Then
-            If UserSettings.StaticEffect Then GenerateRGBSpectrum(graphic, New Size(ClientRectangle.Width / 100, ClientRectangle.Height / 100))
-        End If
 
         Try
-            If BackImg IsNot Nothing Then
+            If BackSKImg IsNot Nothing Then
                 Select Case ImgFit
                     Case ImageFit.None
-                        graphic.DrawImage(BackImg, ClientRectangle.X, ClientRectangle.Y, New Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height), GraphicsUnit.Pixel)
+                        canvas.DrawBitmap(BackSKImg, SKRect.Create(ClientRectangle.X, ClientRectangle.Y, BackSKImg.Width, BackSKImg.Height))
                     Case ImageFit.Center
-                        Dim imgSize As Integer = BackImg.Width + BackImg.Height
+                        Dim imgSize As Integer = BackSKImg.Width + BackSKImg.Height
                         Dim crSize As Integer = ClientRectangle.Width + ClientRectangle.Height
-                        Dim iX As Integer = (ClientRectangle.Width - BackImg.Width) / 2
-                        Dim iY As Integer = (ClientRectangle.Height - BackImg.Height) / 2
+                        Dim iX As Integer = (ClientRectangle.Width - BackSKImg.Width) / 2
+                        Dim iY As Integer = (ClientRectangle.Height - BackSKImg.Height) / 2
 
                         If crSize > imgSize Then
-                            graphic.DrawImage(BackImg, iX, iY, New Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height), GraphicsUnit.Pixel)
+                            canvas.DrawBitmap(BackSKImg, SKRect.Create(iX, iY, ClientRectangle.Width, ClientRectangle.Height))
                         Else
-                            graphic.DrawImage(BackImg, iX, iY, New Rectangle(0, 0, BackImg.Width, BackImg.Height), GraphicsUnit.Pixel)
+                            canvas.DrawBitmap(BackSKImg, SKRect.Create(iX, iY, BackSKImg.Width, BackSKImg.Height))
                         End If
                     Case ImageFit.Stretch
-                        graphic.DrawImage(BackImg, New RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height), New RectangleF(0, 0, BackImg.Width, BackImg.Height), GraphicsUnit.Pixel)
+                        canvas.DrawBitmap(BackSKImg, SKRect.Create(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height))
                     Case ImageFit.Fill, ImageFit.Fit
                         Dim aspectRatio As Double
                         Dim newHeight, newWidth As Integer
                         Dim maxWidth As Integer = Width
                         Dim maxHeight As Integer = Width
 
-                        If BackImg.Width > maxWidth Or BackImg.Height > maxHeight Then
-                            If BackImg.Width >= BackImg.Height Then ' image is wider than tall
+                        If BackSKImg.Width > maxWidth Or BackSKImg.Height > maxHeight Then
+                            If BackSKImg.Width >= BackSKImg.Height Then ' image is wider than tall
                                 newWidth = maxWidth
-                                aspectRatio = BackImg.Width / maxWidth
-                                newHeight = CInt(BackImg.Height / aspectRatio)
+                                aspectRatio = BackSKImg.Width / maxWidth
+                                newHeight = CInt(BackSKImg.Height / aspectRatio)
                             Else ' image is taller than wide
                                 newHeight = maxHeight
-                                aspectRatio = BackImg.Height / maxHeight
-                                newWidth = CInt(BackImg.Width / aspectRatio)
+                                aspectRatio = BackSKImg.Height / maxHeight
+                                newWidth = CInt(BackSKImg.Width / aspectRatio)
                             End If
                         Else
-                            If BackImg.Width > BackImg.Height Then
+                            If BackSKImg.Width > BackSKImg.Height Then
                                 newWidth = maxWidth
-                                aspectRatio = BackImg.Width / maxWidth
-                                newHeight = CInt(BackImg.Height / aspectRatio)
+                                aspectRatio = BackSKImg.Width / maxWidth
+                                newHeight = CInt(BackSKImg.Height / aspectRatio)
                             Else
                                 newHeight = maxHeight
-                                aspectRatio = BackImg.Height / maxHeight
-                                newWidth = CInt(BackImg.Width / aspectRatio)
+                                aspectRatio = BackSKImg.Height / maxHeight
+                                newWidth = CInt(BackSKImg.Width / aspectRatio)
                             End If
                         End If
 
                         Dim newX As Integer = (Width - newWidth) / 2
                         Dim newY As Integer = (Height - newHeight) / 2
 
-                        graphic.DrawImage(BackImg, New RectangleF(newX, newY, newWidth, newHeight))
+                        canvas.DrawBitmap(BackSKImg, SKRect.Create(newX, newY, newWidth, newHeight))
                 End Select
 
             End If
@@ -294,13 +319,15 @@ Public Class frmWallpaper
 
         Try
             If renderString <> Nothing Then
-                TextRenderer.DrawText(graphic, renderString, Font, New Point(20, 20), Color.White)
+                Using font As New SKFont With {.Size = Me.Font.Size * 2}
+                    Using paint As New SKPaint() With {.Color = SKColors.White, .IsAntialias = True, .Style = SKPaintStyle.Fill}
+                        canvas.DrawText(renderString, 20, 20, font, paint)
+                    End Using
+                End Using
             End If
         Catch ex As Exception
             Log(ex)
         End Try
-
-        MyBase.OnPaint(e)
     End Sub
 
 End Class

@@ -1,5 +1,7 @@
 ﻿
 
+Imports System.Threading
+
 Public Class frmMain
 
     Private wpForms As New List(Of frmWallpaper)
@@ -154,20 +156,27 @@ Public Class frmMain
                                                     Return True
                                                 End Function), IntPtr.Zero)
 
+        'Try
+
+        'Catch ex As Exception
+        '    Log(ex)
+        'End Try
+
         For Each screen In UserSettings.Screens
             Dim newWP As New frmWallpaper
+            W32.SetParent(newWP.Handle, workerw)
+            wpForms.Add(newWP)
             With newWP
                 .WScreen = screen
                 .WaitForOpenRGB = WaitForOpenRGB
                 .Text = screen.Name
-                .StartPosition = FormStartPosition.Manual
+                .StartPosition = FormStartPosition.CenterScreen
                 .Location = screen.Position
                 .Size = screen.Size
                 .Timer1.Interval = If(UserSettings.TimerIntervals < 5, 30, UserSettings.TimerIntervals)
+                .Timer1.Enabled = True
                 .Show()
-                W32.SetParent(.Handle, workerw)
             End With
-            wpForms.Add(newWP)
         Next
 
         If Not WaitForOpenRGB Then Timer1.Stop()
@@ -202,7 +211,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        Visible = False
+        'Visible = False
     End Sub
 
     Private Sub ReconnectToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReconnectToolStripMenuItem.Click

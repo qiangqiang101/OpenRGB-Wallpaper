@@ -25,6 +25,7 @@ Partial Class frmWallpaper
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWallpaper))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.skiaView = New SkiaSharp.Views.Desktop.SKGLControl()
         Me.SuspendLayout()
         '
         'Timer1
@@ -32,12 +33,23 @@ Partial Class frmWallpaper
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 10
         '
+        'skiaView
+        '
+        Me.skiaView.BackColor = System.Drawing.Color.Black
+        Me.skiaView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.skiaView.Location = New System.Drawing.Point(0, 0)
+        Me.skiaView.Name = "skiaView"
+        Me.skiaView.Size = New System.Drawing.Size(136, 77)
+        Me.skiaView.TabIndex = 0
+        Me.skiaView.VSync = False
+        '
         'frmWallpaper
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(100, 100)
+        Me.ClientSize = New System.Drawing.Size(136, 77)
         Me.ControlBox = False
+        Me.Controls.Add(Me.skiaView)
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.ForeColor = System.Drawing.Color.White
@@ -55,4 +67,5 @@ Partial Class frmWallpaper
 
     End Sub
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents skiaView As SkiaSharp.Views.Desktop.SKGLControl
 End Class
