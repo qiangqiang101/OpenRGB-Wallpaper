@@ -125,10 +125,13 @@ Public Structure Screen
     'SDK Client
     Public IPAddress As String
     Public Port As Integer
-    Public Name As String
     Public Autoconnect As Boolean
     Public Timeout As Integer
     Public ProtocolVersion As UInteger
+
+    'Device
+    Public Name As String
+    Public Zone As String
 
     'Display
     Public Position As Point

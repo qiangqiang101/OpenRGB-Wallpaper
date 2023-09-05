@@ -181,41 +181,43 @@ Public Class frmWallpaperGDI
                     If StaticEffect Then StaticEffect = False
 
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
-                    Dim oMatrix = wallpaper.Zones.FirstOrDefault.MatrixMap
+                    Dim oMatrix = wallpaper.Zones.Where(Function(x) x.Name = WScreen.Zone).FirstOrDefault.MatrixMap
 
-                    Dim Width As Integer = oMatrix.Width
-                    Dim Height As Integer = oMatrix.Height
+                    If oMatrix IsNot Nothing Then
+                        Dim Width As Integer = oMatrix.Width
+                        Dim Height As Integer = oMatrix.Height
 
-                    Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
+                        Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
 
-                    Dim matrix(Width - 1, Height - 1) As String
-                    Dim count As Integer = 0
-                    For j As Integer = 0 To matrix.GetUpperBound(0)
-                        For i As Integer = 0 To matrix.GetUpperBound(0)
-                            Dim rgbColor = wallpaper.Colors(count).ToColor
-                            If rgbColor <> OffColor Then
-                                Using sb As New SolidBrush(rgbColor)
-                                    Dim X As Single = rectangleSize.Width * i
-                                    Dim Y As Single = rectangleSize.Height * j
-                                    Dim W As Single = rectangleSize.Width
-                                    Dim H As Single = rectangleSize.Height
-                                    Dim P As Single = UserSettings.LEDPadding
+                        Dim matrix(Width - 1, Height - 1) As String
+                        Dim count As Integer = 0
+                        For j As Integer = 0 To matrix.GetUpperBound(0)
+                            For i As Integer = 0 To matrix.GetUpperBound(0)
+                                Dim rgbColor = wallpaper.Colors(count).ToColor
+                                If rgbColor <> OffColor Then
+                                    Using sb As New SolidBrush(rgbColor)
+                                        Dim X As Single = rectangleSize.Width * i
+                                        Dim Y As Single = rectangleSize.Height * j
+                                        Dim W As Single = rectangleSize.Width
+                                        Dim H As Single = rectangleSize.Height
+                                        Dim P As Single = UserSettings.LEDPadding
 
-                                    Select Case UserSettings.LEDShape
-                                        Case LEDShape.Rectangle
-                                            graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                        Case LEDShape.RoundedRectangle
-                                            graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
-                                        Case LEDShape.Sphere
-                                            graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
-                                    End Select
-                                End Using
-                            End If
+                                        Select Case UserSettings.LEDShape
+                                            Case LEDShape.Rectangle
+                                                graphic.FillRectangle(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                            Case LEDShape.RoundedRectangle
+                                                graphic.FillRoundedRectangle(sb, New Rectangle(X + P, Y + P, W - P, H - P), UserSettings.RoundedRectangleCornerRadius)
+                                            Case LEDShape.Sphere
+                                                graphic.FillEllipse(sb, New RectangleF(X + P, Y + P, W - P, H - P))
+                                        End Select
+                                    End Using
+                                End If
 
-                            count += 1
-                            If count >= wallpaper.Leds.Count Then count = 0
+                                count += 1
+                                If count >= wallpaper.Leds.Count Then count = 0
+                            Next
                         Next
-                    Next
+                    End If
                 Else
                     If Not StaticEffect Then StaticEffect = True
                 End If

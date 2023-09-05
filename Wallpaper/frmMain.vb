@@ -2,6 +2,7 @@
 
 Imports System.Threading
 Imports System.Windows
+Imports OpenRGB.NET
 
 Public Class frmMain
 
@@ -24,7 +25,23 @@ Public Class frmMain
                 .Size = System.Windows.Forms.Screen.FromControl(Me).Bounds.Size
                 .IPAddress = "127.0.0.1"
                 .Port = 6742
-                .Name = "Wallpaper1"
+
+                Try
+                    Using oRgbClient As New OpenRGBClient(name:="Getting devices information")
+                        If oRgbClient.Connected Then
+                            For Each device In oRgbClient.GetAllControllerData
+                                If device.Zones.Where(Function(x) x.MatrixMap IsNot Nothing).Count >= 1 Then .Name = device.Name
+                            Next
+                            For Each zone In oRgbClient.GetAllControllerData.FirstOrDefault(Function(x) x.Name = .Name).Zones
+                                If zone.MatrixMap IsNot Nothing Then .Zone = zone.Name
+                            Next
+                        End If
+                    End Using
+                Catch ex As Exception
+                    .Name = "Wallpaper1"
+                    .Zone = "Wallpaper1"
+                End Try
+
                 .Autoconnect = False
                 .Timeout = 1000
                 .ProtocolVersion = 2

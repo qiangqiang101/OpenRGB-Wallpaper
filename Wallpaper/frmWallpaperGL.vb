@@ -103,7 +103,7 @@ Public Class frmWallpaperGL
             skiaView.Invalidate()
 
             If UserSettings.StaticEffect AndAlso StaticEffect Then
-                rgbPosition += 1.0F
+                rgbPosition += 50.0F
                 If rgbPosition >= Single.MaxValue - 1.0F Then rgbPosition = 0F
             End If
         End If
@@ -125,48 +125,50 @@ Public Class frmWallpaperGL
                     If StaticEffect Then StaticEffect = False
 
                     Dim wallpaper = oRgbClient.GetAllControllerData.Where(Function(x) x.Name = WScreen.Name).FirstOrDefault
-                    Dim oMatrix = wallpaper.Zones.FirstOrDefault.MatrixMap
+                    Dim oMatrix = wallpaper.Zones.Where(Function(x) x.Name = WScreen.Zone).FirstOrDefault.MatrixMap
 
-                    Dim Width As Integer = oMatrix.Width
-                    Dim Height As Integer = oMatrix.Height
+                    If oMatrix IsNot Nothing Then
+                        Dim Width As Integer = oMatrix.Width
+                        Dim Height As Integer = oMatrix.Height
 
-                    Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
+                        Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
 
-                    Dim matrix(Width - 1, Height - 1) As String
-                    Dim count As Integer = 0
-                    For j As Integer = 0 To matrix.GetUpperBound(0)
-                        For i As Integer = 0 To matrix.GetUpperBound(0)
-                            Dim rgbColor = wallpaper.Colors(count).ToColor
-                            If rgbColor <> OffColor Then
-                                Dim X As Single = rectangleSize.Width * i
-                                Dim Y As Single = rectangleSize.Height * j
-                                Dim W As Single = rectangleSize.Width
-                                Dim H As Single = rectangleSize.Height
-                                Dim P As Single = UserSettings.LEDPadding
+                        Dim matrix(Width - 1, Height - 1) As String
+                        Dim count As Integer = 0
+                        For j As Integer = 0 To matrix.GetUpperBound(0)
+                            For i As Integer = 0 To matrix.GetUpperBound(0)
+                                Dim rgbColor = wallpaper.Colors(count).ToColor
+                                If rgbColor <> OffColor Then
+                                    Dim X As Single = rectangleSize.Width * i
+                                    Dim Y As Single = rectangleSize.Height * j
+                                    Dim W As Single = rectangleSize.Width
+                                    Dim H As Single = rectangleSize.Height
+                                    Dim P As Single = UserSettings.LEDPadding
 
-                                Using paint As New SKPaint With {.Color = rgbColor.ToSKColor, .IsAntialias = UserSettings.AntiAlias, .Style = SKPaintStyle.Fill}
-                                    Select Case UserSettings.LEDShape
-                                        Case LEDShape.Rectangle
-                                            Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
-                                            canvas.DrawRect(rect, paint)
-                                        Case LEDShape.RoundedRectangle
-                                            Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
-                                            Using rrect As New SKRoundRect(rect, UserSettings.RoundedRectangleCornerRadius)
-                                                canvas.DrawRoundRect(rrect, paint)
-                                            End Using
-                                        Case LEDShape.Sphere
-                                            Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
-                                            Using rrect As New SKRoundRect(rect, 360)
-                                                canvas.DrawRoundRect(rrect, paint)
-                                            End Using
-                                    End Select
-                                End Using
-                            End If
+                                    Using paint As New SKPaint With {.Color = rgbColor.ToSKColor, .IsAntialias = UserSettings.AntiAlias, .Style = SKPaintStyle.Fill}
+                                        Select Case UserSettings.LEDShape
+                                            Case LEDShape.Rectangle
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                canvas.DrawRect(rect, paint)
+                                            Case LEDShape.RoundedRectangle
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                Using rrect As New SKRoundRect(rect, UserSettings.RoundedRectangleCornerRadius)
+                                                    canvas.DrawRoundRect(rrect, paint)
+                                                End Using
+                                            Case LEDShape.Sphere
+                                                Dim rect = SKRect.Create(X + P, Y + P, W - P, H - P)
+                                                Using rrect As New SKRoundRect(rect, 360)
+                                                    canvas.DrawRoundRect(rrect, paint)
+                                                End Using
+                                        End Select
+                                    End Using
+                                End If
 
-                            count += 1
-                            If count >= wallpaper.Leds.Count Then count = 0
+                                count += 1
+                                If count >= wallpaper.Leds.Count Then count = 0
+                            Next
                         Next
-                    Next
+                    End If
                 Else
                     If Not StaticEffect Then StaticEffect = True
                 End If
