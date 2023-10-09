@@ -121,7 +121,7 @@ Public Class frmMain
         For Each scr In UserSettings.Screens
             Dim newTab As New TabPage()
             With newTab
-                .Text = scr.Name
+                .Text = $"{scr.Name} - {scr.Zone}"
                 .AutoScroll = True
                 Dim ucScr As New ucScreen
                 With ucScr
