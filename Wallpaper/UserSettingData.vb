@@ -126,8 +126,6 @@ Public Structure Screen
     Public IPAddress As String
     Public Port As Integer
     Public Autoconnect As Boolean
-    Public Timeout As Integer
-    Public ProtocolVersion As UInteger
 
     'Device
     Public Name As String

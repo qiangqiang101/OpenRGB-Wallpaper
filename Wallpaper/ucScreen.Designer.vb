@@ -26,15 +26,18 @@ Partial Class ucScreen
         Me.txtIPAddress = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cbAutoconnect = New System.Windows.Forms.CheckBox()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtPort = New Wallpaper.NumBox(Me.components)
         Me.cmbDeviceName = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtDisplayHeight = New Wallpaper.NumBox(Me.components)
+        Me.txtDisplayWidth = New Wallpaper.NumBox(Me.components)
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtDisplayY = New Wallpaper.NumBox(Me.components)
+        Me.txtDisplayX = New Wallpaper.NumBox(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnApply = New System.Windows.Forms.Button()
@@ -55,13 +58,6 @@ Partial Class ucScreen
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.cmbDeviceZone = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtDisplayHeight = New Wallpaper.NumBox(Me.components)
-        Me.txtDisplayWidth = New Wallpaper.NumBox(Me.components)
-        Me.txtDisplayY = New Wallpaper.NumBox(Me.components)
-        Me.txtDisplayX = New Wallpaper.NumBox(Me.components)
-        Me.txtPort = New Wallpaper.NumBox(Me.components)
-        Me.txtProtocol = New Wallpaper.NumBox(Me.components)
-        Me.txtTimeout = New Wallpaper.NumBox(Me.components)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -93,15 +89,6 @@ Partial Class ucScreen
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Port"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 54)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(51, 15)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Timeout"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -114,39 +101,33 @@ Partial Class ucScreen
         'cbAutoconnect
         '
         Me.cbAutoconnect.AutoSize = True
-        Me.cbAutoconnect.Location = New System.Drawing.Point(6, 80)
+        Me.cbAutoconnect.Location = New System.Drawing.Point(6, 51)
         Me.cbAutoconnect.Name = "cbAutoconnect"
         Me.cbAutoconnect.Size = New System.Drawing.Size(95, 19)
         Me.cbAutoconnect.TabIndex = 6
         Me.cbAutoconnect.Text = "Autoconnect"
         Me.cbAutoconnect.UseVisualStyleBackColor = True
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(160, 54)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(74, 15)
-        Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Protocol Ver."
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.txtPort)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.txtIPAddress)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtProtocol)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.cbAutoconnect)
-        Me.GroupBox1.Controls.Add(Me.txtTimeout)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 61)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(328, 106)
+        Me.GroupBox1.Size = New System.Drawing.Size(328, 74)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "SDK Server"
+        '
+        'txtPort
+        '
+        Me.txtPort.Location = New System.Drawing.Point(240, 22)
+        Me.txtPort.Name = "txtPort"
+        Me.txtPort.Size = New System.Drawing.Size(80, 23)
+        Me.txtPort.TabIndex = 3
         '
         'cmbDeviceName
         '
@@ -167,12 +148,26 @@ Partial Class ucScreen
         Me.GroupBox2.Controls.Add(Me.txtDisplayX)
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.Label7)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 173)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 141)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(328, 85)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Display"
+        '
+        'txtDisplayHeight
+        '
+        Me.txtDisplayHeight.Location = New System.Drawing.Point(240, 51)
+        Me.txtDisplayHeight.Name = "txtDisplayHeight"
+        Me.txtDisplayHeight.Size = New System.Drawing.Size(80, 23)
+        Me.txtDisplayHeight.TabIndex = 3
+        '
+        'txtDisplayWidth
+        '
+        Me.txtDisplayWidth.Location = New System.Drawing.Point(74, 51)
+        Me.txtDisplayWidth.Name = "txtDisplayWidth"
+        Me.txtDisplayWidth.Size = New System.Drawing.Size(80, 23)
+        Me.txtDisplayWidth.TabIndex = 2
         '
         'Label8
         '
@@ -191,6 +186,20 @@ Partial Class ucScreen
         Me.Label9.Size = New System.Drawing.Size(43, 15)
         Me.Label9.TabIndex = 11
         Me.Label9.Text = "Height"
+        '
+        'txtDisplayY
+        '
+        Me.txtDisplayY.Location = New System.Drawing.Point(240, 22)
+        Me.txtDisplayY.Name = "txtDisplayY"
+        Me.txtDisplayY.Size = New System.Drawing.Size(80, 23)
+        Me.txtDisplayY.TabIndex = 1
+        '
+        'txtDisplayX
+        '
+        Me.txtDisplayX.Location = New System.Drawing.Point(74, 22)
+        Me.txtDisplayX.Name = "txtDisplayX"
+        Me.txtDisplayX.Size = New System.Drawing.Size(80, 23)
+        Me.txtDisplayX.TabIndex = 0
         '
         'Label6
         '
@@ -214,7 +223,7 @@ Partial Class ucScreen
         '
         Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnApply.Enabled = False
-        Me.btnApply.Location = New System.Drawing.Point(232, 631)
+        Me.btnApply.Location = New System.Drawing.Point(232, 596)
         Me.btnApply.Name = "btnApply"
         Me.btnApply.Size = New System.Drawing.Size(99, 25)
         Me.btnApply.TabIndex = 7
@@ -224,7 +233,7 @@ Partial Class ucScreen
         'btnRemove
         '
         Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(3, 631)
+        Me.btnRemove.Location = New System.Drawing.Point(3, 596)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(99, 25)
         Me.btnRemove.TabIndex = 6
@@ -236,7 +245,7 @@ Partial Class ucScreen
         Me.lblNotify.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNotify.ForeColor = System.Drawing.Color.Red
-        Me.lblNotify.Location = New System.Drawing.Point(3, 601)
+        Me.lblNotify.Location = New System.Drawing.Point(3, 566)
         Me.lblNotify.Name = "lblNotify"
         Me.lblNotify.Size = New System.Drawing.Size(328, 27)
         Me.lblNotify.TabIndex = 5
@@ -256,7 +265,7 @@ Partial Class ucScreen
         Me.GroupBox4.Controls.Add(Me.btnBackColor)
         Me.GroupBox4.Controls.Add(Me.btnDelImage)
         Me.GroupBox4.Controls.Add(Me.pbImage)
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 264)
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 232)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(328, 334)
         Me.GroupBox4.TabIndex = 5
@@ -384,55 +393,6 @@ Partial Class ucScreen
         Me.Label12.TabIndex = 7
         Me.Label12.Text = "Device Zone"
         '
-        'txtDisplayHeight
-        '
-        Me.txtDisplayHeight.Location = New System.Drawing.Point(240, 51)
-        Me.txtDisplayHeight.Name = "txtDisplayHeight"
-        Me.txtDisplayHeight.Size = New System.Drawing.Size(80, 23)
-        Me.txtDisplayHeight.TabIndex = 3
-        '
-        'txtDisplayWidth
-        '
-        Me.txtDisplayWidth.Location = New System.Drawing.Point(74, 51)
-        Me.txtDisplayWidth.Name = "txtDisplayWidth"
-        Me.txtDisplayWidth.Size = New System.Drawing.Size(80, 23)
-        Me.txtDisplayWidth.TabIndex = 2
-        '
-        'txtDisplayY
-        '
-        Me.txtDisplayY.Location = New System.Drawing.Point(240, 22)
-        Me.txtDisplayY.Name = "txtDisplayY"
-        Me.txtDisplayY.Size = New System.Drawing.Size(80, 23)
-        Me.txtDisplayY.TabIndex = 1
-        '
-        'txtDisplayX
-        '
-        Me.txtDisplayX.Location = New System.Drawing.Point(74, 22)
-        Me.txtDisplayX.Name = "txtDisplayX"
-        Me.txtDisplayX.Size = New System.Drawing.Size(80, 23)
-        Me.txtDisplayX.TabIndex = 0
-        '
-        'txtPort
-        '
-        Me.txtPort.Location = New System.Drawing.Point(240, 22)
-        Me.txtPort.Name = "txtPort"
-        Me.txtPort.Size = New System.Drawing.Size(80, 23)
-        Me.txtPort.TabIndex = 3
-        '
-        'txtProtocol
-        '
-        Me.txtProtocol.Location = New System.Drawing.Point(240, 51)
-        Me.txtProtocol.Name = "txtProtocol"
-        Me.txtProtocol.Size = New System.Drawing.Size(80, 23)
-        Me.txtProtocol.TabIndex = 5
-        '
-        'txtTimeout
-        '
-        Me.txtTimeout.Location = New System.Drawing.Point(74, 51)
-        Me.txtTimeout.Name = "txtTimeout"
-        Me.txtTimeout.Size = New System.Drawing.Size(80, 23)
-        Me.txtTimeout.TabIndex = 4
-        '
         'ucScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -452,7 +412,7 @@ Partial Class ucScreen
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "ucScreen"
-        Me.Size = New System.Drawing.Size(334, 661)
+        Me.Size = New System.Drawing.Size(334, 626)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -469,12 +429,8 @@ Partial Class ucScreen
     Friend WithEvents Label1 As Label
     Friend WithEvents txtPort As NumBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents txtTimeout As NumBox
     Friend WithEvents Label4 As Label
     Friend WithEvents cbAutoconnect As CheckBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents txtProtocol As NumBox
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents txtDisplayHeight As NumBox

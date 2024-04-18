@@ -58,7 +58,7 @@ Public Class frmWallpaperGL
     Public Sub Connect(ws As Screen)
         Try
             If Not oRgbClient Is Nothing Then oRgbClient.Dispose()
-            oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, $"{ws.Name} [OpenGL]", ws.Autoconnect, ws.Timeout, ws.ProtocolVersion)
+            oRgbClient = New OpenRGBClient(ws.IPAddress, ws.Port, $"{ws.Name} [OpenGL]", ws.Autoconnect, 1000, 2)
         Catch ex As Exception
             renderString = $"48 Connect Error: {ex.Message}"
             Log(ex)
@@ -131,7 +131,8 @@ Public Class frmWallpaperGL
                         Dim Width As Integer = oMatrix.Width
                         Dim Height As Integer = oMatrix.Height
 
-                        Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Height), ClientRectangle.Height / Height)
+                        'Dim rectangleSize As New SizeF(ClientRectangle.Width / (wallpaper.Leds.Count / Width), ClientRectangle.Height / Height)
+                        Dim rectangleSize As New SizeF(ClientRectangle.Width / Width, ClientRectangle.Height / Height)
 
                         Dim matrix(Width - 1, Height - 1) As String
                         Dim count As Integer = 0

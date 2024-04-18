@@ -31,8 +31,6 @@ Public Class ucScreen
         cmbDeviceZone.SelectedItem = If(WScreen.Zone = Nothing, "", WScreen.Zone)
         txtIPAddress.Text = WScreen.IPAddress
         txtPort.Text = WScreen.Port
-        txtTimeout.Text = WScreen.Timeout
-        txtProtocol.Text = WScreen.ProtocolVersion
         cbAutoconnect.Checked = WScreen.Autoconnect
 
         txtDisplayX.Text = WScreen.Position.X
@@ -58,8 +56,6 @@ Public Class ucScreen
                 .Port = CInt(txtPort.Text)
                 .Name = cmbDeviceName.SelectedItem
                 .Zone = cmbDeviceZone.SelectedItem
-                .Timeout = CInt(txtTimeout.Text)
-                .ProtocolVersion = CInt(txtProtocol.Text)
                 .Autoconnect = cbAutoconnect.Checked
                 .Position = New Point(CInt(txtDisplayX.Text), CInt(txtDisplayY.Text))
                 .Size = New Size(CInt(txtDisplayWidth.Text), CInt(txtDisplayHeight.Text))
@@ -89,7 +85,7 @@ Public Class ucScreen
     End Sub
 
     Private Sub txtTextChanged(sender As Object, e As EventArgs) Handles txtIPAddress.TextChanged, txtDisplayHeight.TextChanged, cmbRenderer.SelectedIndexChanged,
-        txtDisplayWidth.TextChanged, txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtPort.TextChanged, txtProtocol.TextChanged, txtTimeout.TextChanged,
+        txtDisplayWidth.TextChanged, txtDisplayX.TextChanged, txtDisplayY.TextChanged, txtPort.TextChanged,
         cbAutoconnect.CheckedChanged, pbImage.BackgroundImageChanged, cmbImageFit.SelectedIndexChanged, btnBackColor.BackColorChanged
 
         lblNotify.Visible = True

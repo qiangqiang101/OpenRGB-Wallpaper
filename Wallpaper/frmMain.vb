@@ -43,8 +43,6 @@ Public Class frmMain
                 End Try
 
                 .Autoconnect = False
-                .Timeout = 1000
-                .ProtocolVersion = 2
                 .BackgroundColor = ColorTranslator.ToHtml(Color.Black)
                 .Renderer = Renderer.Skia
             End With
@@ -394,8 +392,7 @@ Public Class frmMain
             Dim ucScr As New ucScreen
             With ucScr
                 .WScreen = New Screen() With {.Autoconnect = False, .IPAddress = "127.0.0.1", .Name = $"Wallpaper{UserSettings.Screens.Count + 1}", .Port = 6742,
-                    .ProtocolVersion = 2, .Timeout = 1000, .Position = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Location,
-                    .Size = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size}
+                    .Position = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Location, .Size = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size}
                 .Dock = DockStyle.Fill
             End With
             newTab.Controls.Add(ucScr)
