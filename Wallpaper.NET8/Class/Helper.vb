@@ -10,6 +10,7 @@ Module Helper
     Public UserSettings As UserSetting = New UserSetting()
     Public LanguageDropdownList As New List(Of DropdownListItem(Of String)) From {
         New DropdownListItem(Of String)("English", "en-US"), New DropdownListItem(Of String)("Chinese Simplified", "zh-CN"), New DropdownListItem(Of String)("Chinese Traditional", "zh-TW")}
+    Public Translation As Language = New Language()
 
     <Extension>
     Public Function ToColor(modelcolor As OpenRGB.NET.Color) As Color

@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing.Imaging
+Imports System.IO
 Imports System.Transactions
 Imports OpenRGB.NET
 
@@ -7,10 +8,12 @@ Public Class Device
     Public Property Device() As E131Device
 
     Private Sub Device_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Translate()
+
         cmbSizeMode.DataSource = [Enum].GetValues(GetType(PictureBoxSizeMode)).Cast(Of PictureBoxSizeMode)
 
         Try
-            Using OpenRgbClient As New OpenRgbClient("127.0.0.1", Device.Port, "Getting devices information")
+            Using OpenRgbClient As New OpenRgbClient("127.0.0.1", UserSettings.Port, Translation.Localization.GettingDevicesInformation)
                 If OpenRgbClient.Connected Then
                     For Each dev In OpenRgbClient.GetAllControllerData
                         If dev.Zones.Where(Function(x) x.MatrixMap IsNot Nothing).Count >= 1 Then cmbDeviceName.Items.Add(dev.Name)
@@ -30,8 +33,6 @@ Public Class Device
 
         cmbDeviceName.SelectedItem = Device.Name
         cmbDeviceZone.SelectedItem = Device.Zone
-        nudPort.Value = Device.Port
-        cbAutoconnect.Checked = Device.AutoConnect
 
         nudDisplayX.Value = Device.Position.X
         nudDisplayY.Value = Device.Position.Y
@@ -51,10 +52,8 @@ Public Class Device
         Try
             Dim newDevice As New E131Device
             With newDevice
-                .Port = CInt(nudPort.Value)
                 .Name = cmbDeviceName.SelectedItem
                 .Zone = cmbDeviceZone.SelectedItem
-                .AutoConnect = cbAutoconnect.Checked
                 .Position = New Point(CInt(nudDisplayX.Value), CInt(nudDisplayY.Value))
                 .Size = New Size(CInt(nudDisplayWidth.Value), CInt(nudDisplayHeight.Value))
                 .BackgroundImage = pbImage.Image.ImageToBase64(Imaging.ImageFormat.Png)
@@ -69,17 +68,17 @@ Public Class Device
             Dim tp = Main.tcDevices.TabPages.Item(Main.CurrentTabIndex)
             tp.Text = If(newDevice.Name = newDevice.Zone, newDevice.Name, $"{newDevice.Name} - {newDevice.Zone}")
         Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
+            MsgBox(ex.Message, MsgBoxStyle.Critical, Translation.Localization.Error)
         End Try
     End Sub
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
-        Dim result As DialogResult = MessageBox.Show("Confirm remove?", "Remove", MessageBoxButtons.YesNo)
+        Dim result As DialogResult = MessageBox.Show(Translation.Localization.ConfirmRemoveDevice, Translation.Localization.Remove, MessageBoxButtons.YesNo)
         If (result = DialogResult.Yes) Then
             Try
                 Main.tcDevices.TabPages.Remove(Main.tcDevices.TabPages(Main.CurrentTabIndex))
             Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
+                MsgBox(ex.Message, MsgBoxStyle.Critical, Translation.Localization.Error)
             End Try
         End If
     End Sub
@@ -108,9 +107,9 @@ Public Class Device
         Dim ofd As New OpenFileDialog
         With ofd
             .DefaultExt = "png"
-            .InitialDirectory = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\WhirlwindFX\Components"
+            .InitialDirectory = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)}"
             .Filter = "PNG file|*.PNG|All files|*.*"
-            .Title = "Select image file..."
+            .Title = Translation.Localization.SelectImageFile
             .Multiselect = False
         End With
         If ofd.ShowDialog <> DialogResult.Cancel Then
@@ -126,7 +125,7 @@ Public Class Device
         cmbDeviceZone.Items.Clear()
 
         Try
-            Using oRGBClient As New OpenRgbClient("127.0.0.1", Device.Port, "Getting devices information")
+            Using oRGBClient As New OpenRgbClient("127.0.0.1", UserSettings.Port, Translation.Localization.GettingDevicesInformation)
                 If oRGBClient.Connected Then
                     For Each zone In oRGBClient.GetAllControllerData.FirstOrDefault(Function(x) x.Name = CStr(cmbDeviceName.SelectedItem)).Zones
                         If zone.MatrixMap IsNot Nothing Then cmbDeviceZone.Items.Add(zone.Name)
@@ -144,7 +143,7 @@ Public Class Device
         cmbDeviceName.Items.Clear()
 
         Try
-            Using oRGBClient As New OpenRgbClient("127.0.0.1", Device.Port, "Getting devices information")
+            Using oRGBClient As New OpenRgbClient("127.0.0.1", UserSettings.Port, Translation.Localization.GettingDevicesInformation)
                 If oRGBClient.Connected Then
                     For Each dev In oRGBClient.GetAllControllerData
                         If dev.Zones.Where(Function(x) x.MatrixMap IsNot Nothing).Count >= 1 Then cmbDeviceName.Items.Add(dev.Name)
@@ -156,5 +155,40 @@ Public Class Device
         End Try
 
         cmbDeviceName.SelectedItem = Device.Name
+    End Sub
+
+    Public Sub Translate(Optional invalidate As Boolean = False)
+        If File.Exists($"{UserSettings.Language}.json") Then
+            Dim loc = Translation.Localization
+
+            gbDevice.Title = loc.Device
+            gbDevice.SubTitle = loc.TheE131Device
+            btnRefresh.Text = loc.Refresh
+            lblName.Value1 = loc.Name
+            lblZone.Value1 = loc.Zone
+            gbDisplay.Title = loc.Display
+            lblX.Value1 = loc.X
+            lblY.Value1 = loc.Y
+            lblWidth.Value1 = loc.Width
+            lblHeight.Value1 = loc.Height
+            gbImage.Title = loc.CoverImage
+            btnChgImage.Text = loc.Select
+            btnDelImage.Text = loc.Clear
+            btnGetWallpaper.Text = loc.GetWallpapers
+            lblSM.Value1 = loc.SizeMode
+            lblBC.Value1 = loc.Background
+            lblNotify.Value1 = loc.YouHaveUnsaveChanges
+            btnRemove.Text = loc.Remove
+            btnApply.Text = loc.Apply
+
+            If invalidate Then
+                btnRefresh.Invalidate()
+                btnChgImage.Invalidate()
+                btnDelImage.Invalidate()
+                btnGetWallpaper.Invalidate()
+                btnRemove.Invalidate()
+                btnApply.Invalidate()
+            End If
+        End If
     End Sub
 End Class

@@ -25,7 +25,7 @@ Partial Class Main
         components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         NsTheme1 = New NSTheme()
-        GroupBox1 = New NSGroupBox()
+        gbDevice = New NSGroupBox()
         tcDevices = New NSTabControl()
         btnAddScreen = New NSButton()
         btnClose = New NSControlButton()
@@ -34,6 +34,10 @@ Partial Class Main
         btnSave = New NSButton()
         btnApply = New NSButton()
         gbGeneral = New NSGroupBox()
+        lblAutoconnect = New NSLabel()
+        cbAutoconnect = New NSOnOffBox()
+        lblPort = New NSLabel()
+        nudPort = New NSNumericUpDown()
         lblRWWE = New NSLabel()
         cbRestoreWallpaper = New NSOnOffBox()
         lblSMz = New NSLabel()
@@ -80,7 +84,7 @@ Partial Class Main
         Timer1 = New Timer(components)
         Timer2 = New Timer(components)
         NsTheme1.SuspendLayout()
-        GroupBox1.SuspendLayout()
+        gbDevice.SuspendLayout()
         gbGeneral.SuspendLayout()
         gbGraphics.SuspendLayout()
         taskbarMenu.SuspendLayout()
@@ -91,7 +95,7 @@ Partial Class Main
         NsTheme1.AccentOffset = 42
         NsTheme1.BackColor = Color.FromArgb(CByte(50), CByte(50), CByte(50))
         NsTheme1.BorderStyle = FormBorderStyle.FixedSingle
-        NsTheme1.Controls.Add(GroupBox1)
+        NsTheme1.Controls.Add(gbDevice)
         NsTheme1.Controls.Add(btnClose)
         NsTheme1.Controls.Add(lblMentaL)
         NsTheme1.Controls.Add(btnCancel)
@@ -101,7 +105,7 @@ Partial Class Main
         NsTheme1.Controls.Add(gbGraphics)
         NsTheme1.Customization = ""
         NsTheme1.Dock = DockStyle.Fill
-        NsTheme1.Font = New Font("Segoe UI", 9.0F)
+        NsTheme1.Font = New Font("Segoe UI", 9F)
         NsTheme1.Image = Nothing
         NsTheme1.Location = New Point(0, 0)
         NsTheme1.Movable = True
@@ -109,7 +113,7 @@ Partial Class Main
         NsTheme1.NoRounding = False
         NsTheme1.Padding = New Padding(3, 33, 3, 3)
         NsTheme1.Sizable = False
-        NsTheme1.Size = New Size(844, 636)
+        NsTheme1.Size = New Size(844, 691)
         NsTheme1.SmartBounds = True
         NsTheme1.StartPosition = FormStartPosition.CenterScreen
         NsTheme1.TabIndex = 0
@@ -117,21 +121,21 @@ Partial Class Main
         NsTheme1.TransparencyKey = Color.Empty
         NsTheme1.Transparent = False
         ' 
-        ' GroupBox1
+        ' gbDevice
         ' 
-        GroupBox1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        GroupBox1.Controls.Add(tcDevices)
-        GroupBox1.Controls.Add(btnAddScreen)
-        GroupBox1.DrawSeperator = True
-        GroupBox1.Location = New Point(361, 36)
-        GroupBox1.Name = "GroupBox1"
-        GroupBox1.Padding = New Padding(3, 48, 3, 3)
-        GroupBox1.Size = New Size(471, 556)
-        GroupBox1.SubTitle = "E1.31 Devices"
-        GroupBox1.TabIndex = 3
-        GroupBox1.TabStop = False
-        GroupBox1.Text = "GroupBox1"
-        GroupBox1.Title = "Device Settings"
+        gbDevice.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        gbDevice.Controls.Add(tcDevices)
+        gbDevice.Controls.Add(btnAddScreen)
+        gbDevice.DrawSeperator = True
+        gbDevice.Location = New Point(361, 36)
+        gbDevice.Name = "gbDevice"
+        gbDevice.Padding = New Padding(3, 48, 3, 3)
+        gbDevice.Size = New Size(471, 616)
+        gbDevice.SubTitle = "E1.31 Devices"
+        gbDevice.TabIndex = 3
+        gbDevice.TabStop = False
+        gbDevice.Text = "GroupBox1"
+        gbDevice.Title = "Device Settings"
         ' 
         ' tcDevices
         ' 
@@ -143,7 +147,7 @@ Partial Class Main
         tcDevices.Multiline = True
         tcDevices.Name = "tcDevices"
         tcDevices.SelectedIndex = 0
-        tcDevices.Size = New Size(465, 505)
+        tcDevices.Size = New Size(465, 565)
         tcDevices.SizeMode = TabSizeMode.Fixed
         tcDevices.TabIndex = 1
         ' 
@@ -172,8 +176,8 @@ Partial Class Main
         ' lblMentaL
         ' 
         lblMentaL.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        lblMentaL.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
-        lblMentaL.Location = New Point(12, 600)
+        lblMentaL.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lblMentaL.Location = New Point(12, 661)
         lblMentaL.Name = "lblMentaL"
         lblMentaL.Size = New Size(502, 24)
         lblMentaL.TabIndex = 16
@@ -184,7 +188,7 @@ Partial Class Main
         ' btnCancel
         ' 
         btnCancel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        btnCancel.Location = New Point(732, 600)
+        btnCancel.Location = New Point(732, 661)
         btnCancel.Name = "btnCancel"
         btnCancel.Size = New Size(100, 24)
         btnCancel.TabIndex = 6
@@ -193,7 +197,7 @@ Partial Class Main
         ' btnSave
         ' 
         btnSave.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        btnSave.Location = New Point(626, 600)
+        btnSave.Location = New Point(626, 661)
         btnSave.Name = "btnSave"
         btnSave.Size = New Size(100, 24)
         btnSave.TabIndex = 5
@@ -202,7 +206,7 @@ Partial Class Main
         ' btnApply
         ' 
         btnApply.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        btnApply.Location = New Point(520, 600)
+        btnApply.Location = New Point(520, 661)
         btnApply.Name = "btnApply"
         btnApply.Size = New Size(100, 24)
         btnApply.TabIndex = 4
@@ -210,6 +214,10 @@ Partial Class Main
         ' 
         ' gbGeneral
         ' 
+        gbGeneral.Controls.Add(lblAutoconnect)
+        gbGeneral.Controls.Add(cbAutoconnect)
+        gbGeneral.Controls.Add(lblPort)
+        gbGeneral.Controls.Add(nudPort)
         gbGeneral.Controls.Add(lblRWWE)
         gbGeneral.Controls.Add(cbRestoreWallpaper)
         gbGeneral.Controls.Add(lblSMz)
@@ -230,14 +238,64 @@ Partial Class Main
         gbGeneral.Location = New Point(12, 317)
         gbGeneral.Name = "gbGeneral"
         gbGeneral.Padding = New Padding(3, 32, 3, 3)
-        gbGeneral.Size = New Size(343, 275)
+        gbGeneral.Size = New Size(343, 335)
         gbGeneral.SubTitle = ""
         gbGeneral.TabIndex = 2
         gbGeneral.Title = "General Settings"
         ' 
+        ' lblAutoconnect
+        ' 
+        lblAutoconnect.Font = New Font("Segoe UI", 9F)
+        lblAutoconnect.Location = New Point(68, 305)
+        lblAutoconnect.Name = "lblAutoconnect"
+        lblAutoconnect.Size = New Size(269, 24)
+        lblAutoconnect.TabIndex = 34
+        lblAutoconnect.Text = "NsLabel13"
+        lblAutoconnect.Value1 = "Auto Connect to SDK Server"
+        lblAutoconnect.Value2 = ""
+        ' 
+        ' cbAutoconnect
+        ' 
+        cbAutoconnect.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        cbAutoconnect.Checked = False
+        cbAutoconnect.Location = New Point(6, 305)
+        cbAutoconnect.MaximumSize = New Size(56, 24)
+        cbAutoconnect.MinimumSize = New Size(56, 24)
+        cbAutoconnect.Name = "cbAutoconnect"
+        cbAutoconnect.Size = New Size(56, 24)
+        cbAutoconnect.TabIndex = 9
+        cbAutoconnect.Text = "Auto Connect"
+        ' 
+        ' lblPort
+        ' 
+        lblPort.Font = New Font("Segoe UI", 9F)
+        lblPort.Location = New Point(6, 275)
+        lblPort.Name = "lblPort"
+        lblPort.Size = New Size(165, 24)
+        lblPort.TabIndex = 33
+        lblPort.Text = "NsLabel6"
+        lblPort.Value1 = "SDK Port"
+        lblPort.Value2 = ""
+        ' 
+        ' nudPort
+        ' 
+        nudPort.DecimalPlaces = 0
+        nudPort.Increment = 1
+        nudPort.InterceptArrowKeys = True
+        nudPort.Location = New Point(177, 275)
+        nudPort.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        nudPort.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
+        nudPort.Name = "nudPort"
+        nudPort.ReadOnly = False
+        nudPort.Size = New Size(80, 24)
+        nudPort.TabIndex = 8
+        nudPort.TextAlign = HorizontalAlignment.Left
+        nudPort.ThousandsSeparator = False
+        nudPort.Value = New Decimal(New Integer() {0, 0, 0, 0})
+        ' 
         ' lblRWWE
         ' 
-        lblRWWE.Font = New Font("Segoe UI", 9.0F)
+        lblRWWE.Font = New Font("Segoe UI", 9F)
         lblRWWE.Location = New Point(68, 95)
         lblRWWE.Name = "lblRWWE"
         lblRWWE.Size = New Size(269, 24)
@@ -259,7 +317,7 @@ Partial Class Main
         ' 
         ' lblSMz
         ' 
-        lblSMz.Font = New Font("Segoe UI", 9.0F)
+        lblSMz.Font = New Font("Segoe UI", 9F)
         lblSMz.Location = New Point(68, 65)
         lblSMz.Name = "lblSMz"
         lblSMz.Size = New Size(269, 24)
@@ -281,7 +339,7 @@ Partial Class Main
         ' 
         ' lblLang
         ' 
-        lblLang.Font = New Font("Segoe UI", 9.0F)
+        lblLang.Font = New Font("Segoe UI", 9F)
         lblLang.Location = New Point(6, 245)
         lblLang.Name = "lblLang"
         lblLang.Size = New Size(165, 24)
@@ -304,7 +362,7 @@ Partial Class Main
         ' 
         ' lblGTI
         ' 
-        lblGTI.Font = New Font("Segoe UI", 9.0F)
+        lblGTI.Font = New Font("Segoe UI", 9F)
         lblGTI.Location = New Point(68, 215)
         lblGTI.Name = "lblGTI"
         lblGTI.Size = New Size(269, 24)
@@ -326,7 +384,7 @@ Partial Class Main
         ' 
         ' lblCUPV
         ' 
-        lblCUPV.Font = New Font("Segoe UI", 9.0F)
+        lblCUPV.Font = New Font("Segoe UI", 9F)
         lblCUPV.Location = New Point(6, 185)
         lblCUPV.Name = "lblCUPV"
         lblCUPV.Size = New Size(165, 24)
@@ -353,7 +411,7 @@ Partial Class Main
         ' 
         ' lblPWCUR
         ' 
-        lblPWCUR.Font = New Font("Segoe UI", 9.0F)
+        lblPWCUR.Font = New Font("Segoe UI", 9F)
         lblPWCUR.Location = New Point(68, 155)
         lblPWCUR.Name = "lblPWCUR"
         lblPWCUR.Size = New Size(269, 24)
@@ -375,7 +433,7 @@ Partial Class Main
         ' 
         ' lblDN
         ' 
-        lblDN.Font = New Font("Segoe UI", 9.0F)
+        lblDN.Font = New Font("Segoe UI", 9F)
         lblDN.Location = New Point(68, 125)
         lblDN.Name = "lblDN"
         lblDN.Size = New Size(269, 24)
@@ -397,7 +455,7 @@ Partial Class Main
         ' 
         ' lblSWW
         ' 
-        lblSWW.Font = New Font("Segoe UI", 9.0F)
+        lblSWW.Font = New Font("Segoe UI", 9F)
         lblSWW.Location = New Point(68, 35)
         lblSWW.Name = "lblSWW"
         lblSWW.Size = New Size(269, 24)
@@ -447,7 +505,7 @@ Partial Class Main
         ' 
         ' lblRI
         ' 
-        lblRI.Font = New Font("Segoe UI", 9.0F)
+        lblRI.Font = New Font("Segoe UI", 9F)
         lblRI.Location = New Point(6, 245)
         lblRI.Name = "lblRI"
         lblRI.Size = New Size(165, 24)
@@ -469,7 +527,7 @@ Partial Class Main
         ' 
         ' lblLP
         ' 
-        lblLP.Font = New Font("Segoe UI", 9.0F)
+        lblLP.Font = New Font("Segoe UI", 9F)
         lblLP.Location = New Point(6, 215)
         lblLP.Name = "lblLP"
         lblLP.Size = New Size(165, 24)
@@ -496,7 +554,7 @@ Partial Class Main
         ' 
         ' lblRRR
         ' 
-        lblRRR.Font = New Font("Segoe UI", 9.0F)
+        lblRRR.Font = New Font("Segoe UI", 9F)
         lblRRR.Location = New Point(6, 185)
         lblRRR.Name = "lblRRR"
         lblRRR.Size = New Size(165, 24)
@@ -523,7 +581,7 @@ Partial Class Main
         ' 
         ' lblLS
         ' 
-        lblLS.Font = New Font("Segoe UI", 9.0F)
+        lblLS.Font = New Font("Segoe UI", 9F)
         lblLS.Location = New Point(6, 155)
         lblLS.Name = "lblLS"
         lblLS.Size = New Size(165, 24)
@@ -546,7 +604,7 @@ Partial Class Main
         ' 
         ' lblPOM
         ' 
-        lblPOM.Font = New Font("Segoe UI", 9.0F)
+        lblPOM.Font = New Font("Segoe UI", 9F)
         lblPOM.Location = New Point(6, 125)
         lblPOM.Name = "lblPOM"
         lblPOM.Size = New Size(165, 24)
@@ -569,7 +627,7 @@ Partial Class Main
         ' 
         ' lblIM
         ' 
-        lblIM.Font = New Font("Segoe UI", 9.0F)
+        lblIM.Font = New Font("Segoe UI", 9F)
         lblIM.Location = New Point(6, 95)
         lblIM.Name = "lblIM"
         lblIM.Size = New Size(165, 24)
@@ -592,7 +650,7 @@ Partial Class Main
         ' 
         ' lblCQ
         ' 
-        lblCQ.Font = New Font("Segoe UI", 9.0F)
+        lblCQ.Font = New Font("Segoe UI", 9F)
         lblCQ.Location = New Point(6, 65)
         lblCQ.Name = "lblCQ"
         lblCQ.Size = New Size(165, 24)
@@ -615,7 +673,7 @@ Partial Class Main
         ' 
         ' lblSM
         ' 
-        lblSM.Font = New Font("Segoe UI", 9.0F)
+        lblSM.Font = New Font("Segoe UI", 9F)
         lblSM.Location = New Point(6, 35)
         lblSM.Name = "lblSM"
         lblSM.Size = New Size(165, 24)
@@ -710,9 +768,9 @@ Partial Class Main
         ' 
         ' Main
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(844, 636)
+        ClientSize = New Size(844, 691)
         Controls.Add(NsTheme1)
         FormBorderStyle = FormBorderStyle.FixedSingle
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
@@ -723,7 +781,7 @@ Partial Class Main
         StartPosition = FormStartPosition.CenterScreen
         Text = "OpenRGB Wallpaper 2"
         NsTheme1.ResumeLayout(False)
-        GroupBox1.ResumeLayout(False)
+        gbDevice.ResumeLayout(False)
         gbGeneral.ResumeLayout(False)
         gbGraphics.ResumeLayout(False)
         taskbarMenu.ResumeLayout(False)
@@ -784,6 +842,10 @@ Partial Class Main
     Friend WithEvents cbStartMinimized As NSOnOffBox
     Friend WithEvents lblRWWE As NSLabel
     Friend WithEvents cbRestoreWallpaper As NSOnOffBox
-    Friend WithEvents GroupBox1 As NSGroupBox
+    Friend WithEvents gbDevice As NSGroupBox
+    Friend WithEvents cbAutoconnect As NSOnOffBox
+    Friend WithEvents lblPort As NSLabel
+    Friend WithEvents nudPort As NSNumericUpDown
+    Friend WithEvents lblAutoconnect As NSLabel
 
 End Class

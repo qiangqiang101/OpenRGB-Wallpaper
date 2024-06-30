@@ -45,16 +45,16 @@ Public Class Wallpaper
         If IsOpenRGBRunning() Then
             Try
                 If Not oRgbClient Is Nothing Then oRgbClient.Dispose()
-                oRgbClient = New OpenRgbClient("127.0.0.1", dev.Port, dev.Name, dev.AutoConnect)
+                oRgbClient = New OpenRgbClient("127.0.0.1", UserSettings.Port, dev.Name, UserSettings.AutoConnect)
                 connectString = Nothing
                 tmCheckOpenRGB.Stop()
             Catch ex As Exception
                 Log(ex)
-                connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] Connection attempt failed, Local OpenRGB server unavailable."
+                connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] {Translation.Localization.LocalOpenRGBServerUnavailable}"
                 tmCheckOpenRGB.Start()
             End Try
         Else
-            connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] Connection attempt failed, OpenRGB isn't running."
+            connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] {Translation.Localization.OpenRGBIsntRunning}"
             tmCheckOpenRGB.Start()
         End If
     End Sub
@@ -160,7 +160,7 @@ Public Class Wallpaper
     End Sub
 
     Private Sub tmCheckOpenRGB_Tick(sender As Object, e As EventArgs) Handles tmCheckOpenRGB.Tick
-        connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] Attempting to connect to local OpenRGB server."
+        connectString &= $"{vbCrLf}[{Now.ToString("hh:mm:ss tt")}] {Translation.Localization.AttemptingToConnectToLocalOpenRGBServer}"
         Connect()
     End Sub
 

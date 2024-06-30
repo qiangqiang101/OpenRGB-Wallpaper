@@ -230,11 +230,12 @@ Class NSNumericUpDown
 
         P1 = New Pen(Color.FromArgb(35, 35, 35))
         P2 = New Pen(Color.FromArgb(55, 55, 55))
+        PF = New Pen(Color.FromArgb(205, 150, 0))
     End Sub
 
     Private GP1, GP2 As GraphicsPath
 
-    Private P1, P2 As Pen
+    Private P1, P2, PF As Pen
     Private PB1 As PathGradientBrush
 
     Public Event ValueChanged As EventHandler
@@ -255,7 +256,11 @@ Class NSNumericUpDown
 
         G.FillPath(PB1, GP1)
 
-        G.DrawPath(P2, GP1)
+        If Base.Focused Then
+            G.DrawPath(PF, GP1)
+        Else
+            G.DrawPath(P2, GP1)
+        End If
         G.DrawPath(P1, GP2)
     End Sub
 
@@ -344,6 +349,7 @@ Class NSComboBoxColorPicker
         P2 = New Pen(Color.White, 2.0F)
         P3 = New Pen(Brushes.Black, 2.0F)
         P4 = New Pen(Color.FromArgb(65, 65, 65))
+        PF = New Pen(Color.FromArgb(205, 150, 0))
 
         B1 = New SolidBrush(Color.FromArgb(65, 65, 65))
         B2 = New SolidBrush(Color.FromArgb(55, 55, 55))
@@ -373,7 +379,7 @@ Class NSComboBoxColorPicker
     Private PT1, PT2 As PointF
     Private RT1 As Rectangle
 
-    Private P1, P2, P3, P4 As Pen
+    Private P1, P2, P3, P4, PF As Pen
     Private B1, B2 As SolidBrush
 
     Private GB1 As LinearGradientBrush
@@ -395,7 +401,11 @@ Class NSComboBoxColorPicker
         G.FillRectangle(GB1, ClientRectangle)
         G.ResetClip()
 
-        G.DrawPath(P1, GP1)
+        If Focused Then
+            G.DrawPath(PF, GP1)
+        Else
+            G.DrawPath(P1, GP1)
+        End If
         G.DrawPath(P4, GP2)
 
         SZ1 = G.MeasureString(Text, Font)
@@ -423,7 +433,11 @@ Class NSComboBoxColorPicker
         G.DrawLine(P2, Width - 8, 9, Width - 12, 12)
         G.DrawLine(Pens.White, Width - 12, 12, Width - 12, 13)
 
-        G.DrawLine(P1, Width - 22, 0, Width - 22, Height)
+        If Focused Then
+            G.DrawLine(PF, Width - 22, 0, Width - 22, Height)
+        Else
+            G.DrawLine(P1, Width - 22, 0, Width - 22, Height)
+        End If
         G.DrawLine(P4, Width - 23, 1, Width - 23, Height - 2)
         G.DrawLine(P4, Width - 21, 1, Width - 21, Height - 2)
     End Sub

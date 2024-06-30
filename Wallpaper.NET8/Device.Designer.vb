@@ -22,16 +22,11 @@ Partial Class Device
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Device))
         lblName = New NSLabel()
         cmbDeviceName = New NSComboBox()
         btnRefresh = New NSButton()
         lblZone = New NSLabel()
         cmbDeviceZone = New NSComboBox()
-        gbSDK = New NSGroupBox()
-        cbAutoconnect = New NSCheckBox()
-        lblPort = New NSLabel()
-        nudPort = New NSNumericUpDown()
         gbDisplay = New NSGroupBox()
         lblHeight = New NSLabel()
         nudDisplayHeight = New NSNumericUpDown()
@@ -54,7 +49,6 @@ Partial Class Device
         lblNotify = New NSLabel()
         btnRemove = New NSButton()
         btnApply = New NSButton()
-        gbSDK.SuspendLayout()
         gbDisplay.SuspendLayout()
         gbDevice.SuspendLayout()
         gbImage.SuspendLayout()
@@ -117,59 +111,6 @@ Partial Class Device
         cmbDeviceZone.Size = New Size(244, 24)
         cmbDeviceZone.TabIndex = 2
         ' 
-        ' gbSDK
-        ' 
-        gbSDK.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        gbSDK.Controls.Add(cbAutoconnect)
-        gbSDK.Controls.Add(lblPort)
-        gbSDK.Controls.Add(nudPort)
-        gbSDK.DrawSeperator = True
-        gbSDK.Location = New Point(3, 120)
-        gbSDK.Name = "gbSDK"
-        gbSDK.Padding = New Padding(3, 32, 3, 3)
-        gbSDK.Size = New Size(334, 65)
-        gbSDK.SubTitle = ""
-        gbSDK.TabIndex = 1
-        gbSDK.Text = "NsGroupBox1"
-        gbSDK.Title = "SDK Server"
-        ' 
-        ' cbAutoconnect
-        ' 
-        cbAutoconnect.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        cbAutoconnect.Checked = False
-        cbAutoconnect.Location = New Point(170, 35)
-        cbAutoconnect.Name = "cbAutoconnect"
-        cbAutoconnect.Size = New Size(144, 24)
-        cbAutoconnect.TabIndex = 1
-        cbAutoconnect.Text = "Auto Connect"
-        ' 
-        ' lblPort
-        ' 
-        lblPort.Font = New Font("Segoe UI", 9F)
-        lblPort.Location = New Point(6, 35)
-        lblPort.Name = "lblPort"
-        lblPort.Size = New Size(72, 24)
-        lblPort.TabIndex = 13
-        lblPort.Text = "NsLabel6"
-        lblPort.Value1 = "Port"
-        lblPort.Value2 = ""
-        ' 
-        ' nudPort
-        ' 
-        nudPort.DecimalPlaces = 0
-        nudPort.Increment = 1
-        nudPort.InterceptArrowKeys = True
-        nudPort.Location = New Point(84, 35)
-        nudPort.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        nudPort.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
-        nudPort.Name = "nudPort"
-        nudPort.ReadOnly = False
-        nudPort.Size = New Size(80, 24)
-        nudPort.TabIndex = 0
-        nudPort.TextAlign = HorizontalAlignment.Left
-        nudPort.ThousandsSeparator = False
-        nudPort.Value = New Decimal(New Integer() {0, 0, 0, 0})
-        ' 
         ' gbDisplay
         ' 
         gbDisplay.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
@@ -182,7 +123,7 @@ Partial Class Device
         gbDisplay.Controls.Add(lblX)
         gbDisplay.Controls.Add(nudDisplayX)
         gbDisplay.DrawSeperator = True
-        gbDisplay.Location = New Point(3, 191)
+        gbDisplay.Location = New Point(3, 120)
         gbDisplay.Name = "gbDisplay"
         gbDisplay.Padding = New Padding(3, 32, 3, 3)
         gbDisplay.Size = New Size(334, 95)
@@ -267,7 +208,7 @@ Partial Class Device
         nudDisplayY.InterceptArrowKeys = True
         nudDisplayY.Location = New Point(248, 35)
         nudDisplayY.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
-        nudDisplayY.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
+        nudDisplayY.Minimum = New Decimal(New Integer() {99999, 0, 0, Integer.MinValue})
         nudDisplayY.Name = "nudDisplayY"
         nudDisplayY.ReadOnly = False
         nudDisplayY.Size = New Size(80, 24)
@@ -294,7 +235,7 @@ Partial Class Device
         nudDisplayX.InterceptArrowKeys = True
         nudDisplayX.Location = New Point(84, 35)
         nudDisplayX.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
-        nudDisplayX.Minimum = New Decimal(New Integer() {0, 0, 0, 0})
+        nudDisplayX.Minimum = New Decimal(New Integer() {99999, 0, 0, Integer.MinValue})
         nudDisplayX.Name = "nudDisplayX"
         nudDisplayX.ReadOnly = False
         nudDisplayX.Size = New Size(80, 24)
@@ -333,10 +274,10 @@ Partial Class Device
         gbImage.Controls.Add(btnChgImage)
         gbImage.Controls.Add(pbImage)
         gbImage.DrawSeperator = True
-        gbImage.Location = New Point(3, 292)
+        gbImage.Location = New Point(3, 221)
         gbImage.Name = "gbImage"
         gbImage.Padding = New Padding(3, 32, 3, 3)
-        gbImage.Size = New Size(334, 185)
+        gbImage.Size = New Size(334, 223)
         gbImage.SubTitle = ""
         gbImage.TabIndex = 3
         gbImage.Text = "NsGroupBox1"
@@ -351,8 +292,8 @@ Partial Class Device
         cmbBackColor.ForeColor = Color.White
         cmbBackColor.FormattingEnabled = True
         cmbBackColor.IntegralHeight = False
-        cmbBackColor.Items.AddRange(New Object() {Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen})
-        cmbBackColor.Location = New Point(83, 155)
+        cmbBackColor.Items.AddRange(New Object() {Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen, Color.AliceBlue, Color.AntiqueWhite, Color.Aqua, Color.Aquamarine, Color.Azure, Color.Beige, Color.Bisque, Color.Black, Color.BlanchedAlmond, Color.Blue, Color.BlueViolet, Color.Brown, Color.BurlyWood, Color.CadetBlue, Color.Chartreuse, Color.Chocolate, Color.Coral, Color.CornflowerBlue, Color.Cornsilk, Color.Crimson, Color.Cyan, Color.DarkBlue, Color.DarkCyan, Color.DarkGoldenrod, Color.DarkGray, Color.DarkGreen, Color.DarkKhaki, Color.DarkMagenta, Color.DarkOliveGreen, Color.DarkOrange, Color.DarkOrchid, Color.DarkRed, Color.DarkSalmon, Color.DarkSeaGreen, Color.DarkSlateBlue, Color.DarkSlateGray, Color.DarkTurquoise, Color.DarkViolet, Color.DeepPink, Color.DeepSkyBlue, Color.DimGray, Color.DodgerBlue, Color.Firebrick, Color.FloralWhite, Color.ForestGreen, Color.Fuchsia, Color.Gainsboro, Color.GhostWhite, Color.Gold, Color.Goldenrod, Color.Gray, Color.Green, Color.GreenYellow, Color.Honeydew, Color.HotPink, Color.IndianRed, Color.Indigo, Color.Ivory, Color.Khaki, Color.Lavender, Color.LavenderBlush, Color.LawnGreen, Color.LemonChiffon, Color.LightBlue, Color.LightCoral, Color.LightCyan, Color.LightGoldenrodYellow, Color.LightGreen, Color.LightGray, Color.LightPink, Color.LightSalmon, Color.LightSeaGreen, Color.LightSkyBlue, Color.LightSlateGray, Color.LightSteelBlue, Color.LightYellow, Color.Lime, Color.LimeGreen, Color.Linen, Color.Magenta, Color.Maroon, Color.MediumAquamarine, Color.MediumBlue, Color.MediumOrchid, Color.MediumPurple, Color.MediumSeaGreen, Color.MediumSlateBlue, Color.MediumSpringGreen, Color.MediumTurquoise, Color.MediumVioletRed, Color.MidnightBlue, Color.MintCream, Color.MistyRose, Color.Moccasin, Color.NavajoWhite, Color.Navy, Color.OldLace, Color.Olive, Color.OliveDrab, Color.Orange, Color.OrangeRed, Color.Orchid, Color.PaleGoldenrod, Color.PaleGreen, Color.PaleTurquoise, Color.PaleVioletRed, Color.PapayaWhip, Color.PeachPuff, Color.Peru, Color.Pink, Color.Plum, Color.PowderBlue, Color.Purple, Color.RebeccaPurple, Color.Red, Color.RosyBrown, Color.RoyalBlue, Color.SaddleBrown, Color.Salmon, Color.SandyBrown, Color.SeaGreen, Color.SeaShell, Color.Sienna, Color.Silver, Color.SkyBlue, Color.SlateBlue, Color.SlateGray, Color.Snow, Color.SpringGreen, Color.SteelBlue, Color.Tan, Color.Teal, Color.Thistle, Color.Tomato, Color.Turquoise, Color.Violet, Color.Wheat, Color.White, Color.WhiteSmoke, Color.Yellow, Color.YellowGreen})
+        cmbBackColor.Location = New Point(84, 193)
         cmbBackColor.MaxDropDownItems = 10
         cmbBackColor.Name = "cmbBackColor"
         cmbBackColor.Size = New Size(245, 24)
@@ -361,7 +302,7 @@ Partial Class Device
         ' lblBC
         ' 
         lblBC.Font = New Font("Segoe UI", 9F)
-        lblBC.Location = New Point(5, 155)
+        lblBC.Location = New Point(6, 193)
         lblBC.Name = "lblBC"
         lblBC.Size = New Size(72, 24)
         lblBC.TabIndex = 7
@@ -376,7 +317,7 @@ Partial Class Device
         cmbSizeMode.DropDownStyle = ComboBoxStyle.DropDownList
         cmbSizeMode.ForeColor = Color.White
         cmbSizeMode.FormattingEnabled = True
-        cmbSizeMode.Location = New Point(83, 125)
+        cmbSizeMode.Location = New Point(84, 163)
         cmbSizeMode.Name = "cmbSizeMode"
         cmbSizeMode.Size = New Size(245, 24)
         cmbSizeMode.TabIndex = 3
@@ -384,7 +325,7 @@ Partial Class Device
         ' lblSM
         ' 
         lblSM.Font = New Font("Segoe UI", 9F)
-        lblSM.Location = New Point(5, 125)
+        lblSM.Location = New Point(6, 163)
         lblSM.Name = "lblSM"
         lblSM.Size = New Size(72, 24)
         lblSM.TabIndex = 5
@@ -394,9 +335,9 @@ Partial Class Device
         ' btnGetWallpaper
         ' 
         btnGetWallpaper.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        btnGetWallpaper.Location = New Point(162, 95)
+        btnGetWallpaper.Location = New Point(228, 95)
         btnGetWallpaper.Name = "btnGetWallpaper"
-        btnGetWallpaper.Size = New Size(167, 24)
+        btnGetWallpaper.Size = New Size(101, 24)
         btnGetWallpaper.TabIndex = 2
         btnGetWallpaper.Text = "Get Wallpapers"
         ' 
@@ -404,27 +345,26 @@ Partial Class Device
         ' 
         btnDelImage.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         btnDelImage.Enabled = False
-        btnDelImage.Location = New Point(162, 65)
+        btnDelImage.Location = New Point(228, 65)
         btnDelImage.Name = "btnDelImage"
-        btnDelImage.Size = New Size(167, 24)
+        btnDelImage.Size = New Size(101, 24)
         btnDelImage.TabIndex = 1
         btnDelImage.Text = "Clear"
         ' 
         ' btnChgImage
         ' 
         btnChgImage.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        btnChgImage.Location = New Point(162, 35)
+        btnChgImage.Location = New Point(228, 35)
         btnChgImage.Name = "btnChgImage"
-        btnChgImage.Size = New Size(167, 24)
+        btnChgImage.Size = New Size(101, 24)
         btnChgImage.TabIndex = 0
         btnChgImage.Text = "Select.."
         ' 
         ' pbImage
         ' 
-        pbImage.Image = CType(resources.GetObject("pbImage.Image"), Image)
         pbImage.Location = New Point(6, 35)
         pbImage.Name = "pbImage"
-        pbImage.Size = New Size(150, 84)
+        pbImage.Size = New Size(216, 122)
         pbImage.SizeMode = PictureBoxSizeMode.Zoom
         pbImage.TabIndex = 0
         pbImage.TabStop = False
@@ -434,7 +374,7 @@ Partial Class Device
         lblNotify.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         lblNotify.Font = New Font("Segoe UI", 9F)
         lblNotify.ForeColor = Color.Red
-        lblNotify.Location = New Point(3, 483)
+        lblNotify.Location = New Point(3, 449)
         lblNotify.Name = "lblNotify"
         lblNotify.Size = New Size(334, 24)
         lblNotify.TabIndex = 20
@@ -446,7 +386,7 @@ Partial Class Device
         ' btnRemove
         ' 
         btnRemove.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        btnRemove.Location = New Point(3, 513)
+        btnRemove.Location = New Point(3, 479)
         btnRemove.Name = "btnRemove"
         btnRemove.Size = New Size(100, 24)
         btnRemove.TabIndex = 4
@@ -455,7 +395,7 @@ Partial Class Device
         ' btnApply
         ' 
         btnApply.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
-        btnApply.Location = New Point(237, 513)
+        btnApply.Location = New Point(237, 479)
         btnApply.Name = "btnApply"
         btnApply.Size = New Size(100, 24)
         btnApply.TabIndex = 5
@@ -472,10 +412,8 @@ Partial Class Device
         Controls.Add(gbImage)
         Controls.Add(gbDevice)
         Controls.Add(gbDisplay)
-        Controls.Add(gbSDK)
         Name = "Device"
-        Size = New Size(340, 540)
-        gbSDK.ResumeLayout(False)
+        Size = New Size(340, 506)
         gbDisplay.ResumeLayout(False)
         gbDevice.ResumeLayout(False)
         gbImage.ResumeLayout(False)
@@ -488,10 +426,6 @@ Partial Class Device
     Friend WithEvents btnRefresh As NSButton
     Friend WithEvents lblZone As NSLabel
     Friend WithEvents cmbDeviceZone As NSComboBox
-    Friend WithEvents gbSDK As NSGroupBox
-    Friend WithEvents cbAutoconnect As NSCheckBox
-    Friend WithEvents lblPort As NSLabel
-    Friend WithEvents nudPort As NSNumericUpDown
     Friend WithEvents gbDisplay As NSGroupBox
     Friend WithEvents lblY As NSLabel
     Friend WithEvents nudDisplayY As NSNumericUpDown
