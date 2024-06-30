@@ -114,6 +114,8 @@ Public Class Device
         End With
         If ofd.ShowDialog <> DialogResult.Cancel Then
             pbImage.Image = Image.FromFile(ofd.FileName)
+            lblNotify.Visible = True
+            btnApply.Enabled = True
         End If
     End Sub
 
