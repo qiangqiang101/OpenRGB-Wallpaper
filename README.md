@@ -22,8 +22,9 @@ Turn your wallpaper into an OpenRGB device. You can now control the RGB lighting
 ![IMG_6919](https://user-images.githubusercontent.com/11488961/202174769-6164a88d-039d-4922-a501-51649a4a2da6.JPG)
 
 # Download
-https://github.com/qiangqiang101/OpenRGB-Wallpaper/releases  
-https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wallpaper/-/releases
+[My Github](https://github.com/qiangqiang101/OpenRGB-Wallpaper/releases)
+[OpenRGB Deverloper Gitlab](https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wallpaper/-/releases)
+[Wallpaper Engine version](https://steamcommunity.com/sharedfiles/filedetails/?id=2942091593)
 
 # Prerequisite
 - [OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
