@@ -27,7 +27,7 @@ https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wallpaper/-/releases
 
 # Prerequisite
 - [OpenRGB by CalcProgrammer1](https://gitlab.com/CalcProgrammer1/OpenRGB)
-- [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
+- [.NET 8.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 # About Virus
 From the latest release [test result](https://www.virustotal.com/gui/file/34a2b0d40e1ae37f1184a6c3e52a1a207f5456cbdc6ecfa9f0539e864461043b/detection) shows that 2 out of 70 vendors detected as Malicious, it's false positive, you're safe, if you have doubts, you can build the project by yourself, build instructions can be found below.
@@ -39,21 +39,45 @@ You need Visual Studio 2022 or newer, run Wallpaper.sln to begin. Click the Buil
 1. Download OpenRGB Wallpaper, extract all files to your Hard Drive.
 2. Run OpenRGB, go to Settings tab, Click E1.31 Devices.
 3. Click Add button at bottom, Enter:
-```
-Name: Wallpaper1
-IP: Put a bogus IP
-Start Universe: 1
-Start Channel: 1
-Number of LEDs: 576
-Type: Matrix
-Matrix Width: 32
-Matrix Height: 18
-Matrix Order: Horizontal Top Left
-RGB Order: GRB
-Universe Size: 510
-Keepalive Time: 1000
-```
-![image](https://user-images.githubusercontent.com/11488961/201520080-4f8fc71e-c041-4509-87f4-c31f5819d11f.png)
+
+<table>
+<tr>
+<td><b>Name</b></td>
+<td>Wallpaper1</td>
+<td><b>IP (Unicast)</b></td>
+<td>127.0.0.254</td>
+</tr>
+<tr>
+<td><b>Start Universe</b></td>
+<td>1</td>
+<td><b>Start Channel</b></td>
+<td>1</td>
+</tr>
+<tr>
+<td><b>Number of LEDs</b></td>
+<td>2304</td>
+<td><b>Type</b></td>
+<td>Matrix</td>
+</tr>
+<tr>
+<td><b>Matrix Width</b></td>
+<td>64</td>
+<td><b>Matrix Height</b></td>
+<td>36</td>
+</tr>
+<tr>
+<td><b>Matrix Order</b></td>
+<td>Horizon Top Left</td>
+<td><b>RGB Order</b></td>
+<td>RGB</td>
+</tr>
+<tr>
+<td><b>Universe Size</b></td>
+<td>510</td>
+<td><b>Keepalive Time</b></td>
+<td>1000</td>
+</tr>
+</table>
 
 4. Save Settings, Restart OpenRGB.
 5. On OpenRGB, go to SDK Server, click Start Server.
@@ -61,7 +85,7 @@ Keepalive Time: 1000
 7. Now run OpenRGB Wallpaper.
 
 Note: 
-1. The name of Screen must matching with the name on E1.31.
+1. The name of Wallpaper Device must matching with the name on E1.31.
 2. The Connect on the Toolbox menu only works if wallpaper is setting to Autoconnect false.
 3. You are allow to change the Matrix Size, but make sure your LED count is matching the size, IE: 
 ```
