@@ -339,7 +339,7 @@ Partial Class ucScreen
         '
         'btnBackColor
         '
-        Me.btnBackColor.BackColor = System.Drawing.Color.Black
+        Me.btnBackColor.BackColor = System.Drawing.Color.White
         Me.btnBackColor.Location = New System.Drawing.Point(160, 271)
         Me.btnBackColor.Name = "btnBackColor"
         Me.btnBackColor.Size = New System.Drawing.Size(80, 23)
