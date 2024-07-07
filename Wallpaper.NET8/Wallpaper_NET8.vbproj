@@ -8,9 +8,9 @@
     <MyType>WindowsForms</MyType>
     <Title>OpenRGB Wallpaper 2</Title>
     <AssemblyName>wallpaper2</AssemblyName>
-    <Version>2.0</Version>
-    <AssemblyVersion>2.0</AssemblyVersion>
-    <FileVersion>2.0</FileVersion>
+    <Version>2.1</Version>
+    <AssemblyVersion>2.1</AssemblyVersion>
+    <FileVersion>2.1</FileVersion>
     <Product>OpenRGB Wallpaper 2</Product>
     <ApplicationIcon>openrgbwall.ico</ApplicationIcon>
   </PropertyGroup>

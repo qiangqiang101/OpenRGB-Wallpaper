@@ -57,7 +57,7 @@ Public Class Device
                 .Position = New Point(CInt(nudDisplayX.Value), CInt(nudDisplayY.Value))
                 .Size = New Size(CInt(nudDisplayWidth.Value), CInt(nudDisplayHeight.Value))
                 .BackgroundImage = pbImage.Image.ImageToBase64(Imaging.ImageFormat.Png)
-                .BackgroundColor = ColorTranslator.ToHtml(cmbBackColor.SelectedValue)
+                .BackgroundColor = ColorTranslator.ToHtml(cmbBackColor.SelectedItem)
                 .SizeMode = cmbSizeMode.SelectedItem
             End With
             Device = newDevice
