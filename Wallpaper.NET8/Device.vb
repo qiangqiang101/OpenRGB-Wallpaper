@@ -40,7 +40,7 @@ Public Class Device
         nudDisplayHeight.Value = Device.Size.Height
 
         pbImage.Image = Device.BackgroundImage.Base64ToImage
-        If pbImage.BackgroundImage IsNot Nothing Then btnDelImage.Enabled = True
+        If pbImage.Image IsNot Nothing Then btnDelImage.Enabled = True
 
         cmbBackColor.SelectedItem = ColorTranslator.FromHtml(Device.BackgroundColor)
         cmbSizeMode.SelectedItem = Device.SizeMode
@@ -116,6 +116,7 @@ Public Class Device
             pbImage.Image = Image.FromFile(ofd.FileName)
             lblNotify.Visible = True
             btnApply.Enabled = True
+            btnDelImage.Enabled = True
         End If
     End Sub
 
