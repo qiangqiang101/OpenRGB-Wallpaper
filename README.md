@@ -1,3 +1,13 @@
+# ⚠️ ARCHIVED / DEPRECATED
+
+**This repository is no longer actively maintained.** 
+
+This project has been completely rebuilt and replaced by a newer, more robust version with better performance and integration features. Please transition to the new repository for updates, bug fixes, and support:
+
+👉 **[OpenRGB-Wallpaper-Engine](https://github.com/qiangqiang101/OpenRGB-Wallpaper-Engine)**
+
+---
+
 # OpenRGB Wallpaper
 [![HitCount](https://hits.dwyl.com/qiangqiang101/OpenRGB-Wallpaper.svg?style=flat-square&show=unique)](http://hits.dwyl.com/qiangqiang101/OpenRGB-Wallpaper)
 ![Github All Releases](https://img.shields.io/github/downloads/qiangqiang101/OpenRGB-Wallpaper/total.svg)
